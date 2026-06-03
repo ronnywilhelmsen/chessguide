@@ -456,6 +456,7 @@ Reality → Observation → Attention → Understanding → Knowledge → Wisdom
 | CG-000 | ChessGuide Identity |
 | CG-001 | Product Vision |
 | CG-FLL-001 | First Domain Learning Pilot (FLL-1) |
+| CG-FLL-003 | Learning Continuity Semantics |
 | CG-DEP-001 | Federation Dependency Analysis |
 | CB-000A | Longitudinal Learning Model (inherited) |
 | ALP-1 | Artifact Learning Pilot — FLL-0 (inherited) |

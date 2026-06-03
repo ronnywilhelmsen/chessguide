@@ -439,6 +439,7 @@ Reality → Observation → Attention → Understanding → Knowledge → Wisdom
 | CG-002 | Federation Relationship |
 | CG-DEP-001 | Federation Dependency Analysis |
 | CG-FLL-002 | Learning Semantics |
+| CG-FLL-003 | Learning Continuity Semantics |
 | CB-000A | Longitudinal Learning Model (inherited) |
 | CB-002 | Longitudinal Skill Development Domain (inherited) |
 | CB-005 | LearningTrace Product Schema (inherited) |
