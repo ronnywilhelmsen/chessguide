@@ -2,7 +2,7 @@
 
 **A longitudinal skill development domain for chess** — observing, understanding, guiding, and improving **skill development over time**.
 
-Identity: [CG-000 — ChessGuide Identity](docs/governance/chessguide/CG-000-chessguide-identity.md)
+Identity: [CG-000 — ChessGuide Identity](docs/governance/chessguide/CG-000-chessguide-identity.md) · Vision: [CG-001 — Product Vision](docs/governance/chessguide/CG-001-product-vision.md)
 
 Demo (legacy deployment): [chess.digre.com](https://chess.digre.com/)
 
@@ -15,6 +15,8 @@ ChessGuide is **not** primarily a chess application. Chess is the domain; **lear
 It is the **first operational skill-development domain** of the Continuity-Based Learning Platform — not an online chess server, a raw engine, or a tournament platform.
 
 The current codebase is a legacy application (opening hints, engine suggestions, game history, clock) carried forward from extraction. Product identity and federation alignment are governed separately from implementation.
+
+Per [CG-001 — Product Vision](docs/governance/chessguide/CG-001-product-vision.md): ChessGuide measures **learning**, not only games; it records **development**, not only outcomes — and asks *how did the player change?*
 
 ---
 
@@ -47,6 +49,7 @@ Full alignment (inherited): [CB-000 — Federation Alignment](docs/governance/ch
 | Document | Title |
 |----------|--------|
 | [CG-000](docs/governance/chessguide/CG-000-chessguide-identity.md) | ChessGuide Identity ✓ |
+| [CG-001](docs/governance/chessguide/CG-001-product-vision.md) | Product Vision ✓ |
 
 ### Inherited reference (ChessBuddy lineage)
 

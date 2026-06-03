@@ -183,7 +183,13 @@ while remaining aligned with:
 
 ---
 
-## References (inherited governance)
+## References
+
+| Document | Title |
+|----------|--------|
+| CG-001 | Product Vision |
+
+### Inherited governance
 
 | Document | Title |
 |----------|--------|
