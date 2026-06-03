@@ -189,6 +189,7 @@ while remaining aligned with:
 |----------|--------|
 | CG-001 | Product Vision |
 | CG-002 | Federation Relationship |
+| CG-DEP-001 | Federation Dependency Analysis |
 
 ### Inherited governance
 

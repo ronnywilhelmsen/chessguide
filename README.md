@@ -51,6 +51,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [CG-000](docs/governance/chessguide/CG-000-chessguide-identity.md) | ChessGuide Identity ✓ |
 | [CG-001](docs/governance/chessguide/CG-001-product-vision.md) | Product Vision ✓ |
 | [CG-002](docs/governance/chessguide/CG-002-federation-relationship.md) | Federation Relationship ✓ |
+| [CG-DEP-001](docs/governance/chessguide/CG-DEP-001-federation-dependency-analysis.md) | Federation Dependency Analysis ✓ |
 
 ### Inherited reference (ChessBuddy lineage)
 

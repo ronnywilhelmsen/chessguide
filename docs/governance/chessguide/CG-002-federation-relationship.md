@@ -295,6 +295,7 @@ This document clearly explains:
 |----------|--------|
 | CG-000 | ChessGuide Identity |
 | CG-001 | Product Vision |
+| CG-DEP-001 | Federation Dependency Analysis |
 | CB-000 | Federation Alignment (inherited) |
 | CB-000A | Longitudinal Learning Model (inherited) |
 | CB-002 | Longitudinal Skill Development Domain (inherited) |
