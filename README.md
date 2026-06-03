@@ -42,7 +42,14 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | Location | Role |
 |----------|------|
 | **`docs/governance/chessguide/`** | ChessGuide identity and future product governance |
+| **`docs/governance/federation/`** | Federation-wide research and semantics |
 | **`docs/governance/chessbuddy/`** | Inherited reference artefacts (pre-identity extraction) |
+
+### Federation
+
+| Document | Title |
+|----------|--------|
+| [FCS-001](docs/governance/federation/FCS-001-federation-continuity-study.md) | Federation Continuity Study ✓ |
 
 ### ChessGuide
 

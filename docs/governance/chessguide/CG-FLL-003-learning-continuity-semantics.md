@@ -384,6 +384,8 @@ Learning continuity is **not unique to ChessGuide**.
 
 The **Longitudinal Learning Platform** may ultimately study **continuity across domains** rather than learning in isolation.
 
+See [FCS-001 — Federation Continuity Study](../federation/FCS-001-federation-continuity-study.md) for comparative analysis and candidate federation continuity definition.
+
 ---
 
 ## Document Success Criteria
