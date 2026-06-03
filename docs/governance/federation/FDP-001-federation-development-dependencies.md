@@ -436,6 +436,7 @@ Prior art: ALP uses FLL-0, FLL-0M, FLL-0X for artifact paths. FDP-001 proposes *
 | **R-5** | Begin **Laris governance** after CG-FLL semantics stable; runtime after FRL-3 |
 | **R-6** | Use **FRL levels** as federation planning vocabulary; map deliverables to FRL explicitly |
 | **R-7** | Import **FCA-1 / FTO-1** when available; reconcile with FCS-001 and FDP-001 (FCS-001 R-5) |
+| **R-8** | Coordinate execution per [FDP-002 — Federation Development Strategy](FDP-002-federation-development-strategy.md) |
 
 ---
 
@@ -466,3 +467,4 @@ across the federation.
 | CG-FLL-002 | Learning Semantics |
 | CG-FLL-003 | Learning Continuity Semantics |
 | ALP-1, ALP-2, ALP-3 | Artifact learning references (FLL-0/0M/0X) |
+| FDP-002 | Federation Development Strategy |

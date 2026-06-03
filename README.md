@@ -51,6 +51,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 |----------|--------|
 | [FCS-001](docs/governance/federation/FCS-001-federation-continuity-study.md) | Federation Continuity Study ✓ |
 | [FDP-001](docs/governance/federation/FDP-001-federation-development-dependencies.md) | Federation Development Dependencies ✓ |
+| [FDP-002](docs/governance/federation/FDP-002-federation-development-strategy.md) | Federation Development Strategy ✓ |
 
 ### ChessGuide
 
