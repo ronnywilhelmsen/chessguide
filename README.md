@@ -33,7 +33,7 @@ ChessGuide inherits federation alignment from the ChessBuddy governance lineage 
 
 The learning chain: Reality → Observation → Attention → Understanding → Knowledge → Wisdom → Stewardship → Transformation.
 
-Full alignment (inherited): [CB-000 — Federation Alignment](docs/governance/chessbuddy/CB-000-federation-alignment.md)
+Federation relationship: [CG-002 — Federation Relationship](docs/governance/chessguide/CG-002-federation-relationship.md) · Full alignment (inherited): [CB-000 — Federation Alignment](docs/governance/chessbuddy/CB-000-federation-alignment.md)
 
 ---
 
@@ -50,6 +50,7 @@ Full alignment (inherited): [CB-000 — Federation Alignment](docs/governance/ch
 |----------|--------|
 | [CG-000](docs/governance/chessguide/CG-000-chessguide-identity.md) | ChessGuide Identity ✓ |
 | [CG-001](docs/governance/chessguide/CG-001-product-vision.md) | Product Vision ✓ |
+| [CG-002](docs/governance/chessguide/CG-002-federation-relationship.md) | Federation Relationship ✓ |
 
 ### Inherited reference (ChessBuddy lineage)
 

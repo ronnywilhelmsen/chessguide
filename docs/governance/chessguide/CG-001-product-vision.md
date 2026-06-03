@@ -218,5 +218,6 @@ This vision clearly explains:
 | Document | Title |
 |----------|--------|
 | CG-000 | ChessGuide Identity |
+| CG-002 | Federation Relationship |
 | CB-000 | Federation Alignment (inherited) |
 | CB-005 | LearningTrace Product Schema (inherited) |

@@ -188,6 +188,7 @@ while remaining aligned with:
 | Document | Title |
 |----------|--------|
 | CG-001 | Product Vision |
+| CG-002 | Federation Relationship |
 
 ### Inherited governance
 
