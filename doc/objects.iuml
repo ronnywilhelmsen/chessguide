@@ -1,0 +1,7 @@
+@startuml
+abstract Player
+class Human
+class Bot
+Player <|-- Human
+Player <|-- Bot
+@enduml
