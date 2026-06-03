@@ -361,7 +361,7 @@ Repeat
 | # | Action | Lead |
 |---|--------|------|
 | 1 | Close **FRL-1** — steward review FCS-001, FDP-001, FDP-002 | Federation |
-| 2 | Begin **FLL-1** pilot preparation (subject, schedule, observation log template) | ChessGuide |
+| 2 | Begin **FLL-1** pilot per [CG-FLL-1E](../chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md) | ChessGuide |
 | 3 | Draft **domain observation event catalogue** from legacy app + CG-FLL-001 | ChessGuide |
 | 4 | Open **OAT-1a contract** working doc fed by event catalogue | Creator + ChessGuide |
 
