@@ -53,6 +53,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [CG-002](docs/governance/chessguide/CG-002-federation-relationship.md) | Federation Relationship ✓ |
 | [CG-DEP-001](docs/governance/chessguide/CG-DEP-001-federation-dependency-analysis.md) | Federation Dependency Analysis ✓ |
 | [CG-FLL-001](docs/governance/chessguide/CG-FLL-001-first-domain-learning-pilot.md) | First Domain Learning Pilot (FLL-1) ✓ |
+| [CG-FLL-002](docs/governance/chessguide/CG-FLL-002-learning-semantics.md) | Learning Semantics ✓ |
 
 ### Inherited reference (ChessBuddy lineage)
 

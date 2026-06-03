@@ -191,6 +191,7 @@ while remaining aligned with:
 | CG-002 | Federation Relationship |
 | CG-DEP-001 | Federation Dependency Analysis |
 | CG-FLL-001 | First Domain Learning Pilot (FLL-1) |
+| CG-FLL-002 | Learning Semantics |
 
 ### Inherited governance
 
