@@ -188,7 +188,7 @@ Objective criteria derived from FDP-001 FRL definitions.
 | **FS-4** | OAT-1a contract Draft 1 published | **ChessGuide** pilot with contract alignment |
 | **FS-5** | FRL-2 exit met (pilot trace + steward validation) | **Creator** CTP MVP (primary) |
 | **FS-6** | CTP MVP replays FLL-1 trace | **Creator** CTV MVP |
-| **FS-7** | FRL-3 exit met | **Laris** governance + guidance integration |
+| **FS-7** | FRL-3 exit met | **Laris** governance + guidance integration (see [FDS-001](FDS-001-dialogue-continuity-study.md)) |
 | **FS-8** | Capability X blocks all domains (per FDP-001 matrix) | **Dependency owner** for X |
 | **FS-9** | New domain charter approved at FRL-4 gate | **Named domain** semantics + pilot plan |
 

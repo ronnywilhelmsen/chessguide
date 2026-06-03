@@ -415,6 +415,7 @@ See CI-1 through CI-5 (Part III).
 | R-5 | **Schedule** FCS-002 or FCA artefact import when FCA-1/FTO-1 documents are available in federation repo |
 | R-6 | **Use ALP trace protocol** as federation reference for traceability requirements across domains |
 | R-7 | **Sequence implementation** per [FDP-001 — Federation Development Dependencies](FDP-001-federation-development-dependencies.md) |
+| R-8 | **Investigate dialogue** as continuity mechanism per [FDS-001 — Dialogue Continuity Study](FDS-001-dialogue-continuity-study.md) |
 
 ---
 
@@ -445,3 +446,4 @@ and proposes a **candidate federation continuity definition** grounded in existi
 | CG-FLL-002 | `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` |
 | CG-FLL-003 | `docs/governance/chessguide/CG-FLL-003-learning-continuity-semantics.md` |
 | FDP-001 | `docs/governance/federation/FDP-001-federation-development-dependencies.md` |
+| FDS-001 | `docs/governance/federation/FDS-001-dialogue-continuity-study.md` |
