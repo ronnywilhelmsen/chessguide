@@ -50,6 +50,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | Document | Title |
 |----------|--------|
 | [FCS-001](docs/governance/federation/FCS-001-federation-continuity-study.md) | Federation Continuity Study ✓ |
+| [FDP-001](docs/governance/federation/FDP-001-federation-development-dependencies.md) | Federation Development Dependencies ✓ |
 
 ### ChessGuide
 
