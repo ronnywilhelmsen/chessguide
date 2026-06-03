@@ -220,5 +220,6 @@ This vision clearly explains:
 | CG-000 | ChessGuide Identity |
 | CG-002 | Federation Relationship |
 | CG-DEP-001 | Federation Dependency Analysis |
+| CG-FLL-001 | First Domain Learning Pilot (FLL-1) |
 | CB-000 | Federation Alignment (inherited) |
 | CB-005 | LearningTrace Product Schema (inherited) |

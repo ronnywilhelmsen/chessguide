@@ -435,6 +435,7 @@ This document clearly explains:
 | CG-000 | ChessGuide Identity |
 | CG-001 | Product Vision |
 | CG-002 | Federation Relationship |
+| CG-FLL-001 | First Domain Learning Pilot (FLL-1) |
 | CB-000 | Federation Alignment (inherited) |
 | CB-000A | Longitudinal Learning Model (inherited) |
 | CB-005 | LearningTrace Product Schema (inherited) |
