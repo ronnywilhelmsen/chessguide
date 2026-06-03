@@ -53,6 +53,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [FDP-001](docs/governance/federation/FDP-001-federation-development-dependencies.md) | Federation Development Dependencies ✓ |
 | [FDP-002](docs/governance/federation/FDP-002-federation-development-strategy.md) | Federation Development Strategy ✓ |
 | [FDS-001](docs/governance/federation/FDS-001-dialogue-continuity-study.md) | Dialogue Continuity Study ✓ |
+| [FGI-001](docs/governance/federation/grounding/FGI-001-INDEX.md) | Federation Grounding Interrogation (all projects) ✓ |
 
 ### ChessGuide
 
