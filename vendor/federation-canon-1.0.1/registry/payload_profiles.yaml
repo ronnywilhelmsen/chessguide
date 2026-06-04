@@ -1,0 +1,27 @@
+# Federation Canon 1.0.0 — payload_profile registry (Creator + BioChronos)
+profiles:
+  - id: creator/document/1
+    sovereign: creator
+    category: document
+    version: 1
+    description: Repository document observation (README pilot)
+  - id: biochronos/daily_input/1
+    sovereign: biochronos
+    category: daily_input
+    version: 1
+    description: BioChronos DailyInput body mapped to opaque payload
+  - id: domosofi/modality/photo/1
+    sovereign: domosofi
+    category: modality_photo
+    version: 1
+    description: Property-scoped photo observation
+  - id: finkairos/evidence/market_import/1
+    sovereign: finkairos
+    category: evidence_market_import
+    version: 1
+    description: Promoted OHLCV / batch evidence
+  - id: chessguide/game_import/1
+    sovereign: chessguide
+    category: game_import
+    version: 1
+    description: Completed game line or equivalent import body

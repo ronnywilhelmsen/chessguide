@@ -1,0 +1,31 @@
+{
+  "schema_version": "oat/observation/1.0.0",
+  "sovereign_id": "biochronos",
+  "continuity_id": "user:example-user:day:2026-06-01",
+  "continuity_id_type": "user_day",
+  "created_at": "2026-06-02T12:00:00+00:00",
+  "provenance": {
+    "source_system": "biochronos-replay",
+    "actor_type": "system"
+  },
+  "observation_id": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
+  "source_type": "user_event",
+  "source_id": "user:example-user:day:2026-06-01",
+  "checksum": "0000000000000000000000000000000000000000000000000000000000000001",
+  "payload_profile": "biochronos/daily_input/1",
+  "payload": {
+    "date": "2026-06-01",
+    "metrics": {
+      "weight_kg": 75.2,
+      "sleep_hours": 7.5
+    },
+    "scores": {
+      "metabolic_resilience": 0.72
+    },
+    "confirmed": true
+  },
+  "metadata": {
+    "example": true,
+    "non_normative": true
+  }
+}

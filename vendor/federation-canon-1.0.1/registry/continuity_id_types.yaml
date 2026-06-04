@@ -1,0 +1,20 @@
+# Federation Canon 1.0.0 — continuity_id_type registry (Creator + BioChronos)
+types:
+  - id: project
+    description: Scoped work container (Creator Project)
+    sovereigns: [creator]
+  - id: document
+    description: Pinned repository file without project scope
+    sovereigns: [creator]
+  - id: user_day
+    description: BioChronos calendar day scope for a user
+    sovereigns: [biochronos]
+  - id: property
+    description: Domosofi stewarded property or household asset scope
+    sovereigns: [domosofi]
+  - id: security
+    description: Finkairos market instrument anchor for evidence import
+    sovereigns: [finkairos]
+  - id: game
+    description: ChessGuide single completed game episode
+    sovereigns: [chessguide]

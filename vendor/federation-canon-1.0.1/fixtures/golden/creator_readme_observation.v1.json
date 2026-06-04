@@ -1,0 +1,28 @@
+{
+  "schema_version": "oat/observation/1.0.0",
+  "sovereign_id": "creator",
+  "continuity_id": "README.md",
+  "continuity_id_type": "document",
+  "created_at": "2026-06-02T20:59:06.553353+00:00",
+  "provenance": {
+    "source_system": "creator-backend",
+    "actor_type": "system"
+  },
+  "observation_id": "0e1dcc70-e4cc-4c6d-be05-d29d0b2e4cb9",
+  "source_type": "document",
+  "source_id": "README.md",
+  "checksum": "0638f3e4a44af4456d23b470653d3483a50dcb2ee01d9a07c57ea4a0608a46fd",
+  "payload_profile": "creator/document/1",
+  "payload": {
+    "path": "README.md",
+    "line_count": 197,
+    "byte_length": 7282,
+    "preview": "# Creator\n\n## Purpose\n\nCreator is a mythic narrative architecture system designed to assist in the creation of:\n\n* modern myth,\n* recursive saga structures,\n* symbolic continuity,\n* philosophical storytelling,\n* and developmental narrative systems.\n\nThe project combines:\n\n* Aristotelian dramatic structure,\n* comparative mythology,\n* symbolic systems,\n* pedagogical scaffolding,\n* graph-based continuity,\n* and AI-assisted writing tools.\n\nThe goal is not merely to generate stories.\n\nThe goal is to "
+  },
+  "metadata": {
+    "sealed_at": "2026-06-02T20:59:06.553353+00:00",
+    "immutable": true,
+    "validation": "readme_oat_1a",
+    "ingestion_draft_id": null
+  }
+}
