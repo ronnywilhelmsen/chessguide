@@ -61,6 +61,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [LEF-0E](docs/governance/federation/studies/LEF-0E-integration-theory.md) | Integration Theory (LEF synthesis) |
 | [LEF-1A](docs/governance/federation/studies/LEF-1A-operationalizing-explicit-integration.md) | Operationalizing Explicit Integration |
 | [LEF-1B](docs/governance/federation/studies/LEF-1B-learningtrace-path-formation-hypothesis.md) | LearningTrace as Path Formation Hypothesis |
+| [LEF-1C](docs/governance/federation/studies/LEF-1C-path-quality-and-mastery-hypothesis.md) | Path Quality and Mastery Hypothesis |
 
 ### ChessGuide
 
