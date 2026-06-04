@@ -57,6 +57,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [LEF-0A](docs/governance/federation/studies/LEF-0A-architectural-interpretation-validation.md) | Learning Epistemology — Architectural Interpretation Validation |
 | [LEF-0B](docs/governance/federation/studies/LEF-0B-minimal-learning-explanation-experiment.md) | Minimal Learning Explanation Experiment |
 | [LEF-0C](docs/governance/federation/studies/LEF-0C-explanation-artifact-hypothesis.md) | Explanation Artifact Hypothesis |
+| [LEF-0D](docs/governance/federation/studies/LEF-0D-epistemic-placement-of-explanation-artifact.md) | Epistemic Placement of ExplanationArtifact |
 
 ### ChessGuide
 
