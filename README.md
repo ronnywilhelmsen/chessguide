@@ -63,6 +63,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [LEF-1B](docs/governance/federation/studies/LEF-1B-learningtrace-path-formation-hypothesis.md) | LearningTrace as Path Formation Hypothesis |
 | [LEF-1C](docs/governance/federation/studies/LEF-1C-path-quality-and-mastery-hypothesis.md) | Path Quality and Mastery Hypothesis |
 | [LEF-1D](docs/governance/federation/studies/LEF-1D-flow-and-optimal-traversal-hypothesis.md) | Flow and Optimal Traversal Hypothesis |
+| [LEF-1E](docs/governance/federation/studies/LEF-1E-capability-conditions-hypothesis.md) | Capability Conditions Hypothesis |
 
 ### ChessGuide
 
