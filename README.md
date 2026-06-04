@@ -54,6 +54,8 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [FDP-002](docs/governance/federation/FDP-002-federation-development-strategy.md) | Federation Development Strategy ✓ |
 | [FDS-001](docs/governance/federation/FDS-001-dialogue-continuity-study.md) | Dialogue Continuity Study ✓ |
 | [FGI-001](docs/governance/federation/grounding/FGI-001-INDEX.md) | Federation Grounding Interrogation (all projects) ✓ |
+| [LEF-0A](docs/governance/federation/studies/LEF-0A-architectural-interpretation-validation.md) | Learning Epistemology — Architectural Interpretation Validation |
+| [LEF-0B](docs/governance/federation/studies/LEF-0B-minimal-learning-explanation-experiment.md) | Minimal Learning Explanation Experiment |
 
 ### ChessGuide
 
