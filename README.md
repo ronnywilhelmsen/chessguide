@@ -60,6 +60,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [LEF-0D](docs/governance/federation/studies/LEF-0D-epistemic-placement-of-explanation-artifact.md) | Epistemic Placement of ExplanationArtifact |
 | [LEF-0E](docs/governance/federation/studies/LEF-0E-integration-theory.md) | Integration Theory (LEF synthesis) |
 | [LEF-1A](docs/governance/federation/studies/LEF-1A-operationalizing-explicit-integration.md) | Operationalizing Explicit Integration |
+| [LEF-1B](docs/governance/federation/studies/LEF-1B-learningtrace-path-formation-hypothesis.md) | LearningTrace as Path Formation Hypothesis |
 
 ### ChessGuide
 
