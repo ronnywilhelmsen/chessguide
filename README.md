@@ -65,6 +65,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [LEF-1D](docs/governance/federation/studies/LEF-1D-flow-and-optimal-traversal-hypothesis.md) | Flow and Optimal Traversal Hypothesis |
 | [LEF-1E](docs/governance/federation/studies/LEF-1E-capability-conditions-hypothesis.md) | Capability Conditions Hypothesis |
 | [LEF-2A](docs/governance/federation/studies/LEF-2A-capability-formation-architecture.md) | Capability Formation Architecture (synthesis) |
+| [LEF-2B](docs/governance/federation/studies/LEF-2B-canonical-cfa-diagram-and-terminology.md) | **Canonical CFA diagram + glossary (start here)** |
 
 ### ChessGuide
 
