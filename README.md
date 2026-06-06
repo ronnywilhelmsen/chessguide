@@ -37,6 +37,14 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 
 ---
 
+## Reviews
+
+| Document | Title |
+|----------|--------|
+| [CDESR v1.0](docs/reviews/Canonical-Domain-End-State-Requirements-Review-v1.0-ChessGuide.md) | Canonical Domain End-State Requirements Review (ChessGuide) |
+
+---
+
 ## Governance
 
 | Location | Role |
