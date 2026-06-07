@@ -37,6 +37,12 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 
 ---
 
+## Architecture
+
+| Document | Title |
+|----------|--------|
+| [ChessGuide LLD v1.0](docs/architecture/ChessGuide-LLD-v1.0.md) | Low-Level Design — domain objects, records, services |
+
 ## Reviews
 
 | Document | Title |
