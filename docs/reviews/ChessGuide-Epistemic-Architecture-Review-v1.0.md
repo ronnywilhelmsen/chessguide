@@ -648,7 +648,7 @@ OQ-K1, OQ-K2, OQ-E1, OQ-E2, OQ-LT1, OQ-LT2, OQ-LG1, OQ-LG2, OQ-LF1, OQ-LF2, OQ-L
 | 4 | review: phase-4 learner graph review | `f0fd4df` |
 | 5 | review: phase-5 learning frontier review | `c5d990f` |
 | 6 | review: phase-6 laris review | `ccf09e9` |
-| 7 | review: phase-7 strategic assessment | `30c23be` |
+| 7 | review: phase-7 strategic assessment | `a6a6c39` |
 
 ---
 
