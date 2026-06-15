@@ -462,3 +462,153 @@ Legacy analysis/hints — not mapped to LOE.
 |----|----------|
 | OQ-MET1 | Tag method type on Practice Episodes? |
 | OQ-MET2 | Woodpecker-compatible under I-3 with what LOE threshold? |
+
+---
+
+# Part 6 — Synthesis Review
+
+## Repository State (Phase 6)
+
+Committed: `review: phase-6 synthesis review`
+
+## Evidence Reviewed
+
+All Parts 1–5, CEAR, CCNLAR, CLOR, CFA-v1.0.
+
+## Files Reviewed
+
+Full review corpus + prior review trilogy.
+
+## Doctrine Sources
+
+CB-004, CB-006, CG-FLL-1E, CFA-v1.0.
+
+## Runtime Sources
+
+None.
+
+## Candidate stacks (critical evaluation)
+
+### Stack A — linear pedagogy loop
+
+```text
+Purpose → Attention → Observation → Question → Explanation
+  → Reflection → Application → New Observation
+```
+
+| Element | Doctrine mapping | Verdict |
+|---------|------------------|---------|
+| Purpose | Mode purpose, focus_contract | [DOCTRINE] |
+| Attention | Chain stage | [DOCTRINE] |
+| Observation | OAT | [DOCTRINE] |
+| Question | DOE-001 Clarifying Question | [DOCTRINE] |
+| Explanation | LOE-009; Buddy hierarchy | [DOCTRINE] |
+| Reflection | DOE-006; reflection.recorded | [DOCTRINE] |
+| Application | LOE-008 Transfer; Practice | [DOCTRINE] |
+| New Observation | Next Episode | [DOCTRINE] |
+
+**Missing from Stack A:** Integration (process), Stewardship, LearningTrace custody, Capability Conditions.
+
+### Stack B — pairwise chaining
+
+```text
+Observation|Question → Question|Explanation → Explanation|Reflection
+  → Reflection|Application → Application|New Observation
+```
+
+| Assessment | Class |
+|------------|-------|
+| **Useful** as **pedagogical micro-loop** per critical moment | [PROPOSAL] |
+| **Not sufficient** as full architecture — omits longitudinal span | [INFERENCE] |
+| Maps to **DOE/LOE pairs** within Episode | [DOCTRINE ALIGNED] partial |
+
+### Chaining Learning Hypothesis
+
+> Learning progresses through memorable semantic bridges connecting each transformation to the next.
+
+| Assessment | Class |
+|------------|-------|
+| Aligns with AN-4 cross-episode anchors, Connect intent (CB-004) | [DOCTRINE ALIGNED] |
+| **Narrative Bridges** as first-class concept — **not in repo** | [PROPOSAL] |
+| Distinct from ExplanationArtifact — bridge = **transition scaffold** | [PROPOSAL] |
+
+## ChessGuide Transformation Architecture v1 [PROPOSAL — doctrine-reconciled]
+
+```text
+┌─────────────────────────────────────────────────────────┐
+│ PEDAGOGY LAYER (principles — CB-004, external schools)   │
+│  graduated difficulty · explain-after-experience · etc.  │
+└───────────────────────────┬─────────────────────────────┘
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│ DIDACTICS LAYER (target states — LOE signatures)         │
+│  Didactic Target State [PROPOSAL]                        │
+└───────────────────────────┬─────────────────────────────┘
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│ ORCHESTRATION LAYER (modes, conditions, methods)         │
+│  CB-006 modes · Capability Conditions · method patterns  │
+└───────────────────────────┬─────────────────────────────┘
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│ EPISTEMIC LAYER (CFA — evidence → integration → claim)   │
+│  LearningTrace · Integration · Stewardship · LOE-011     │
+└───────────────────────────┬─────────────────────────────┘
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│ COMMENTARY LAYER (observable understanding signals)      │
+│  LOE-009 · Replay · ExplanationArtifact P1/P2            │
+└─────────────────────────────────────────────────────────┘
+
+Horizontal: Narrative Bridge [PROPOSAL] links Episode transitions
+```
+
+### Transformation Direction Hypothesis
+
+> Didactics defines states. Pedagogy defines principles. Transformation Architecture orchestrates the journey.
+
+| Assessment | Class |
+|------------|-------|
+| **Supported** as **separation of concerns** | [INFERENCE] |
+| Orchestration **already partial** in CB-006 + CG-FLL-1E | [DOCTRINE] |
+| **Transformation Architecture** not named in governance | [PROPOSAL] |
+
+### Additional hypotheses (synthesis)
+
+| Hypothesis | Verdict | Class |
+|------------|---------|-------|
+| **Show–Tell–Replay** | Observed→Explained→Replayed (CG-FLL-001) | [DOCTRINE ALIGNED] |
+| **Narrative Expertise** | Commentary + replay reconstructability | [DOCTRINE ALIGNED] partial |
+| **Commentary Evidence** | LOE-009 + steward DOE-008 | [DOCTRINE] |
+| **Learner Integration** | CG-FLL-002 core | [DOCTRINE] |
+
+### Core question answered
+
+> How should ChessGuide intentionally guide a learner from one understanding state to another?
+
+**Answer [DOCTRINE + PROPOSAL]:**
+
+1. Declare **purpose** (mode + focus_contract).
+2. Set **didactic target** as LOE signature [PROPOSAL].
+3. Select **method + mode** (Training, Practice, Post-Game).
+4. Capture **Observation → Question → Explanation → Reflection → Application** micro-loops as LOE/DOE.
+5. Require **integration** before claiming state change.
+6. Use **commentary/replay** as evidence, **stewardship** for durable claims.
+7. Link episodes via **anchors / narrative bridges** [PROPOSAL].
+
+## Conclusions (Phase 6)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P6-1 | Three-layer model **Pedagogy / Didactics / Orchestration** reconciles prior reviews | [PROPOSAL] |
+| P6-2 | Stack A **valid** if CFA epistemic layer appended | [INFERENCE] |
+| P6-3 | **Narrative Bridges** merit governance study, not ADR-001 | [PROPOSAL] |
+| P6-4 | Transformation orchestration is **doctrine-partial**, **architecture-proposed** | [INFERENCE] |
+
+## Open Questions (Phase 6)
+
+| ID | Question |
+|----|----------|
+| OQ-SYN1 | Publish Transformation Architecture v1 as governance annex? |
+| OQ-SYN2 | Narrative Bridge vs Narrative Chunk relationship? |
+| OQ-SYN3 | Minimum orchestration schema before Buddy automation? |
