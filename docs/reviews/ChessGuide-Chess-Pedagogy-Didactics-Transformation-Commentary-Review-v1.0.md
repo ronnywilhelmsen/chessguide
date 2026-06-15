@@ -764,7 +764,7 @@ OQ-PED1–2, OQ-DID1–3, OQ-TR1–2, OQ-COM1–3, OQ-MET1–2, OQ-SYN1–3 — 
 | 4 | review: phase-4 commentary and annotation review | `eee1a52` |
 | 5 | review: phase-5 chess learning methods review | `aa20bb9` |
 | 6 | review: phase-6 synthesis review | `255e3f9` |
-| 7 | review: phase-7 strategic assessment | (pending) |
+| 7 | review: phase-7 strategic assessment | `80ec701` |
 
 ---
 
