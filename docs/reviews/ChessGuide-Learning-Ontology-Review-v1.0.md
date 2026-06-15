@@ -735,3 +735,190 @@ Experience, Knowledge Concept, Cognitive Chunk, Narrative Chunk, Retrieval Cue, 
 | OQ-SYN1 | Publish Learning Ontology v1 as governance annex? |
 | OQ-SYN2 | Merge LearningTrace and LearningJourney names in future ADR? |
 | OQ-SYN3 | Minimum LOE set constituting understanding unit? |
+
+---
+
+# Part 7 — Strategic Assessment
+
+## Repository State (Phase 7)
+
+Committed: `review: phase-7 strategic assessment`
+
+## Evidence Reviewed
+
+All Parts 1–6, CEAR ADR readiness, CCNLAR ADR readiness, LEF-2C.
+
+## Files Reviewed
+
+Full ontology review corpus.
+
+## Doctrine Sources
+
+CFA-v1.0, CG-FLL-002, CEAR-v1.0 Part 7.
+
+## Runtime Sources
+
+LEF-2C — ontology unwitnessed in code.
+
+## Strategic gaps
+
+| # | Gap type | Finding | Class |
+|---|----------|---------|-------|
+| 1 | **Ontological** | **Chunk**, **Retrieval Cue**, **Experience** unformalized | [PROPOSAL] gap |
+| 2 | **Doctrine** | Process vs entity confusion (Learning, Integration, LearningTrace) now clarified | [INFERENCE] |
+| 3 | **Learning-science** | Oakley chunking names mechanism doctrine implies via expert compression | [NEW INSIGHT] |
+| 4 | **Architectural** | LLD aggregates exceed doctrine — ADR-001 must not import LLD-only types as canon | [INFERENCE] |
+
+## ADR-001 Readiness Assessment
+
+**Can ADR-001 (LearningTrace Episode Schema v1) safely proceed after this review?**
+
+### **Yes** — with explicit scope boundaries.
+
+| Criterion | Status | Reason |
+|-----------|--------|--------|
+| Evidence boundary defined | **Ready** | Episode, Event, Anchor are doctrine primitives |
+| Learning vs trace distinguished | **Ready** | LEF-0E, CEAR, CLOR Part 2 |
+| Integration not in Episode schema | **Ready** | Integration is process — LOE refs optional |
+| Chunk/narrative excluded | **Required** | Proposals must not enter ADR-001 |
+| LLD ≠ doctrine | **Required** | LearningJourney naming deferred |
+
+### What remains unresolved (post ADR-001)
+
+| Item | Blocks ADR-001? | Blocks implementation? |
+|------|-----------------|------------------------|
+| Chunk Architecture governance | **No** | **Yes** for cognitive features |
+| Experience glossary adoption | **No** | Partial |
+| Learning Opportunity typing | **No** | **Yes** for timed pedagogy |
+| Knowledge Concept formalization | **No** | Partial |
+| Narrative Chunk vs ExplanationArtifact | **No** | **Yes** for narrative pedagogy |
+
+## Strategic findings
+
+| # | Finding | Class |
+|---|---------|-------|
+| P7-1 | **Most important ontological gap:** Chunk / compression layer between Pattern and Capability | [INFERENCE] |
+| P7-2 | **Most important doctrine gap:** Experience and Retrieval Cue unnamed | [INFERENCE] |
+| P7-3 | **Most important learning-science insight:** Compression (Oakley) explains expert path doctrine does not type | [NEW INSIGHT] |
+| P7-4 | **Most important architectural implication:** ADR-001 must encode **Layer A–B only**; Layer E proposals excluded | [INFERENCE] |
+| P7-5 | **Highest-value ADR:** (1) Episode Schema v1, (2) Chunk Architecture governance v1 | [INFERENCE] |
+
+## Conclusions (Phase 7)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P7-1 | ChessGuide possesses **canonical ontology for evidence and integration** | [DOCTRINE] |
+| P7-2 | **Cognitive/memory ontology** incomplete but **does not block** ADR-001 | [INFERENCE] |
+| P7-3 | **Learning Ontology v1** reconciles three prior reviews into layered model | [PROPOSAL] |
+| P7-4 | ADR-001 **may proceed** — chunk/narrative ADRs follow | [INFERENCE] |
+
+---
+
+# Executive Summary
+
+This review inventories **~25 doctrine entities**, **~12 interpretive CFA terms**, and **~8 review proposals** across governance and prior reviews (CEAR, CCNLAR). It answers the core question:
+
+> **Smallest stable unit of understanding** = **integrated semantic binding** — nearest doctrine types: **Understanding artefact** (ChessReasoning) or explicit **integration LOE** with lineage.
+
+**Primitive entities:** Reality, Actor, Observation, Episode, Event, Attention (chain), Integration (process).
+
+**Derived entities:** Evidence, Understanding, Knowledge, Wisdom, ExplanationArtifact.
+
+**Emergent entities:** Pattern, Capability, Transformation, Mastery Horizon.
+
+**Proposals (not doctrine):** Experience, Knowledge Concept, Cognitive Chunk, Narrative Chunk, Retrieval Cue, Learning Opportunity.
+
+**ADR-001 readiness: YES** — Episode/evidence boundary is ontologically stable. ADR-001 must **exclude** chunk, narrative, and LLD-only aggregates. Follow-on governance for **Chunk Architecture** is highest-value post-ADR work.
+
+---
+
+# Repository Evidence Summary
+
+| Layer | Key artifacts |
+|-------|---------------|
+| Chain ontology | CB-000A, CB-000 |
+| Trace ontology | CB-005 |
+| Capability ontology | CFA-v1.0, LEF-1C |
+| Integration ontology | CG-FLL-002, LEF-0E |
+| Prior reviews | CEAR, CCNLAR |
+| Design target (non-canon) | LLD v1.0 |
+
+---
+
+# Doctrine Findings (consolidated)
+
+| Finding | Class |
+|---------|-------|
+| Learning = Integration (process) | [DOCTRINE] |
+| LearningTrace = evidence custody | [DOCTRINE] |
+| Observation ≠ Experience ≠ Evidence | [INFERENCE] |
+| Wisdom ≠ Knowledge (I-3) | [DOCTRINE] |
+| Mastery = horizon, not primitive | [DOCTRINE] |
+| Chunks = integration products (proposal) | [PROPOSAL] |
+
+---
+
+# Observation Ontology (summary)
+
+Reality → Observation → Episode/Event → Evidence → (Integration process). Experience = activity without integration [PROPOSAL].
+
+---
+
+# Knowledge Ontology (summary)
+
+Knowledge Concept [PROPOSAL] ⊂ ChessKnowledge. Pattern emergent. Understanding derived. Wisdom normative.
+
+---
+
+# Memory Ontology (summary)
+
+ChessAnchor = Memory Anchor [DOCTRINE]. Chunks and retrieval cues [PROPOSAL]. Series = primary analysis unit [DOCTRINE].
+
+---
+
+# Capability Ontology (summary)
+
+Capability emergent post-integration. Transformation observed/claimed. Flow interpretive. Performance non-ontological.
+
+---
+
+# Ontology Synthesis (summary)
+
+Five layers: A Primitives, B Processes, C Derived artefacts, D Emergent outcomes, E Proposals. Learning Opportunity = Relationship [PROPOSAL].
+
+---
+
+# Open Questions (consolidated)
+
+OQ-INV1–3, OQ-OBS1–3, OQ-KN1–3, OQ-MEM1–3, OQ-CAP1–3, OQ-SYN1–3 — see phase sections.
+
+---
+
+# Candidate Future ADRs (consolidated)
+
+1. **ADR-001:** LearningTrace Episode Schema v1 — **proceed**
+2. **ADR-002 (candidate):** Chunk Architecture governance v1
+3. **ADR-003 (candidate):** Experience + Retrieval Cue glossary adoption
+4. **ADR-004 (candidate):** Learning Opportunity event/relationship schema
+
+---
+
+# Commit Log (review branch)
+
+| Phase | Commit message | SHA |
+|-------|----------------|-----|
+| 1 | review: phase-1 ontology inventory | `93b470d` |
+| 2 | review: phase-2 observation ontology review | `c6f5982` |
+| 3 | review: phase-3 knowledge ontology review | `62acf84` |
+| 4 | review: phase-4 memory ontology review | `cbb4d75` |
+| 5 | review: phase-5 capability ontology review | `091cd92` |
+| 6 | review: phase-6 ontology synthesis | `a41b715` |
+| 7 | review: phase-7 strategic assessment | (pending) |
+
+---
+
+## Document Status
+
+```text
+Accepted Learning Ontology Review Candidate
+```
