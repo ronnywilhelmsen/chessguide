@@ -913,7 +913,7 @@ OQ-INV1–3, OQ-OBS1–3, OQ-KN1–3, OQ-MEM1–3, OQ-CAP1–3, OQ-SYN1–3 — 
 | 4 | review: phase-4 memory ontology review | `cbb4d75` |
 | 5 | review: phase-5 capability ontology review | `091cd92` |
 | 6 | review: phase-6 ontology synthesis | `a41b715` |
-| 7 | review: phase-7 strategic assessment | (pending) |
+| 7 | review: phase-7 strategic assessment | `ee8b8e8` |
 
 ---
 
