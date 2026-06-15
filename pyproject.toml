@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chessguide-federation"
+version = "0.10.0"
+description = "ChessGuide sovereign federation observation export (FCI-5c)"
+readme = "README.md"
+requires-python = ">=3.12"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3,<9",
+    "jsonschema>=4.23,<5",
+    "referencing>=0.35,<1",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"

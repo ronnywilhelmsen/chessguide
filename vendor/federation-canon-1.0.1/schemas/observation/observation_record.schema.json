@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://federation.creator.local/schemas/observation/observation_record/1.0.0",
+  "title": "ObservationRecord",
+  "allOf": [
+    {
+      "$ref": "https://federation.creator.local/schemas/common/continuity_envelope/1.0.0"
+    },
+    {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "observation_id",
+        "source_type",
+        "source_id",
+        "checksum",
+        "payload_profile",
+        "payload"
+      ],
+      "properties": {
+        "observation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "source_type": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,48}$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "checksum": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "payload_profile": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "payload": {
+          "type": "object"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    }
+  ]
+}

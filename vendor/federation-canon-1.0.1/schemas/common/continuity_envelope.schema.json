@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://federation.creator.local/schemas/common/continuity_envelope/1.0.0",
+  "title": "ContinuityEnvelope",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "sovereign_id",
+    "continuity_id",
+    "continuity_id_type",
+    "created_at",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^(oat|fed)/[a-z_]+/[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "sovereign_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,62}$"
+    },
+    "continuity_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048
+    },
+    "continuity_id_type": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "provenance": {
+      "$ref": "https://federation.creator.local/schemas/common/provenance/1.0.0"
+    }
+  }
+}

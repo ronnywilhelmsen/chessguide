@@ -37,6 +37,20 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 
 ---
 
+## Architecture
+
+| Document | Title |
+|----------|--------|
+| [ChessGuide LLD v1.0](docs/architecture/ChessGuide-LLD-v1.0.md) | Low-Level Design — domain objects, records, services |
+
+## Reviews
+
+| Document | Title |
+|----------|--------|
+| [CDESR v1.0](docs/reviews/Canonical-Domain-End-State-Requirements-Review-v1.0-ChessGuide.md) | Canonical Domain End-State Requirements Review (ChessGuide) |
+
+---
+
 ## Governance
 
 | Location | Role |
@@ -49,6 +63,7 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 
 | Document | Title |
 |----------|--------|
+| [**CFA v1.0**](docs/governance/federation/CFA-v1.0.md) | **Canonical Capability Formation Architecture (start here)** |
 | [FCS-001](docs/governance/federation/FCS-001-federation-continuity-study.md) | Federation Continuity Study ✓ |
 | [FDP-001](docs/governance/federation/FDP-001-federation-development-dependencies.md) | Federation Development Dependencies ✓ |
 | [FDP-002](docs/governance/federation/FDP-002-federation-development-strategy.md) | Federation Development Strategy ✓ |
@@ -56,6 +71,17 @@ Federation relationship: [CG-002 — Federation Relationship](docs/governance/ch
 | [FGI-001](docs/governance/federation/grounding/FGI-001-INDEX.md) | Federation Grounding Interrogation (all projects) ✓ |
 | [LEF-0A](docs/governance/federation/studies/LEF-0A-architectural-interpretation-validation.md) | Learning Epistemology — Architectural Interpretation Validation |
 | [LEF-0B](docs/governance/federation/studies/LEF-0B-minimal-learning-explanation-experiment.md) | Minimal Learning Explanation Experiment |
+| [LEF-0C](docs/governance/federation/studies/LEF-0C-explanation-artifact-hypothesis.md) | Explanation Artifact Hypothesis |
+| [LEF-0D](docs/governance/federation/studies/LEF-0D-epistemic-placement-of-explanation-artifact.md) | Epistemic Placement of ExplanationArtifact |
+| [LEF-0E](docs/governance/federation/studies/LEF-0E-integration-theory.md) | Integration Theory (LEF synthesis) |
+| [LEF-1A](docs/governance/federation/studies/LEF-1A-operationalizing-explicit-integration.md) | Operationalizing Explicit Integration |
+| [LEF-1B](docs/governance/federation/studies/LEF-1B-learningtrace-path-formation-hypothesis.md) | LearningTrace as Path Formation Hypothesis |
+| [LEF-1C](docs/governance/federation/studies/LEF-1C-path-quality-and-mastery-hypothesis.md) | Path Quality and Mastery Hypothesis |
+| [LEF-1D](docs/governance/federation/studies/LEF-1D-flow-and-optimal-traversal-hypothesis.md) | Flow and Optimal Traversal Hypothesis |
+| [LEF-1E](docs/governance/federation/studies/LEF-1E-capability-conditions-hypothesis.md) | Capability Conditions Hypothesis |
+| [LEF-2A](docs/governance/federation/studies/LEF-2A-capability-formation-architecture.md) | Capability Formation Architecture (synthesis) |
+| [LEF-2B](docs/governance/federation/studies/LEF-2B-canonical-cfa-diagram-and-terminology.md) | Canonical CFA — research justification and canonicalization study |
+| [LEF-2C](docs/governance/federation/studies/LEF-2C-runtime-observability-study.md) | CFA runtime observability (what is visible today) |
 
 ### ChessGuide
 

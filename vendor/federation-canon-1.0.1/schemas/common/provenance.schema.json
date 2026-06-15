@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://federation.creator.local/schemas/common/provenance/1.0.0",
+  "title": "Provenance",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "actor_type": {
+      "type": "string",
+      "enum": ["system", "steward", "model_assist"]
+    },
+    "actor_id": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "source_system": {
+      "type": "string",
+      "maxLength": 128
+    },
+    "parent_refs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

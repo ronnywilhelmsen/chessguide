@@ -1,0 +1,17 @@
+# Federation Canon 1.0.0 — source_type registry (Creator + BioChronos)
+types:
+  - id: document
+    description: Repository or filesystem document
+    sovereigns: [creator]
+  - id: user_event
+    description: Sovereign-scoped user event (e.g. daily input confirmation)
+    sovereigns: [biochronos]
+  - id: image
+    description: Still image capture (photo modality)
+    sovereigns: [domosofi]
+  - id: dataset
+    description: Structured batch import (e.g. market rows)
+    sovereigns: [finkairos]
+  - id: game_import
+    description: Completed game or PGN episode import
+    sovereigns: [chessguide]

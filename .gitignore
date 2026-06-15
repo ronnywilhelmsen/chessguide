@@ -17,3 +17,9 @@
 .env.production.local
 npm-debug.log*
 
+# Python federation export
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+

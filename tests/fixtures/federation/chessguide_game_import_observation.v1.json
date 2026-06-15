@@ -1,0 +1,49 @@
+{
+  "schema_version": "oat/observation/1.0.0",
+  "sovereign_id": "chessguide",
+  "continuity_id": "game:conformer:mpy0l1c0",
+  "continuity_id_type": "game",
+  "created_at": "2026-06-03T12:00:00+00:00",
+  "provenance": {
+    "source_system": "chessguide-conformance",
+    "actor_type": "steward",
+    "actor_id": "conformer"
+  },
+  "observation_id": "d4e5f6a7-b8c9-4012-d345-6789abcdef01",
+  "source_type": "game_import",
+  "source_id": "game:conformer:mpy0l1c0",
+  "checksum": "7400421fb89f94db584fb05658b2874e4424934624dddf93b864b275810493e6",
+  "payload_profile": "chessguide/game_import/1",
+  "payload": {
+    "game_artifact": "mpy0l1c0;Conformer;Bot;0;0;e4 e5 Qh5 Nc6 Bb5 Nf6 Qxf7#",
+    "game_id": "mpy0l1c0",
+    "white": "Conformer",
+    "black": "Bot",
+    "move_count": 7,
+    "moves": [
+      "e4",
+      "e5",
+      "Qh5",
+      "Nc6",
+      "Bb5",
+      "Nf6",
+      "Qxf7#"
+    ],
+    "result": "1-0",
+    "wtime_base36": "0",
+    "btime_base36": "0",
+    "played_at": "2026-06-03T12:00:00+00:00",
+    "provenance": {
+      "boundary": "Game.toString",
+      "storage": "GameHistory",
+      "completed": true
+    }
+  },
+  "metadata": {
+    "export_adapter": "chessguide.federation.export_v1",
+    "federation_canon_tag": "federation-canon-1.0.1",
+    "evidence_only": true,
+    "conformance_level": "T3",
+    "normative": true
+  }
+}
