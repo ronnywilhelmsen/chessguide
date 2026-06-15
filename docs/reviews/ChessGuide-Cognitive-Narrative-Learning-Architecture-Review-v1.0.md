@@ -584,3 +584,169 @@ Purpose (mode/vision)
 | OQ-FM1 | Should Traversal Quality replace Flow in governance vocabulary? |
 | OQ-FM2 | Can Mastery Horizon be operationalized without contradicting steward claims? |
 | OQ-FM3 | Does challenge-fit require numeric rating or trace-relative difficulty? |
+
+---
+
+# Part 6 — Synthesis Review
+
+## Repository State (Phase 6)
+
+Committed: `review: phase-6 synthesis review`
+
+## Evidence Reviewed
+
+All Parts 1–5, LEF-0E, CFA-v1.0, CEAR-v1.0, CB-000A chain.
+
+## Files Reviewed
+
+Full review corpus + `docs/governance/federation/CFA-v1.0.md`, `docs/governance/federation/studies/LEF-0E-integration-theory.md`.
+
+## Doctrine Sources
+
+CG-FLL-002, LEF-0E, CFA-v1.0, CEAR-v1.0.
+
+## Runtime Sources
+
+`src/data/game.ts`, `src/data/openings.ts` — evidence only, no cognitive model.
+
+## Candidate architecture (critical evaluation)
+
+**User-proposed stack:**
+
+```text
+Purpose → Attention → Observation → Experience → LearningTrace
+  → Chunk Formation → Narrative Chunk Formation → Integration
+  → Retrieval → Application → Flow → Transformation Threshold → Mastery
+```
+
+### Element-by-element verdict
+
+| Element | In doctrine? | Placement | Verdict |
+|---------|--------------|-----------|---------|
+| **Purpose** | Partial (vision, modes) | Upstream of attention policy | [DOCTRINE ALIGNED] |
+| **Attention** | Yes | Chain stage + log | [DOCTRINE] |
+| **Observation** | Yes | OAT raw stream | [DOCTRINE] |
+| **Experience** | **Not named** | Activity exposure without integration claim | [NEW INSIGHT] — useful discriminator |
+| **LearningTrace** | Yes | Evidence custody — not learning | [DOCTRINE] |
+| **Chunk Formation** | **No** | Post-integration compression product | [PROPOSAL] |
+| **Narrative Chunk Formation** | **No** | Parallel memory scaffold | [PROPOSAL] |
+| **Integration** | Yes | Central mechanism | [DOCTRINE] |
+| **Retrieval** | Yes | Recall path — not learning alone | [DOCTRINE] |
+| **Application** | Partial | Integration mechanism list | [DOCTRINE ALIGNED] |
+| **Flow** | Interpretive | Traversal quality bundle | [DOCTRINE ALIGNED] reinterpreted |
+| **Transformation Threshold** | Yes | LEF-1C steward signals | [DOCTRINE] |
+| **Mastery** | Horizon | Not claim stage | [DOCTRINE] |
+
+### Critical findings
+
+| # | Finding | Class |
+|---|---------|-------|
+| S-1 | **Experience** usefully names activity-without-integration — fills I-3 gap | [NEW INSIGHT] |
+| S-2 | **Chunk Formation after LearningTrace** is **wrong order** — chunks are integration **products**, not trace inputs | [DOCTRINE CONFLICT] |
+| S-3 | **Retrieval before Application** in stack inverts CG-FLL-002 recall path (retrieval uses knowledge) | [DOCTRINE CONFLICT] |
+| S-4 | Stack **omits Stewardship** and **ExplanationArtifact** — required for claims | [DOCTRINE CONFLICT] |
+| S-5 | Stack **omits Capability Conditions** — LEF-1D/1E survive falsification without them | [DOCTRINE CONFLICT] |
+
+## ChessGuide Cognitive & Narrative Learning Architecture v1 [PROPOSAL — revised]
+
+```text
+Purpose (vision · mode · focus contract)
+        ↓
+Capability Conditions (attention policy · autonomy · challenge · recovery)
+        ↓
+Observation (reality stream — OAT)
+        ↓
+Attention (filtered phenomena)
+        ↓
+Experience (activity record — may lack integration)
+        ↓
+LearningTrace (evidence custody)
+        ↓
+Integration (implicit │ explicit channels)
+        ├─→ Cognitive Chunk formation (compression)
+        ├─→ Narrative Chunk formation (memory scaffold)
+        └─→ ExplanationArtifact P1 (when causal why durable)
+        ↓
+Retrieval · Application (knowledge use under observation)
+        ↓
+Traversal Quality (Flow-like bundle — enactment signal)
+        ↓
+Transformation (observed │ claimed via Stewardship)
+        ↓
+Mastery Horizon (long-horizon capability state)
+```
+
+**Continuity** spans all tiers horizontally (CFA-v1.0). **Learning Opportunity** (Crow) acts as **optional trigger** on Attention→Integration edge when mode permits.
+
+## Hypothesis evaluation (synthesis)
+
+### Show–Tell Coupling Hypothesis
+
+> Wisdom emerges when action and explanation become mutually reinforcing.
+
+| Assessment | Class |
+|------------|-------|
+| **Partially supported** — CB-004 Illuminate+Explain; Wisdom ≠ Knowledge (I-3); PP-3 understanding over output | [DOCTRINE ALIGNED] |
+| **Gap** — Wisdom refs are engine deltas, not narrative coupling | [RUNTIME] |
+
+### Narrative Memory Hypothesis
+
+> Knowledge Concepts retained more effectively when embedded in narrative structures.
+
+| Assessment | Class |
+|------------|-------|
+| **Not in doctrine**; compatible with reflection + ExplanationArtifact | [NEW INSIGHT] |
+| **Requires** Narrative Chunk proposal adoption to test | [OPEN QUESTION] |
+
+### Purpose-Centered Learning Hypothesis
+
+> Observation without purpose → experience; with purpose → learning; +reflection → understanding; +application → wisdom.
+
+| Stage | Doctrine mapping | Class |
+|-------|------------------|-------|
+| Experience | Activity without integration (CG-FLL-002) | [DOCTRINE ALIGNED] |
+| Learning | Integration achieved | [DOCTRINE] |
+| Understanding | Chain stage; LOE density | [DOCTRINE ALIGNED] |
+| Wisdom | Normative guidance; stewardship | [DOCTRINE ALIGNED] |
+
+**Verdict:** [DOCTRINE ALIGNED] as **pedagogical prose** — not as strict state machine.
+
+### Crow Epistemology Hypothesis
+
+> Introduce concepts when attention already focused.
+
+| Assessment | Class |
+|------------|-------|
+| Aligns with attention-first encoding | [DOCTRINE ALIGNED] |
+| Requires Learning Opportunity + mode guardrails | [PROPOSAL] |
+| Risk: violates PP-4 if automated | [DOCTRINE CONFLICT] if misimplemented |
+
+## Core question answered
+
+> What transforms an observed chess event into durable learner understanding?
+
+**Answer [DOCTRINE + INFERENCE]:**
+
+1. **Attention** selects the phenomenon from observation (CB-000 I-6).
+2. **Purpose and Capability Conditions** determine whether integration is likely (CB-006, LEF-1E).
+3. **Integration** connects the event to prior structures — implicitly or explicitly (CG-FLL-002, LEF-0E).
+4. **Chunks** (cognitive and optionally narrative) **compress** integrated structure for retrieval (proposal).
+5. **LearningTrace** records evidence but **does not perform** integration (LEF-0E, CEAR).
+6. **Stewardship** validates durable understanding claims when stakes require (CG-FLL-001).
+
+## Conclusions (Phase 6)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P6-1 | User stack is **directionally useful** but **order-wrong** on chunks and **incomplete** on stewardship | [INFERENCE] |
+| P6-2 | Revised architecture v1 **reconciles** CFA, LEF, and cognitive/narrative proposals | [PROPOSAL] |
+| P6-3 | **Experience** deserves governance vocabulary as activity-without-integration | [NEW INSIGHT] |
+| P6-4 | ChessGuide **does not yet possess complete** cognitive/narrative theory — chunk + opportunity gaps remain | [INFERENCE] |
+
+## Open Questions (Phase 6)
+
+| ID | Question |
+|----|----------|
+| OQ-SY1 | Adopt Experience as governance term alongside Activity? |
+| OQ-SY2 | Must ADR-001 precede Chunk Architecture ADR or subsume it? |
+| OQ-SY3 | Is Narrative Chunk formation part of integration or post-integration read model? |
