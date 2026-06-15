@@ -467,3 +467,92 @@ CB-005, CG-FLL-002, CB-000A.
 | OQ-MEM1 | Rename ChessAnchor to Memory Anchor in governance? |
 | OQ-MEM2 | Are retrieval cues Events, Anchors, or Attention records? |
 | OQ-MEM3 | Does Narrative Chunk warrant separate artefact from ExplanationArtifact P1? |
+
+---
+
+# Part 5 — Capability Ontology Review
+
+## Repository State (Phase 5)
+
+Committed: `review: phase-5 capability ontology review`
+
+## Evidence Reviewed
+
+CFA-v1.0, LEF-1C, LEF-1D, LEF-0E, CG-FLL-002, CG-FLL-003, CB-002, CCNLAR Part 5.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/federation/CFA-v1.0.md` | Full ladder, retired terms |
+| `docs/governance/federation/studies/LEF-1C-path-quality-and-mastery-hypothesis.md` | Mastery vs Transformation |
+| `docs/governance/federation/studies/LEF-1D-flow-and-optimal-traversal-hypothesis.md` | Flow placement |
+| `docs/governance/federation/studies/LEF-0E-integration-theory.md` | Learning = integration |
+
+## Doctrine Sources
+
+CFA-v1.0, CG-FLL-002, LEF-1C.
+
+## Runtime Sources
+
+No capability, flow, or mastery types in `src/`.
+
+## Capability Ontology v1
+
+### Distinctions
+
+| Entity | Primitive / Derived / Emergent | Definition | Class |
+|--------|-------------------------------|------------|-------|
+| **Knowledge** | Derived (resource) | Stored/referenced semantic content | [DOCTRINE] |
+| **Capability** | Emergent | Durable enactment capacity after integration | [DOCTRINE] CFA |
+| **Performance** | **Implicit** | Single-episode behaviour; not ontology term | [IMPLICIT] |
+| **Flow** | **Implicit** | Traversal quality bundle (LEF-1D); retired CFA rung | [IMPLICIT] |
+| **Transformation** | Emergent (observed) / Derived (claimed) | Capacity change; claim steward-gated | [DOCTRINE] |
+| **Mastery** | Emergent horizon | Sustained high capability over continuity | [IMPLICIT] LEF-1C |
+
+### Five capability questions
+
+| Question | Answer | Class |
+|----------|--------|-------|
+| **What is learned?** | **Integration** — not information received (CG-FLL-002) | [DOCTRINE] |
+| **What is demonstrated?** | Transformation **signals** — behaviour under observation | [DOCTRINE] H5 |
+| **What is stabilized?** | Capability across continuity spans | [DOCTRINE] CFA |
+| **What is transformed?** | Future capability, observation capacity | [DOCTRINE] |
+| **What is mastered?** | Long-horizon excellence — **Mastery Horizon**, not claim | [DOCTRINE] LEF-1C |
+
+### Purpose-Centered Learning Hypothesis
+
+| Stage | Ontology mapping | Class |
+|-------|------------------|-------|
+| Observation without purpose → **Experience** | Activity without integration | [PROPOSAL] + [DOCTRINE ALIGNED] |
+| With purpose → **Learning** | Integration process | [DOCTRINE] |
+| + reflection → **Understanding** | Chain stage / ChessReasoning | [DOCTRINE ALIGNED] |
+| + application → **Wisdom** | Normative guidance layer | [DOCTRINE ALIGNED] |
+
+**Verdict:** Valid as **pedagogical progression prose** — not a strict state machine. **Learning** remains **integration**, not a separate entity from Understanding.
+
+### Performance vs Capability [INFERENCE]
+
+| Term | Role |
+|------|------|
+| **Performance** | Episodic move quality, single-game result — **activity** |
+| **Capability** | Cross-episode enactment under observation — **transformation target** |
+
+Performance is **not** a doctrine entity; conflating it with Capability violates I-3 / activity≠learning.
+
+## Conclusions (Phase 5)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P5-1 | **Capability** and **Transformation** are doctrine-emergent; **Flow** is interpretive only | [DOCTRINE] + [IMPLICIT] |
+| P5-2 | **Mastery** is horizon label — not primitive, not claim type | [DOCTRINE] |
+| P5-3 | Purpose-Centered hypothesis **maps** to chain stages without new primitives | [DOCTRINE ALIGNED] |
+| P5-4 | **Performance** should remain **non-ontological** to avoid activity confusion | [INFERENCE] |
+
+## Open Questions (Phase 5)
+
+| ID | Question |
+|----|----------|
+| OQ-CAP1 | Should Performance be explicitly excluded in CG-FLL-002 glossary? |
+| OQ-CAP2 | Is Mastery Horizon ever claimable or always interpretive? |
+| OQ-CAP3 | Does Flow warrant Capability Condition sub-entity? |
