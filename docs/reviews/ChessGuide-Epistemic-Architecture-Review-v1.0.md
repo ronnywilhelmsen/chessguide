@@ -1,4 +1,4 @@
-# ChessGuide Epistemic Architecture Review v1.0
+﻿# ChessGuide Epistemic Architecture Review v1.0
 
 | Field | Value |
 |-------|-------|
@@ -380,3 +380,58 @@ Learner (Actor)
 |----|----------|
 | OQ-LG1 | Steward as separate Actor node vs role on HumanActor? |
 | OQ-LG2 | Materialize LongitudinalPath or compute on read? |
+
+---
+
+# Part 5 — Learning Frontier Review
+
+## Repository State (Phase 5)
+
+Committed: `review: phase-5 learning frontier review`
+
+## Evidence Reviewed
+
+Strategic baseline gap analysis, CDESR, CB-005 opening tree, CG-FLL-002 observation capacity, ALP-3.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| Strategic baseline (2026-06-06) | Gap table |
+| `docs/reviews/Canonical-Domain-End-State-Requirements-Review-v1.0-ChessGuide.md` | Knowledge vs learner |
+| `src/data/openings.ts` | Knowledge corpus |
+| `docs/governance/chessbuddy/ALP-3-multi-artifact-learning-pilot.md` | Cross-artifact integration |
+
+## Doctrine Sources
+
+CG-FLL-002, CB-005 anchors.
+
+## Runtime Sources
+
+Opening tree only.
+
+## Learning Frontier Architecture v1 [PROPOSAL]
+
+> **Learning Frontier** = Knowledge Concepts in domain corpus **not yet integrated** by the Learner under current observation capacity and enactment conditions.
+
+| Dimension | Assessment | Class |
+|-----------|------------|-------|
+| **Readiness** | Low | [RUNTIME] |
+| **Proximity** | Opening tree exists; integration state missing | [RUNTIME] |
+| **Priority** | High epistemic — "what next" undocumented without it | [INFERENCE] |
+| **Traversal** | LOE-001/002, focus contracts, CB-006 — not modeled | [DOCTRINE] partial |
+
+## Conclusions (Phase 5)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P5-1 | **Learning Frontier** not repository vocabulary | [DOCTRINE] absent |
+| P5-2 | Concept useful to name corpus–integration gap | [PROPOSAL] |
+| P5-3 | Not implementable without Learner + Knowledge formalization | [INFERENCE] |
+
+## Open Questions (Phase 5)
+
+| ID | Question |
+|----|----------|
+| OQ-LF1 | Adopt as governance term vs CFA Mastery Horizon only? |
+| OQ-LF2 | Frontier traversal — steward vs computed? |
