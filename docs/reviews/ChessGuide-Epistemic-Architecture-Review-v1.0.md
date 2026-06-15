@@ -506,3 +506,156 @@ None for Laris. Buddy UI strings only (`App.tsx` "Chessbuddy").
 | OQ-LR1 | Laris dialogue schema vs ChessGuide domain dialogue (FDS-001 OQ-4) |
 | OQ-LR2 | When does Laris activate relative to FLL-1? |
 
+---
+
+# Part 7 — Strategic Assessment
+
+## Repository State (Phase 7)
+
+Committed: `review: phase-7 strategic assessment`
+
+## Evidence Reviewed
+
+All Parts 1–6, Strategic Baseline 2026-06-06, LEF-2C, LLD v1.0.
+
+## Files Reviewed
+
+Full review corpus + `docs/governance/federation/studies/LEF-2C-runtime-observability-study.md`.
+
+## Doctrine Sources
+
+CG-FLL-002, CB-005, CFA-v1.0, CG-FLL-1E.
+
+## Runtime Sources
+
+`src/data/game.ts`, LEF-2C findings.
+
+## Strategic gaps
+
+| # | Gap type | Finding | Class |
+|---|----------|---------|-------|
+| 1 | **Conceptual** | Learning Frontier / Learner Graph unnamed in doctrine; integration observability undefined at runtime | [INFERENCE] |
+| 2 | **Doctrine** | LOE/DOE catalog complete; **Episode schema ADR** absent; evidence decay undefined | [DOCTRINE] |
+| 3 | **Architectural** | Governance stack (CFA, LLD) not reflected in runtime; single legacy episode encoding | [RUNTIME] |
+| 4 | **ADR** | Zero ADRs; highest value = LearningTrace Episode boundary | [INFERENCE] |
+
+## Does ChessGuide possess complete doctrine for learning?
+
+| Criterion | Verdict | Class |
+|-----------|---------|-------|
+| **What learning is** | **Yes** — CG-FLL-002, LEF-0E | [DOCTRINE] |
+| **How to observe learning** | **Yes** — LOE/DOE, CB-005, CFA | [DOCTRINE] |
+| **How to validate claims** | **Yes** — CG-FLL-1E stewardship | [DOCTRINE] |
+| **Epistemic boundaries** | **Yes** — activity≠learning, trace≠learning, export boundary | [DOCTRINE] |
+| **Learner/knowledge structure** | **Partial** — hierarchy yes; graphs/frontier no | [INFERENCE] |
+| **Runtime alignment** | **No** — LEF-2C | [RUNTIME] |
+
+**Verdict:** Doctrine is **substantially complete for epistemology**; **incomplete for structural learner/knowledge models**; **not operationalized in runtime**.
+
+## Recommended ADR Candidate [INFERENCE]
+
+**ADR: LearningTrace Episode Schema v1 — sovereign persistence boundary**
+
+Aligns Strategic Baseline + Phase 3 LearningTrace Role Definition + Phase 2 Evidence Theory. No implementation recommended in this review.
+
+## Conclusions (Phase 7)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P7-1 | Learning doctrine **sufficient to pause feature work** for epistemic ADR | [INFERENCE] |
+| P7-2 | Implementation should **not** proceed without Episode boundary ADR | [INFERENCE] |
+| P7-3 | Learning Frontier / Learner Graph remain **proposal tier** until governance adopts | [PROPOSAL] |
+
+---
+
+# Executive Summary
+
+ChessGuide possesses a **rich, internally coherent learning epistemology** in governance (CG-FLL-*, CB-005, CFA, LEF) but **lacks runtime witness** for integration, LOE, stewardship, and learner state (LEF-2C). **LearningTrace** is evidence and custody, not learning (LEF-0E). **Knowledge** is distinct from **learning** and **wisdom** (CG-FLL-002, CB-000 I-3). **Laris** is federation learning dialogue partner; **Buddy** is domain mentor — both doctrine-only today.
+
+**Knowledge Concept Model v1**, **Evidence Theory v1**, **LearningTrace Role Definition v1**, and **LARIS Role Definition v1** are **doctrine-grounded**. **Learner Graph v1** and **Learning Frontier Architecture v1** are **review proposals**, not repository vocabulary.
+
+**Doctrine completeness:** ~**75%** for learning epistemology; **~40%** for structural models; **~15%** runtime alignment.
+
+**Recommended next ADR:** LearningTrace Episode Schema v1.
+
+---
+
+# Repository Evidence Summary
+
+| Layer | Maturity | Key files |
+|-------|----------|-----------|
+| Identity / vision | High | CG-000, CG-001 |
+| Learning semantics | High | CG-FLL-002, CG-FLL-003 |
+| Trace schema | High (draft) | CB-005 |
+| Observability catalog | High | CG-FLL-1E |
+| CFA / LEF synthesis | High | CFA-v1.0, LEF-0E, LEF-2A |
+| LLD target | Medium | ChessGuide-LLD-v1.0 |
+| Runtime | Low | `game.ts`, `helper.ts` |
+| ADRs | None | — |
+
+---
+
+# Doctrine Findings (consolidated)
+
+| Finding | Class |
+|---------|-------|
+| Learning = integration achieved | [DOCTRINE] |
+| LearningTrace = evidence + custody | [DOCTRINE] |
+| Activity ≠ learning (I-3) | [DOCTRINE] |
+| Transformation claims require steward + lineage | [DOCTRINE] |
+| Federation exports game slice only | [DOCTRINE] |
+| Laris = learning dialogue; Buddy = domain mentor | [DOCTRINE] |
+| Learner Graph / Learning Frontier not in repo | [PROPOSAL] |
+
+---
+
+# Runtime Findings (consolidated)
+
+| Finding | Class |
+|---------|-------|
+| Episode = `Game.toString()` line | [RUNTIME] |
+| No LOE/DOE, IM-1, modes in code | [RUNTIME] |
+| Opening tree = only knowledge structure | [RUNTIME] |
+| Stockfish CP/hints session-only, not persisted | [RUNTIME] |
+| Federation export implemented (game_import) | [RUNTIME] |
+
+---
+
+# Architectural Findings (consolidated)
+
+| Finding | Class |
+|---------|-------|
+| CFA survives as governance overlay | [DOCTRINE] |
+| LLD defines target; runtime diverges | [INFERENCE] |
+| Epistemic hierarchy: code < ADR < governance | [DOCTRINE] per review mandate |
+| Implementation before Episode ADR risks encoding wrong ontology | [INFERENCE] |
+
+---
+
+# Open Questions (consolidated)
+
+OQ-K1, OQ-K2, OQ-E1, OQ-E2, OQ-LT1, OQ-LT2, OQ-LG1, OQ-LG2, OQ-LF1, OQ-LF2, OQ-LR1, OQ-LR2 — see phase sections.
+
+---
+
+# Commit Log (review branch)
+
+| Phase | Commit message | SHA |
+|-------|----------------|-----|
+| 1 | review: phase-1 knowledge concept review | `5bd4c43` |
+| 2 | review: phase-2 evidence theory review | `6029006` |
+| 3 | review: phase-3 learningtrace review | `37fd175` |
+| 4 | review: phase-4 learner graph review | `f0fd4df` |
+| 5 | review: phase-5 learning frontier review | `c5d990f` |
+| 6 | review: phase-6 laris review | `ccf09e9` |
+| 7 | review: phase-7 strategic assessment | `30c23be` |
+
+---
+
+## Document Status
+
+```text
+Accepted Epistemic Architecture Review Candidate
+```
+
+
