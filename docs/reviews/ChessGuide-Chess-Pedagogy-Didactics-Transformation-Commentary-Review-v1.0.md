@@ -1,0 +1,118 @@
+# ChessGuide Chess Pedagogy, Didactics, Transformation & Commentary Review v1.0
+
+| Field | Value |
+|-------|-------|
+| **Review ID** | CPDTCR-v1.0 |
+| **Date** | 2026-06-06 |
+| **Branch** | `review/chess-pedagogy-didactics-transformation-v1` |
+| **Continues from** | Repository Baseline (2026-06-06), Strategic Review v1.0, [CEAR v1.0](ChessGuide-Epistemic-Architecture-Review-v1.0.md), [CCNLAR v1.0](ChessGuide-Cognitive-Narrative-Learning-Architecture-Review-v1.0.md), [CLOR v1.0](ChessGuide-Learning-Ontology-Review-v1.0.md) |
+| **Scope** | Pedagogy, didactics, transformation orchestration, commentary — no implementation |
+
+---
+
+## Repository State (opening)
+
+| Item | Value |
+|------|-------|
+| **Branch at start** | `review/learning-ontology-v1` @ `098e59d` |
+| **Branch for review** | `review/chess-pedagogy-didactics-transformation-v1` |
+| **Working tree** | Clean |
+| **Recent commits** | `098e59d` CLOR SHA fix, `ee8b8e8` CLOR phase-7, `655d0ca` CCNLAR |
+| **ADRs in repo** | None |
+
+```bash
+git status    # clean
+git branch    # review/chess-pedagogy-didactics-transformation-v1
+git log --oneline -20  # see table above
+```
+
+---
+
+## Core Question
+
+> How are robust learning transformations intentionally created?
+
+**Interim doctrine answer:** [DOCTRINE] Through **longitudinal episodes** under **Capability Conditions**, where **integration** (implicit/explicit) changes capability, and **stewardship** authorizes **transformation claims** when lineage supports them (CG-FLL-002, CFA-v1.0, CG-FLL-1E).
+
+---
+
+# Part 1 — Chess Pedagogy Review
+
+## Repository State (Phase 1)
+
+Committed: `review: phase-1 chess pedagogy review`
+
+## Evidence Reviewed
+
+CB-004, CB-006, CG-FLL-002, CG-FLL-1E LOE catalog, CB-003 phases, CLOR, CCNLAR.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-004-buddy-persona-and-product-principles.md` | Teaching modes, explanation hierarchy |
+| `docs/governance/chessbuddy/CB-006-user-modes.md` | Mode purposes |
+| `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` | Integration mechanisms |
+| `docs/governance/chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md` | LOE/DOE catalogue |
+
+## Doctrine Sources
+
+CB-004, CB-006, CG-FLL-002.
+
+## Runtime Sources
+
+None — no pedagogy model in `src/`.
+
+## External traditions (informative — subordinate to doctrine)
+
+| Tradition | Recurring principle | ChessGuide analogue | Class |
+|-----------|--------------------|--------------------|-------|
+| **Chess Steps** | Graduated tactical themes by level | LOE-002 Pattern Recognition; Practice mode | [EXTERNAL] + [DOCTRINE ALIGNED] partial |
+| **Polgar Method** | Mass pattern exposure + explanation | Opening tree + knowledge refs; activity≠learning guard | [EXTERNAL] + [DOCTRINE CONFLICT] if volume-only |
+| **Dvoretsky** | Deep positional/endgame judgment | Wisdom stage; LOE-009 explanation depth | [EXTERNAL] + [DOCTRINE ALIGNED] partial |
+| **Yusupov** | Test → explain → apply cycles | Observed→Explained→Replayed (CG-FLL-001) | [DOCTRINE ALIGNED] |
+| **Kotov** | Candidate moves / tree of analysis | LOE-005 Simulation; think-aloud analogue | [DOCTRINE ALIGNED] |
+| **Annotated Game Tradition** | Master commentary on key moments | Post-Game Review; ExplanationArtifact P1 | [DOCTRINE ALIGNED] partial |
+| **Model Game Tradition** | Exemplar games as templates | Practice from trace anchors (CB-006) | [DOCTRINE ALIGNED] partial |
+| **Soviet School** | Systematic study + competitive practice | Training Live + continuity H6 | [EXTERNAL] + [DOCTRINE ALIGNED] partial |
+
+## Chess Pedagogy Review v1
+
+### Recurring cross-tradition principles [EXTERNAL + INFERENCE]
+
+| # | Principle | Doctrine support |
+|---|-----------|------------------|
+| PED-1 | **Graduated difficulty** | CB-006 proportionality; Training vs Friendly |
+| PED-2 | **Pattern before principle** (often) | LOE-002 before LOE-009 |
+| PED-3 | **Explanation after experience** | Post-Game mode; Show-Tell-Replay |
+| PED-4 | **Repetition with variation** | Continuity H6; AN-4 anchors |
+| PED-5 | **Judgment over memorization** | PP-3 understanding; Wisdom ≠ Knowledge |
+| PED-6 | **Longitudinal development** | CB-000A; PI-2 |
+
+### What traditions teach [INFERENCE]
+
+| Layer | Traditions emphasize | ChessGuide doctrine |
+|-------|---------------------|---------------------|
+| **Knowledge** | Openings, themes, formulas | ChessKnowledge, knowledge refs |
+| **Patterns** | Tactics, structures | LOE-002, observation capacity |
+| **Capabilities** | Calculation, endgame technique | CFA Capability, SkillTransformation |
+| **Judgment** | Positional choice, plan | Wisdom stage, LOE-007/008 |
+| **Wisdom** | When to apply, risk assessment | ChessWisdom, normative guidance |
+
+**Verdict:** Traditions teach **combinations** — ChessGuide doctrine **separates** layers more explicitly than most chess books.
+
+## Conclusions (Phase 1)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P1-1 | External pedagogy **aligns** with integration-centric doctrine when repetition is integration-backed | [DOCTRINE ALIGNED] |
+| P1-2 | Volume-only methods (naive Polgar) **conflict** with I-3 activity≠learning | [DOCTRINE CONFLICT] |
+| P1-3 | Repository encodes **Buddy pedagogy** (CB-004) but not **named chess school ontology** | [DOCTRINE] |
+| P1-4 | Yusupov/Kotov cycles map cleanly to pilot procedure | [DOCTRINE ALIGNED] |
+
+## Open Questions (Phase 1)
+
+| ID | Question |
+|----|----------|
+| OQ-PED1 | Should Chess Steps–style theme ladders be governance vocabulary? |
+| OQ-PED2 | How much external pedagogy may inform ADR without becoming canon? |
