@@ -184,3 +184,94 @@ CB-000, CB-005, CFA-v1.0, CG-FLL-002.
 | OQ-INV1 | Promote Longitudinal Path to doctrine term or keep interpretive? |
 | OQ-INV2 | Is LearningJourney future alias for LearningTrace or distinct aggregate? |
 | OQ-INV3 | Should Experience enter CG-FLL-002 glossary? |
+
+---
+
+# Part 2 — Observation Ontology Review
+
+## Repository State (Phase 2)
+
+Committed: `review: phase-2 observation ontology review`
+
+## Evidence Reviewed
+
+CB-000 I-6, CB-005, CB-000A, LEF-0A, LEF-0E, CG-FLL-002, LEF-2C, CEAR Part 3.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-000-federation-alignment.md` | OAT, I-6 |
+| `docs/governance/chessbuddy/CB-005-learningtrace-product-schema.md` | Episode, Event stream |
+| `docs/governance/federation/studies/LEF-0A-architectural-interpretation-validation.md` | Trace vs replay |
+| `docs/governance/federation/studies/LEF-2C-runtime-observability-study.md` | Runtime gap |
+| `src/data/game.ts` | Legacy episode encoding |
+
+## Doctrine Sources
+
+CB-000, CB-005, CG-FLL-002 activity≠learning.
+
+## Runtime Sources
+
+`game.ts` — serialised game string = legacy Episode; no Observation type.
+
+## Observation Ontology v1
+
+### Distinctions
+
+| Entity | Definition | Primitive? | Class |
+|--------|------------|------------|-------|
+| **Reality** | What occurred in domain independent of registration | **Yes** (ontological) | [DOCTRINE] |
+| **Observation** | Time-stamped registration of reality (ChessObservation) | **Yes** (epistemic entry) | [DOCTRINE] |
+| **Experience** | Activity/exposure **without** integration claim | **Derived** (proposal) | [PROPOSAL] CCNLAR |
+| **Episode** | Bounded container (one completed game) | **Yes** (custody boundary) | [DOCTRINE] |
+| **Event** | Atomic signal within Episode | **Yes** (trace atom) | [DOCTRINE] |
+| **Evidence** | Custodied observations + lineage refs supporting claims | **Derived** | [DOCTRINE] CEAR |
+
+### Five questions
+
+| Question | Answer | Class |
+|----------|--------|-------|
+| **What is observed?** | Position, moves, time, terminal result — Reality interpreted through prior learning (CG-FLL-002) | [DOCTRINE] |
+| **What is experienced?** | Episode participation that may not integrate — **Experience** [PROPOSAL] | [PROPOSAL] |
+| **What is recorded?** | LearningTrace: Episode + Event stream + optional attention/IM-1 | [DOCTRINE] |
+| **What is remembered?** | **Not** LearningTrace alone — memory = learner state + retrieval; trace is **external custody** (CG-FLL-001 I-4: replay ≠ memory alone) | [DOCTRINE] |
+| **What is replayed?** | Position reconstruction from move stream — **Replay** mechanism, not observation (LEF-0A) | [DOCTRINE] |
+
+### Composition rules
+
+| Question | Answer | Class |
+|----------|--------|-------|
+| One Episode → multiple Observations? | **Yes** — Event stream (`move.played`, `time.milestone`, …) | [DOCTRINE] |
+| One Observation → multiple Evidence chains? | **Yes** — anchors (AN-4) cross-link; LOE lineage branches | [DOCTRINE] |
+| Observation → Evidence without Integration? | **Yes** — trace custody without learning (I-3, LEF-0E) | [DOCTRINE] |
+
+### Observation layer diagram [DOCTRINE + PROPOSAL]
+
+```text
+Reality (domain occurrence)
+  → Observation (registered ChessObservation / Event)
+  → [Attention filter — optional highlight]
+  → LearningTrace custody (Episode container)
+  → Evidence (lineage-eligible record set)
+  → Integration (process — NOT observation)
+```
+
+**Experience** sits beside Observation when **purpose/integration absent** [PROPOSAL].
+
+## Conclusions (Phase 2)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P2-1 | **Observation** and **Episode** are doctrine primitives; **Evidence** is derived | [DOCTRINE] |
+| P2-2 | **Experience** fills activity-without-integration gap — not yet doctrine | [PROPOSAL] |
+| P2-3 | Recording ≠ remembering ≠ replaying — three non-collapsible roles (LEF-0A) | [DOCTRINE] |
+| P2-4 | Runtime implements **legacy Episode string** only — observation ontology unwitnessed | [RUNTIME] |
+
+## Open Questions (Phase 2)
+
+| ID | Question |
+|----|----------|
+| OQ-OBS1 | Is Experience a chain stage, Event tag, or interpretive label? |
+| OQ-OBS2 | Minimum Event set for valid Observation in Episode? |
+| OQ-OBS3 | Does federation ObservationRecord equal Observation or Episode slice? |
