@@ -750,3 +750,212 @@ Mastery Horizon (long-horizon capability state)
 | OQ-SY1 | Adopt Experience as governance term alongside Activity? |
 | OQ-SY2 | Must ADR-001 precede Chunk Architecture ADR or subsume it? |
 | OQ-SY3 | Is Narrative Chunk formation part of integration or post-integration read model? |
+
+---
+
+# Part 7 — Strategic Assessment
+
+## Repository State (Phase 7)
+
+Committed: `review: phase-7 strategic assessment`
+
+## Evidence Reviewed
+
+All Parts 1–6, CEAR-v1.0, LEF-2C, ChessGuide-LLD-v1.0.
+
+## Files Reviewed
+
+Full review corpus + `docs/governance/federation/studies/LEF-2C-runtime-observability-study.md`.
+
+## Doctrine Sources
+
+CG-FLL-002, CFA-v1.0, CEAR-v1.0 recommended ADR.
+
+## Runtime Sources
+
+LEF-2C findings — no cognitive/narrative runtime witness.
+
+## Strategic gaps
+
+| # | Gap type | Finding | Class |
+|---|----------|---------|-------|
+| 1 | **Conceptual** | **Chunk** and **Learning Opportunity** absent — cognitive compression unnamed | [NEW INSIGHT] |
+| 2 | **Doctrine** | Integration theory strong; **narrative memory** and **experience** unnamed | [DOCTRINE] partial |
+| 3 | **Architectural** | CFA complete; cognitive/narrative layer **not in CFA diagram** | [INFERENCE] |
+| 4 | **Learning-science** | Oakley chunking + Crow timing **fill gaps** without contradicting CG-FLL-002 | [NEW INSIGHT] |
+
+## Does ChessGuide possess complete theory before ADR-001?
+
+| Criterion | Verdict | Class |
+|-----------|---------|-------|
+| **Learning epistemology** | **Yes** — CG-FLL-002, LEF-0E, CFA | [DOCTRINE] |
+| **Evidence theory** | **Yes** — CEAR Parts 2–3 | [DOCTRINE] |
+| **Cognitive compression** | **No** — chunk ontology absent | [NEW INSIGHT] |
+| **Narrative learning** | **No** — interpretive only | [INFERENCE] |
+| **Attention/purpose coupling** | **Partial** — attention strong, opportunity absent | [DOCTRINE ALIGNED] partial |
+| **Flow/mastery placement** | **Yes** — LEF-1C/1D/1E | [DOCTRINE] |
+
+**Verdict:** [INFERENCE] Epistemology is **sufficient** for ADR-001 (Episode boundary). **Cognitive/narrative theory is incomplete** — ADR-001 should **not encode chunk/narrative primitives** without follow-on governance.
+
+## Strategic recommendations (doctrine only)
+
+| # | Recommendation | Class |
+|---|----------------|-------|
+| R-1 | Write **ADR-001: LearningTrace Episode Schema v1** per CEAR — sovereign boundary only | [INFERENCE] |
+| R-2 | Follow with **governance study or ADR** on Chunk Architecture v1 before chunk fields in schema | [PROPOSAL] |
+| R-3 | Treat Narrative Architecture as **Buddy pedagogy layer**, not federation export | [DOCTRINE ALIGNED] |
+| R-4 | Adopt **Experience** as activity-without-integration term in CG-FLL-002 glossary | [PROPOSAL] |
+| R-5 | Defer **Learning Opportunity** until attention envelope defined in ADR-001 | [INFERENCE] |
+
+## Candidate Future ADRs [INFERENCE]
+
+| Priority | ADR candidate | Rationale |
+|----------|---------------|-----------|
+| **1** | LearningTrace Episode Schema v1 | CEAR + CCNLAR: evidence boundary first |
+| **2** | Chunk Architecture v1 (governance) | Largest cognitive gap |
+| **3** | Learning Opportunity / Attention Coupling | Crow hypothesis operationalization |
+| **4** | Narrative Chunk vs ExplanationArtifact boundary | LEF-0C extension |
+
+## Conclusions (Phase 7)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P7-1 | **Most important conceptual gap:** chunk ontology between Pattern and Capability | [NEW INSIGHT] |
+| P7-2 | **Most important doctrine gap:** Experience and Learning Opportunity unnamed | [INFERENCE] |
+| P7-3 | **Most important architectural gap:** cognitive/narrative layer not integrated into CFA diagram | [INFERENCE] |
+| P7-4 | **Most important learning-science insight:** Oakley chunking explains expert compression mechanism doctrine names but does not model | [NEW INSIGHT] |
+| P7-5 | **Highest-value ADR:** Episode Schema v1 first; Chunk Architecture governance second | [INFERENCE] |
+
+---
+
+# Executive Summary
+
+ChessGuide possesses a **mature integration-centric learning epistemology** (CG-FLL-002, LEF-0E, CFA) but **lacks formal cognitive and narrative architecture**. External learning science **aligns** with doctrine on integration, continuity, simulation, and attention — and **fills gaps** on chunking (Oakley), narrative memory (Foer), and timed introduction (Crow epistemology) without overriding repository truth hierarchy.
+
+**Chunk Architecture v1** and **Narrative Learning Architecture v1** are **review proposals**, not repo vocabulary. **Flow** is correctly placed as **traversal quality signal** (LEF-1D), not learning. **Mastery** remains **horizon**, not pipeline stage (LEF-1C).
+
+The revised **Cognitive & Narrative Learning Architecture v1** reconciles user candidate stack with CFA: chunks form **after** integration; LearningTrace remains **evidence**; Stewardship gates claims.
+
+**Before ADR-001:** Epistemology **sufficient**. Cognitive/narrative theory **incomplete** — ADR-001 should define Episode boundary **without** premature chunk/narrative schema.
+
+**Doctrine completeness:** ~**80%** epistemology; ~**45%** cognitive architecture; ~**25%** narrative architecture; ~**15%** runtime alignment (LEF-2C).
+
+---
+
+# Repository Evidence Summary
+
+| Layer | Maturity | Key files |
+|-------|----------|-----------|
+| Learning semantics | High | CG-FLL-002, CG-FLL-003 |
+| Integration theory | High | LEF-0E |
+| Capability formation | High | CFA-v1.0, LEF-1C/1D/1E |
+| Epistemic review | High | CEAR-v1.0 |
+| Chunk / narrative | Low (proposal) | This review |
+| Runtime cognitive model | None | LEF-2C |
+
+---
+
+# Doctrine Findings (consolidated)
+
+| Finding | Class |
+|---------|-------|
+| Learning = integration achieved | [DOCTRINE] |
+| Attention precedes encoding/integration | [DOCTRINE] |
+| Flow = traversal quality bundle, not primitive | [DOCTRINE] |
+| Mastery = horizon, not chain stage | [DOCTRINE] |
+| Pattern ≠ Chunk | [INFERENCE] |
+| Narrative ≠ ExplanationArtifact | [DOCTRINE] |
+| Show-Tell-Show ≈ Observed→Explained→Replayed | [DOCTRINE ALIGNED] |
+| Chunk/Narrative/Opportunity not in repo | [PROPOSAL] |
+
+---
+
+# Runtime Findings (consolidated)
+
+| Finding | Class |
+|---------|-------|
+| No chunk, narrative, flow, or mastery types | [RUNTIME] |
+| Opening tree = knowledge corpus only | [RUNTIME] |
+| Episode = legacy `Game.toString()` | [RUNTIME] |
+| Hints/CP session-only | [RUNTIME] |
+
+---
+
+# Learning Science Findings (consolidated)
+
+| Finding | Class |
+|---------|-------|
+| Locke goals → focus_contract partial | [DOCTRINE ALIGNED] |
+| Waitzkin practice → Training/Practice modes | [DOCTRINE ALIGNED] |
+| Csikszentmihalyi Flow → LEF-1D reinterpretation | [DOCTRINE ALIGNED] |
+| Oakley chunking → fills expert compression gap | [NEW INSIGHT] |
+| Dweck mindset → absent | [NEW INSIGHT] gap |
+| Foer narrative memory → fills retention gap | [NEW INSIGHT] |
+
+---
+
+# Cognitive Architecture Findings (consolidated)
+
+| Finding | Class |
+|---------|-------|
+| Cognitive Chunk = integration product | [PROPOSAL] |
+| Chunks compose concepts; overlap allowed | [PROPOSAL] |
+| Experience = activity without integration | [NEW INSIGHT] |
+| Learning Opportunity = attention×concept×policy | [PROPOSAL] |
+
+---
+
+# Narrative Architecture Findings (consolidated)
+
+| Finding | Class |
+|---------|-------|
+| Narrative beats interpretively valid on chess | [INFERENCE] |
+| Puzzles as extracted scenes — partial support | [DOCTRINE ALIGNED] |
+| Narrative Chunk orthogonal to cognitive chunk | [PROPOSAL] |
+| Narrative memory hypothesis compatible, untested | [NEW INSIGHT] |
+
+---
+
+# Open Questions (consolidated)
+
+OQ-LS1–3, OQ-CH1–3, OQ-NA1–3, OQ-PA1–3, OQ-FM1–3, OQ-SY1–3 — see phase sections.
+
+---
+
+# Strategic Recommendations (consolidated)
+
+1. Proceed **ADR-001 Episode Schema** without chunk/narrative fields.
+2. Governance study on **Chunk Architecture v1** before cognitive schema commitment.
+3. Keep narrative in **Buddy pedagogy**, not federation export.
+4. Consider **Experience** glossary addition to CG-FLL-002.
+
+---
+
+# Candidate Future ADRs (consolidated)
+
+1. LearningTrace Episode Schema v1
+2. Chunk Architecture v1 (governance)
+3. Learning Opportunity / Attention Coupling
+4. Narrative Chunk vs ExplanationArtifact boundary
+
+---
+
+# Commit Log (review branch)
+
+| Phase | Commit message | SHA |
+|-------|----------------|-----|
+| 1 | review: phase-1 learning science review | `c3aacd0` |
+| 2 | review: phase-2 chunk architecture review | `0986c84` |
+| 3 | review: phase-3 narrative architecture review | `d813f9b` |
+| 4 | review: phase-4 purpose and attention review | `5ac8615` |
+| 5 | review: phase-5 flow and mastery review | `21f5155` |
+| 6 | review: phase-6 synthesis review | `6277411` |
+| 7 | review: phase-7 strategic assessment | `92d25b7` |
+
+---
+
+## Document Status
+
+```text
+Accepted Cognitive & Narrative Learning Architecture Review Candidate
+```
