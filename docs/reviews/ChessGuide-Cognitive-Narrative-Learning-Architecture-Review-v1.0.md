@@ -462,3 +462,125 @@ Learning Opportunity =
 | OQ-PA1 | Is Learning Intent distinct from focus_contract anchor? |
 | OQ-PA2 | Who authorizes opportunity detection — Buddy, steward, or learner? |
 | OQ-PA3 | Does purpose belong in Capability Conditions (LEF-1E Meaning dimension)? |
+
+---
+
+# Part 5 — Flow & Mastery Review
+
+## Repository State (Phase 5)
+
+Committed: `review: phase-5 flow and mastery review`
+
+## Evidence Reviewed
+
+LEF-1D, LEF-1C, LEF-1E, CFA-v1.0, CG-FLL-002, CG-FLL-003, CB-006, CEAR-v1.0.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/federation/studies/LEF-1D-flow-and-optimal-traversal-hypothesis.md` | Flow bundle, optimal traversal |
+| `docs/governance/federation/studies/LEF-1C-path-quality-and-mastery-hypothesis.md` | Mastery horizon |
+| `docs/governance/federation/studies/LEF-1E-capability-conditions-hypothesis.md` | Flow as outcome |
+| `docs/governance/federation/CFA-v1.0.md` | Full ladder to Mastery Horizon |
+| `docs/governance/chessguide/CG-FLL-003-learning-continuity-semantics.md` | Expertise, continuity |
+
+## Doctrine Sources
+
+LEF-1D (primary for Flow), LEF-1C (Mastery), CFA-v1.0.
+
+## Runtime Sources
+
+No flow or mastery metrics in `src/`.
+
+## Flow & Mastery Architecture v1
+
+### Where Flow belongs [DOCTRINE]
+
+LEF-1D + LEF-1E placement:
+
+```text
+LearningTrace (evidence)
+  → Longitudinal Path
+  → Capability Conditions
+  → Optimal Traversal / Traversal Quality
+  → Integration
+  → Path Quality → Path Potency
+  → Stewardship → Transformation Claim
+  → Mastery Horizon
+```
+
+**Flow is not a CFA tier.** It is an **interpretive label** for aligned Capability Conditions during traversal (LEF-1D E-1D-1).
+
+### Flow classification
+
+| Candidate | Verdict | Class |
+|-----------|---------|-------|
+| **State** | **Partial** — actor-state bundle during episode | [DOCTRINE] LEF-1D |
+| **Capability** | **No** — Flow is enactment quality, not durable capacity | [DOCTRINE CONFLICT] |
+| **Signal** | **Partial** — engagement, focus, mode-appropriate challenge | [INFERENCE] |
+| **Outcome** | **Partial** — LEF-1E: outcome of aligned conditions | [DOCTRINE ALIGNED] |
+
+**Recommended classification:** [INFERENCE] Flow = **interpretive signal bundle** describing traversal quality under Capability Conditions — **not** learning proof.
+
+### Challenge Fit [DOCTRINE ALIGNED] partial
+
+| Source | Finding |
+|--------|---------|
+| CB-006 | Training vs Friendly = different challenge/support |
+| DOE-007 | Steward challenge events |
+| LEF-1E | Challenge Fit partial — no Goldilocks schema |
+
+### Mastery [DOCTRINE]
+
+| Property | Finding | Class |
+|----------|---------|-------|
+| Chain stage? | **No** — horizon language (LEF-1C) | [DOCTRINE] |
+| vs Transformation | Transformation = claim/event; Mastery = sustained capability | [DOCTRINE] |
+| Schema field? | **Absent** (CB-005) | [RUNTIME] |
+| Predictor | H6 continuity > intensity | [DOCTRINE] |
+
+### Candidate stack evaluation
+
+**User candidate:**
+
+```text
+Purpose → Attention → Observation → Integration → Flow → Transformation → Mastery
+```
+
+**Doctrine-preferred (CFA + LEF):**
+
+```text
+Purpose (mode/vision)
+  → Attention (chain + policy)
+  → Observation (OAT)
+  → Capability Conditions
+  → Integration (implicit | explicit)
+  → [Traversal Quality / Flow-like bundle]
+  → Transformation (observed | claimed)
+  → Mastery Horizon
+```
+
+| Delta | Assessment |
+|-------|------------|
+| User stack omits LearningTrace | **Gap** — evidence custody required |
+| User stack places Flow before Transformation | **Aligns** with LEF-1D (Flow affects integration rate) |
+| User stack omits Stewardship | **Gap** — claims require steward gate |
+| User stack conflates Integration and Transformation | **Conflict** — LEF-0E separates process and outcome |
+
+## Conclusions (Phase 5)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P5-1 | Flow belongs **between Capability Conditions and Integration effectiveness** | [DOCTRINE] LEF-1D |
+| P5-2 | Flow is **signal/outcome bundle**, not capability or learning | [DOCTRINE ALIGNED] |
+| P5-3 | Mastery is **horizon**, not pipeline stage | [DOCTRINE] LEF-1C |
+| P5-4 | User linear stack **oversimplifies** CFA; must include evidence + stewardship | [INFERENCE] |
+
+## Open Questions (Phase 5)
+
+| ID | Question |
+|----|----------|
+| OQ-FM1 | Should Traversal Quality replace Flow in governance vocabulary? |
+| OQ-FM2 | Can Mastery Horizon be operationalized without contradicting steward claims? |
+| OQ-FM3 | Does challenge-fit require numeric rating or trace-relative difficulty? |
