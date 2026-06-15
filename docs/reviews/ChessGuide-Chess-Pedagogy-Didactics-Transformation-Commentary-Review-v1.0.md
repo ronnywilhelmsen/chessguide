@@ -116,3 +116,90 @@ None — no pedagogy model in `src/`.
 |----|----------|
 | OQ-PED1 | Should Chess Steps–style theme ladders be governance vocabulary? |
 | OQ-PED2 | How much external pedagogy may inform ADR without becoming canon? |
+
+---
+
+# Part 2 — Didactics Review
+
+## Repository State (Phase 2)
+
+Committed: `review: phase-2 didactics review`
+
+## Evidence Reviewed
+
+CG-FLL-1E LOE/DOE, CG-FLL-002, CLOR Parts 3–5, CB-004, CFA-v1.0.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md` | LOE catalogue, phases |
+| `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` | Recognition criteria |
+| `docs/governance/federation/CFA-v1.0.md` | Transformation Claim |
+| `docs/reviews/ChessGuide-Learning-Ontology-Review-v1.0.md` | State vs outcome |
+
+## Doctrine Sources
+
+CG-FLL-1E, CG-FLL-002, CFA-v1.0.
+
+## Runtime Sources
+
+None.
+
+## Chess Didactics Review v1
+
+### Learning state vs transformation [DOCTRINE + INFERENCE]
+
+| Term | Definition in ChessGuide | Class |
+|------|-------------------------|-------|
+| **Learning state** | **Not named** — nearest: chain stage + LOE profile on Actor over time | [IMPLICIT] |
+| **Transformation** | Observable capability change; **claim** steward-gated (LOE-011, C4) | [DOCTRINE] |
+
+> **Transformation = change from one learner state to another** — [INFERENCE] **valid didactic shorthand** if "learner state" means **capability + observation profile**, not single-episode performance.
+
+### Fork progression example (didactic model)
+
+| Stage | Learner state | Nearest LOE / doctrine | Class |
+|-------|---------------|------------------------|-------|
+| Does not recognize Forks | No LOE-002 for fork pattern | Observation gap | [INFERENCE] |
+| Recognizes Forks | LOE-002 + LOE-001 shift | Pattern recognition | [DOCTRINE] |
+| Uses Forks intentionally | LOE-003/004 + in-game application | Knowledge recall / accessibility | [DOCTRINE] |
+| Creates fork-generating positions | LOE-008 Transfer + Wisdom judgment | Emergent capability | [DOCTRINE ALIGNED] |
+
+### Target state description [PROPOSAL]
+
+```text
+Didactic Target State =
+  (concept or pattern label)
+  + (observable LOE signature)
+  + (mode-appropriate evidence threshold)
+  + (optional steward checkpoint)
+```
+
+**Not in repository today** — LOE events approximate states without formal state machine.
+
+### Progression representation [DOCTRINE]
+
+| Mechanism | Role |
+|-----------|------|
+| **LOE sequence** across Episodes | Primary progression witness |
+| **Longitudinal Path** (CFA) | Interpretive recurrence read model |
+| **focus_contract** anchor | Declared didactic intent |
+| **Transformation tags** | Episode metadata — not claims |
+
+## Conclusions (Phase 2)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P2-1 | Didactic **state machine** is **implicit** in LOE catalogue, not typed | [INFERENCE] |
+| P2-2 | Transformation formula **aligns** if states = capability profiles | [DOCTRINE ALIGNED] |
+| P2-3 | Progression should be **longitudinal**, not single-puzzle proof | [DOCTRINE] |
+| P2-4 | **Didactic Target State** is useful [PROPOSAL] for orchestration | [PROPOSAL] |
+
+## Open Questions (Phase 2)
+
+| ID | Question |
+|----|----------|
+| OQ-DID1 | Formalize learner state as governance type or LOE read model? |
+| OQ-DID2 | Minimum LOE bundle to declare "state achieved"? |
+| OQ-DID3 | Who defines target states — steward, Buddy, or curriculum artefact? |
