@@ -950,7 +950,7 @@ OQ-LS1–3, OQ-CH1–3, OQ-NA1–3, OQ-PA1–3, OQ-FM1–3, OQ-SY1–3 — see p
 | 4 | review: phase-4 purpose and attention review | `5ac8615` |
 | 5 | review: phase-5 flow and mastery review | `21f5155` |
 | 6 | review: phase-6 synthesis review | `6277411` |
-| 7 | review: phase-7 strategic assessment | `92d25b7` |
+| 7 | review: phase-7 strategic assessment | `c986061` |
 
 ---
 
