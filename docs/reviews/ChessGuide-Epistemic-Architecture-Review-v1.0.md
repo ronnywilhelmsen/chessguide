@@ -210,3 +210,89 @@ Repository does **not** define temporal decay of evidence weight. [DOCTRINE] Con
 |----|----------|
 | OQ-E1 | Should evidence strength be ordinal (governance) or remain steward-narrative only? |
 | OQ-E2 | Decay policy for IM-1 and measured signals over N years? |
+
+---
+
+# Part 3 — LearningTrace Review
+
+## Repository State (Phase 3)
+
+Committed: `review: phase-3 learningtrace review`
+
+## Evidence Reviewed
+
+CB-005, CB-000A, LEF-0A, LEF-0E, LEF-1B, LEF-2C, CFA-v1.0, CG-FLL-003.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-005-learningtrace-product-schema.md` | Full hierarchy |
+| `docs/governance/chessbuddy/CB-000A-longitudinal-learning-model.md` | LearningTrace properties, chain rule |
+| `docs/governance/federation/studies/LEF-0A-architectural-interpretation-validation.md` | Trace ≠ transformation |
+| `docs/governance/federation/studies/LEF-0E-integration-theory.md` | Trace = evidence + custody |
+| `docs/governance/federation/studies/LEF-1B-learningtrace-path-formation-hypothesis.md` | Path interpretive layer |
+| `src/data/game.ts` | Legacy episode encoding |
+
+## Doctrine Sources
+
+CB-005 (primary), LEF-0A/0E, CFA LearningTrace tier.
+
+## Runtime Sources
+
+`Game`, `GameHistory` — partial episode projection only (LEF-2C).
+
+## Is LearningTrace learning, evidence, observability, or continuity?
+
+| Lens | Verdict | Classification |
+|------|---------|----------------|
+| **Learning** | **No** — container, not process | [DOCTRINE] LEF-0E: "LearningTrace is evidence and custody" |
+| **Evidence** | **Yes — primary role** | [DOCTRINE] CB-005, LEF-0A |
+| **Observability** | **Enables** — LOE/DOE attach to trace | [DOCTRINE] CG-FLL-1E |
+| **Continuity** | **Substrate** — time-ordered custody | [DOCTRINE] CG-FLL-003, CFA horizontal continuity |
+
+**LearningTrace Role Definition v1:**
+
+> **LearningTrace** is the **sovereign evidence container and custody boundary** for one Actor's longitudinal chess skill development — holding ordered episodes, events, anchors, and references to interpretive records (LOE, reasoning, explanations) — **not** learning itself and **not** mastery.
+
+### Ladder evaluation
+
+```text
+Observation        [DOCTRINE: chain stage + ChessObservation/ChessSignal]
+       ↓
+LearningTrace      [DOCTRINE: evidence container — CB-005, LEF-0E]
+       ↓
+???                [GAP: see below]
+       ↓
+Mastery            [DOCTRINE: horizon label — CFA Mastery Horizon; not claim step]
+```
+
+### Missing layers (between LearningTrace and Mastery) [DOCTRINE]
+
+| Layer | Source | Role |
+|-------|--------|------|
+| **Integration** | CG-FLL-002 | Learning = integration achieved |
+| **Longitudinal Path** | LEF-1B, CFA | Interpretive read on trace |
+| **Capability Conditions** | LEF-1E, CB-006 | Enactment environment |
+| **Path Quality / Potency** | LEF-1C, CFA | Assessment lenses |
+| **Stewardship** | CG-FLL-1E | Replay, C0–C4, gate |
+| **Transformation Claim** | LOE-011 | Governed outcome |
+| **Mastery Horizon** | LEF-1C | Long-horizon (outside claim pipeline) |
+
+The `???` in the naive ladder is **not one box** — CFA v1.0 resolves it as **logical dependencies**, not a serial pipeline [DOCTRINE] CFA core rule.
+
+## Conclusions (Phase 3)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P3-1 | LearningTrace is **evidence + custody**, not learning | [DOCTRINE] |
+| P3-2 | Runtime implements **~episode grain** of trace only | [RUNTIME] |
+| P3-3 | CFA fills the `???` between trace and mastery | [DOCTRINE] |
+| P3-4 | LearningTrace Role Definition v1 is **doctrine-complete**; **runtime-incomplete** | [INFERENCE] |
+
+## Open Questions (Phase 3)
+
+| ID | Question |
+|----|----------|
+| OQ-LT1 | Session tier — optional in CB-005; required for FLL-1? |
+| OQ-LT2 | Legacy `Game.toString` migration semantics to Episode ID |
