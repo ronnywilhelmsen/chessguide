@@ -240,3 +240,113 @@ CB-005, CG-FLL-002, LOE-002 (via CG-FLL-1E), LEF-0E implicit integration.
 | OQ-CH1 | Should chunks be LOE event types, graph nodes, or interpretive read models? |
 | OQ-CH2 | Does Narrative Chunk require ExplanationArtifact or a separate artefact family? |
 | OQ-CH3 | Can opening tree nodes serve as cognitive chunk seeds without new ontology? |
+
+---
+
+# Part 3 — Narrative Architecture Review
+
+## Repository State (Phase 3)
+
+Committed: `review: phase-3 narrative architecture review`
+
+## Evidence Reviewed
+
+CB-004, CB-005, CB-006, LEF-0C, LEF-0D, LEF-0B, CG-FLL-002, CG-FLL-001, ALP-1.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-004-buddy-persona-and-product-principles.md` | Teaching modes, explanation hierarchy |
+| `docs/governance/chessbuddy/CB-006-user-modes.md` | Post-Game Review, Practice |
+| `docs/governance/federation/studies/LEF-0C-explanation-artifact-hypothesis.md` | Narrative vs durable explanation |
+| `docs/governance/federation/studies/LEF-0D-epistemic-placement-of-explanation-artifact.md` | P1 episodic placement |
+| `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` | Integration mechanisms (reflection, explanation) |
+| `docs/governance/chessbuddy/ALP-1-artifact-learning-pilot.md` | RC-* reasoning chains |
+
+## Doctrine Sources
+
+CB-004 (Show/Tell analogue), LEF-0C/0D, CG-FLL-002 integration mechanisms.
+
+## Runtime Sources
+
+None — no narrative structure in `src/`.
+
+## Does chess possess narrative structure? [INFERENCE]
+
+Chess games exhibit **temporal drama** interpretively:
+
+| Narrative beat | Chess analogue | Objectively observable? | Class |
+|----------------|----------------|-------------------------|-------|
+| **Setup** | Opening development, structure formation | **Partial** — opening IDs, pawn structure anchors | [INFERENCE] |
+| **Tension** | Initiative, space, king safety pressure | **Partial** — eval trends, threat signals | [INFERENCE] |
+| **First Clash** | First tactical contact, exchange | **Yes** — move events, capture signals | [DOCTRINE ALIGNED] |
+| **Escalation** | Increasing complexity, time pressure | **Partial** — clock milestones, eval swing | [INFERENCE] |
+| **Crisis** | Blunder, decisive mistake, mating net | **Yes** — `move.deviation_from_reference`, terminal | [DOCTRINE] |
+| **Resolution** | Mate, resignation, draw agreement | **Yes** — `game.terminal` | [DOCTRINE] |
+
+**Verdict:** Narrative beats are **interpretive overlays** on observable events — not first-class schema fields.
+
+### Puzzles as narrative scenes [INFERENCE]
+
+| Claim | Assessment | Class |
+|-------|------------|-------|
+| Puzzles extract scenes from larger narratives | **Plausible** — Practice mode anchors to prior Episodes (CB-006) | [DOCTRINE ALIGNED] partial |
+| Puzzles are complete narratives | **Weak** — typically single crisis→resolution | [INFERENCE] |
+| Scene extraction requires anchor + focal position | **Yes** — AN-4 cross-episode anchors | [DOCTRINE] |
+
+## Narrative benefits evaluation
+
+| Benefit | Doctrine support | Gap |
+|---------|------------------|-----|
+| **Retention** | Continuity H6; longitudinal memory (CB-000A) | No narrative-specific retention claim |
+| **Retrieval** | Recall path; LOE-003/004 | Chunks unnamed |
+| **Transfer** | CG-FLL-002 transfer as transformation signal | No narrative transfer mechanism |
+| **Explanation** | ExplanationArtifact; CB-004 hierarchy | Narrative ≠ causal explanation (LEF-0C) |
+
+## Show → Tell → Show Again [PROPOSAL]
+
+**Candidate learning loop** mapped to repository:
+
+| Step | Repository analogue | Source |
+|------|---------------------|--------|
+| **Show** | Friendly Live / Observation — experience without interruption | CB-006 Friendly Live |
+| **Tell** | Post-Game Review / Training explain-on-request | CB-006, CB-004 |
+| **Show Again** | Practice from trace anchors; Training replay | CB-006 Practice, Training |
+
+**Doctrine alignment:** [DOCTRINE ALIGNED] partial — matches Observed → Explained → Replayed (CG-FLL-001) but **not named** as Show-Tell-Show.
+
+**Risk:** [DOCTRINE CONFLICT] if "Tell" collapses into coaching export — federation boundary (FEDERATION.md).
+
+## Narrative Learning Architecture v1 [PROPOSAL]
+
+```text
+Episode (observable events)
+  └── Narrative Overlay (interpretive read model)
+        ├── Scene beats (setup…resolution)
+        ├── Narrative Chunk labels (human-meaningful)
+        └── Links to ExplanationArtifact P1 (causal why)
+              ↓
+        Integration (explicit channel)
+              ↓
+        Cognitive Chunk formation (compression)
+```
+
+**Placement:** Narrative sits **above** LearningTrace evidence, **beside** ExplanationArtifact — narrative provides **memory scaffold**; explanation provides **audit why**.
+
+## Conclusions (Phase 3)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P3-1 | Chess narrative structure is **interpretively valid**, **not schema-encoded** | [INFERENCE] |
+| P3-2 | Show-Tell-Show maps to **existing pilot procedure** without new ontology | [DOCTRINE ALIGNED] |
+| P3-3 | Narrative ≠ ExplanationArtifact (LEF-0C falsification survives) | [DOCTRINE] |
+| P3-4 | Narrative Memory Hypothesis is **unsupported in doctrine** but **compatible** | [NEW INSIGHT] |
+
+## Open Questions (Phase 3)
+
+| ID | Question |
+|----|----------|
+| OQ-NA1 | Should narrative beats be steward-annotated or algorithmically inferred? |
+| OQ-NA2 | Does Show-Tell-Show require a named learning loop in governance? |
+| OQ-NA3 | Can Narrative Chunk coexist with ExplanationArtifact P1 on same episode? |
