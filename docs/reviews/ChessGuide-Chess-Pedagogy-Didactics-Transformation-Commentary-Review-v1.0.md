@@ -392,3 +392,73 @@ Strong players compress chunks into **causal arcs** (crisis, turning point) — 
 | OQ-COM1 | Score commentary quality or steward-qualitative only? |
 | OQ-COM2 | Should think-aloud be mandatory LOE for Training mode? |
 | OQ-COM3 | Commentary export boundary vs federation? |
+
+---
+
+# Part 5 — Chess Learning Methods Review
+
+## Repository State (Phase 5)
+
+Committed: `review: phase-5 chess learning methods review`
+
+## Evidence Reviewed
+
+CB-006, CB-003 Phase 3, CG-FLL-002, CG-FLL-1E LOE, CCNLAR, CLOR.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-006-user-modes.md` | Practice, Training |
+| `docs/governance/chessbuddy/CB-003-roadmap-and-delivery-strategy.md` | Adaptive practice phase |
+| `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` | Simulation, continuity |
+| `docs/governance/chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md` | LOE mapping |
+
+## Doctrine Sources
+
+CB-006, CG-FLL-002, CG-FLL-1E.
+
+## Runtime Sources
+
+Legacy analysis/hints — not mapped to LOE.
+
+## Chess Learning Methods Review v1
+
+| Method | Target transformation | Doctrine alignment | LOE / mode | Class |
+|--------|----------------------|-------------------|------------|-------|
+| **Puzzle training** | Pattern recognition → intentional use | Practice mode from anchors | LOE-002, LOE-003; CB-006 | [DOCTRINE ALIGNED] |
+| **Woodpecker Method** | Mass repetition → recall accessibility | **Risk** volume without integration | LOE-004 if comparative | [EXTERNAL] + [DOCTRINE CONFLICT] if untagged activity |
+| **Model Games** | Exemplar integration | Trace-anchored study | LOE-005, knowledge refs | [DOCTRINE ALIGNED] |
+| **Endgame Drills** | Technique capability | Theme ladders (external) | LOE-002/003 | [EXTERNAL] + [DOCTRINE ALIGNED] |
+| **Deliberate Practice** | Error → correction loop | Training Live + LOE-006/007 | CB-006 | [DOCTRINE ALIGNED] |
+| **Spaced Repetition** | Continuity → integration | H6 continuity semantics | CG-FLL-003 | [DOCTRINE ALIGNED] |
+| **Blindfold Training** | Simulation / visualization | LOE-005 Simulation | CG-FLL-002 H3 | [DOCTRINE ALIGNED] |
+| **Recall Training** | Knowledge retrieval | LOE-003/004 | Recall path CG-FLL-002 | [DOCTRINE] |
+| **Verbalization Training** | Explicit integration | LOE-009, DOE-006, LOE-010 | CG-FLL-1E | [DOCTRINE] |
+
+### Alignment with cognitive pillars [INFERENCE]
+
+| Pillar | Best-supported methods | Class |
+|--------|------------------------|-------|
+| **Attention** | Deliberate practice, Training on-request | [DOCTRINE] |
+| **Narrative** | Model games + post-game reflection | [PROPOSAL] partial |
+| **Chunking** | Puzzles, drills — implicit until Chunk ADR | [PROPOSAL] |
+| **Retrieval** | Recall training, spaced repetition | [DOCTRINE] |
+| **Reflection** | Post-Game, DOE-006 | [DOCTRINE] |
+| **Integration** | Verbalization, teaching LOE-010 | [DOCTRINE] |
+
+## Conclusions (Phase 5)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P5-1 | Most classical methods **map to LOE + modes** when integration-tagged | [DOCTRINE ALIGNED] |
+| P5-2 | Volume methods **require** activity≠learning discipline | [DOCTRINE] |
+| P5-3 | Practice-from-trace is **distinctive** ChessGuide method | [DOCTRINE] CB-006 |
+| P5-4 | Methods are **orchestration patterns**, not ontology primitives | [INFERENCE] |
+
+## Open Questions (Phase 5)
+
+| ID | Question |
+|----|----------|
+| OQ-MET1 | Tag method type on Practice Episodes? |
+| OQ-MET2 | Woodpecker-compatible under I-3 with what LOE threshold? |
