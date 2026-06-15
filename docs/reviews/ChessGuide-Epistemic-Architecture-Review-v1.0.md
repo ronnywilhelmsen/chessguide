@@ -435,3 +435,74 @@ Opening tree only.
 |----|----------|
 | OQ-LF1 | Adopt as governance term vs CFA Mastery Horizon only? |
 | OQ-LF2 | Frontier traversal — steward vs computed? |
+
+---
+
+# Part 6 — LARIS Review
+
+## Repository State (Phase 6)
+
+Committed: `review: phase-6 laris review`
+
+## Evidence Reviewed
+
+CG-002, CG-000, FDS-001, FDP-002, CB-004, CB-006, CG-FLL-002/003, FGI-001-INDEX.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessguide/CG-002-federation-relationship.md` | Laris division |
+| `docs/governance/federation/FDS-001-dialogue-continuity-study.md` | Part IX Laris |
+| `docs/governance/federation/FDP-002-federation-development-strategy.md` | Laris dormant |
+| `docs/governance/chessbuddy/CB-004-buddy-persona-and-product-principles.md` | Buddy persona |
+| `docs/governance/chessbuddy/CB-006-user-modes.md` | Pedagogy via modes |
+| `docs/governance/federation/grounding/FGI-001-INDEX.md` | No Laris project folder |
+
+## Doctrine Sources
+
+CG-002, FDS-001 (primary for Laris role), CB-004 (Buddy).
+
+## Runtime Sources
+
+None for Laris. Buddy UI strings only (`App.tsx` "Chessbuddy").
+
+## LARIS Role Definition v1 [DOCTRINE]
+
+> **Laris** is the **federation pedagogical dialogue partner** for **learning** — how integration proceeds, cross-domain reflection, mentorship continuity — **not** chess domain content, **not** trace infrastructure owner.
+
+### Role evaluation
+
+| Candidate | Fit | Class |
+|-----------|-----|-------|
+| **Tutor** | Partial — transmits learning understanding | [DOCTRINE] FDS-001 |
+| **Coach** | Partial — product Buddy covers chess coaching | [INFERENCE] |
+| **Mentor** | Strong — accelerates integration (CG-FLL-003) | [DOCTRINE] |
+| **Observer** | Weak — not primary | [INFERENCE] |
+| **Navigator** | Partial — guide role CG-000 | [DOCTRINE] |
+| **Learning Model** | No — Laris is actor, not model | [INFERENCE] |
+
+### Buddy vs Laris [DOCTRINE]
+
+| Entity | Owns | Source |
+|--------|------|--------|
+| **ChessGuide / Buddy** | Chess skill dialogue, proportional mentoring | CG-002, CB-004 |
+| **Laris** | Learning dialogue, cross-domain | CG-002, FDS-001 |
+| **Creator** (when built) | Trace validation dialogue | FDS-001 |
+
+## Conclusions (Phase 6)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P6-1 | Laris role is **doctrine-defined**, **not implemented** | [DOCTRINE] + [RUNTIME] |
+| P6-2 | Buddy ≠ Laris — domain vs federation learning guide | [DOCTRINE] |
+| P6-3 | Laris is **dormant** per FDP-002 until FRL gate | [DOCTRINE] |
+| P6-4 | No Laris codebase in federation grounding | [RUNTIME] |
+
+## Open Questions (Phase 6)
+
+| ID | Question |
+|----|----------|
+| OQ-LR1 | Laris dialogue schema vs ChessGuide domain dialogue (FDS-001 OQ-4) |
+| OQ-LR2 | When does Laris activate relative to FLL-1? |
+
