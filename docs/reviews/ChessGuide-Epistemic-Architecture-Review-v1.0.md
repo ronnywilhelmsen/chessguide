@@ -110,3 +110,103 @@ The repository does **not** define a first-class type named **Knowledge Concept*
 |----|----------|
 | OQ-K1 | Should Knowledge Concept become a named CB-005/CG type or remain implicit in anchors + refs? |
 | OQ-K2 | Endgame concepts — CB-002 catalogue gap; no doctrine corpus |
+
+---
+
+# Part 2 — Evidence Theory Review
+
+## Repository State (Phase 2)
+
+Committed: `review: phase-2 evidence theory review`
+
+## Evidence Reviewed
+
+CB-005, CG-FLL-001/1E, LEF-0A–0E, LEF-2C, CFA-v1.0, ALP-1, FEDERATION.md, CB-000A chain rule.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-005-learningtrace-product-schema.md` | Events, IM-1, stewardship |
+| `docs/governance/chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md` | LOE-001–011, DOE, I-1/I-2/I-3 |
+| `docs/governance/federation/studies/LEF-0A-architectural-interpretation-validation.md` | LearningTrace role |
+| `docs/governance/federation/studies/LEF-0E-integration-theory.md` | Evidence vs integration |
+| `docs/governance/federation/studies/LEF-2C-runtime-observability-study.md` | Observability gaps |
+| `FEDERATION.md` | Export boundary |
+
+## Doctrine Sources
+
+CG-FLL-1E (LOE/DOE), CB-000A (lineage), LEF-0E, CFA stewardship tier.
+
+## Runtime Sources
+
+`src/data/game.ts` (episode lines), `src/chessguide/federation/export_v1.py` (forbidden learning fields). No `evidence_refs` in runtime.
+
+## ChessGuide Evidence Theory v1
+
+### Evidence [DOCTRINE]
+
+> **Evidence** is any **time-ordered, anchorable artefact** in a LearningTrace that supports reconstruction, integration assessment, or steward-validated claims — including observations, signals, LOE/DOE records, IM-1 snapshots, and ExplanationArtifact refs.
+
+| Evidence class | Examples | Source |
+|----------------|----------|--------|
+| **Primary (observational)** | `move.played`, FEN snapshots, clock | CB-005 [DOCTRINE] |
+| **Measured** | `move.deviation_from_reference`, `measured.eval_peak` | CB-005 IM-1 [DOCTRINE] |
+| **Perceived** | `reflection.recorded`, `perceived.confidence` | CB-005 [DOCTRINE] |
+| **Interpretive (LOE)** | LOE-001–010 | CG-FLL-1E [DOCTRINE] |
+| **Attested (claim)** | LOE-011 post-C4 | CG-FLL-1E [DOCTRINE] |
+| **Federation slice** | Completed game ObservationRecord | FEDERATION.md [DOCTRINE] |
+
+### Evidence strength [INFERENCE from doctrine]
+
+| Strength | Criteria | Source chain |
+|----------|----------|--------------|
+| **Strong** | Measured + replay reconstructable + steward-attested | CB-000A, CG-FLL-1E [DOCTRINE] |
+| **Moderate** | LOE with anchors + cross-episode comparison | LOE-004 [DOCTRINE] |
+| **Weak** | Activity-tagged only (`activity.move`) | I-3 [DOCTRINE] |
+| **Insufficient for claim** | Outcome luck without integration LOE | LEF-1C Case A [DOCTRINE] |
+
+### Evidence weakness [DOCTRINE]
+
+- Activity conflated with learning (I-3 violation)
+- Perceived without measured lane (IM-1 gap discipline)
+- Single-episode transformation spike (CB-000A episodic vs longitudinal)
+- Engine CP alone as learning proof (PI-5, R-2 CB-000)
+
+### Evidence decay [OPEN QUESTION]
+
+Repository does **not** define temporal decay of evidence weight. [DOCTRINE] Continuity semantics (CG-FLL-003) imply **older evidence remains in trace** but **integration relevance** may diminish — not formalized.
+
+### Evidence contradiction [DOCTRINE]
+
+| Mechanism | Source |
+|-----------|--------|
+| IM-1 measured vs perceived divergence | CB-005 [DOCTRINE] |
+| DOE-003 Contradiction Identified | CG-FLL-1E [DOCTRINE] |
+| Steward challenge DOE-007 | CG-FLL-1E [DOCTRINE] |
+| ALP-3 cross-artifact contradiction resolution | ALP-3 [DOCTRINE] |
+
+### Evidence inheritance [DOCTRINE]
+
+| Rule | Source |
+|------|--------|
+| LOE-011 must cite ≥2 prior events from different chain stages | CG-FLL-1E [DOCTRINE] |
+| Transformation claims require lineage to Observation | CB-000A chain rule [DOCTRINE] |
+| `evidence_refs[]` on ExplanationArtifact | LEF-0C–0D [DOCTRINE] |
+| Anchors immutable (AN-2) — inherited by reference | CB-005 [DOCTRINE] |
+
+## Conclusions (Phase 2)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P2-1 | Evidence theory is **well-specified in governance**, **absent in runtime** | [DOCTRINE] + [RUNTIME] |
+| P2-2 | Strength is **procedural** (steward + lineage), not numeric scoring | [DOCTRINE] |
+| P2-3 | Evidence decay is **undefined** | [OPEN QUESTION] |
+| P2-4 | Federation export is **evidence subset only** — not full evidence theory | [DOCTRINE] |
+
+## Open Questions (Phase 2)
+
+| ID | Question |
+|----|----------|
+| OQ-E1 | Should evidence strength be ordinal (governance) or remain steward-narrative only? |
+| OQ-E2 | Decay policy for IM-1 and measured signals over N years? |
