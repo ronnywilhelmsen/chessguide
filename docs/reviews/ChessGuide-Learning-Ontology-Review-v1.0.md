@@ -556,3 +556,182 @@ Performance is **not** a doctrine entity; conflating it with Capability violates
 | OQ-CAP1 | Should Performance be explicitly excluded in CG-FLL-002 glossary? |
 | OQ-CAP2 | Is Mastery Horizon ever claimable or always interpretive? |
 | OQ-CAP3 | Does Flow warrant Capability Condition sub-entity? |
+
+---
+
+# Part 6 — Ontology Synthesis
+
+## Repository State (Phase 6)
+
+Committed: `review: phase-6 ontology synthesis`
+
+## Evidence Reviewed
+
+All Parts 1–5, CEAR-v1.0, CCNLAR-v1.0, CFA-v1.0, CG-FLL-002.
+
+## Files Reviewed
+
+Full review corpus + governance chain documents.
+
+## Doctrine Sources
+
+CB-000A chain, CB-005, CFA-v1.0, CG-FLL-002.
+
+## Runtime Sources
+
+None beyond LEF-2C prior findings.
+
+## Candidate tree (critical evaluation)
+
+```text
+Reality [PRIMITIVE — ontological]
+│
+├── Observation [PRIMITIVE — epistemic entry]
+│     ├── Event [PRIMITIVE — trace atom]
+│     └── Attention [PRIMITIVE — chain stage / filter]
+│
+├── Experience [PROPOSAL — activity without integration]
+│
+├── Episode [PRIMITIVE — custody boundary]
+│
+├── Evidence [DERIVED — lineage-eligible custody]
+│
+├── Integration [PRIMITIVE — PROCESS, not entity storage]
+│     ├── Implicit channel [IMPLICIT]
+│     └── Explicit channel [IMPLICIT]
+│
+├── Understanding [DERIVED — ChessReasoning artefact]
+│
+├── Knowledge Concept [PROPOSAL — referencable unit]
+│     └── Knowledge [DERIVED — chain stage / ChessKnowledge]
+│
+├── Pattern [EMERGENT — cross-episode recurrence]
+│
+├── Cognitive Chunk [PROPOSAL — integration compression product]
+│
+├── Narrative Chunk [PROPOSAL — memory scaffold]
+│
+├── Memory Anchor [DOCTRINE — ChessAnchor]
+│
+├── Retrieval Cue [PROPOSAL]
+│
+├── Capability [EMERGENT]
+│
+├── Flow [IMPLICIT — traversal signal]
+│
+├── Transformation [EMERGENT observed | DERIVED claimed]
+│
+└── Mastery [EMERGENT horizon — Mastery Horizon]
+```
+
+### Critical corrections to candidate tree
+
+| Issue | Correction | Class |
+|-------|------------|-------|
+| LearningTrace omitted | **Add** as **DERIVED evidence container** — sibling to Episode hierarchy | [DOCTRINE] |
+| Integration as stored entity | **Integration is process**, not persisted noun (LEF-0E) | [DOCTRINE] |
+| Chunks before Integration | **Chunks are products of integration**, not siblings of Observation | [DOCTRINE CONFLICT] CCNLAR |
+| Learning omitted as entity | **Learning = Integration** — no separate Learning object | [DOCTRINE] |
+| Stewardship omitted | **Add orthogonal**: Stewardship, ExplanationArtifact, Continuity | [DOCTRINE] CFA |
+
+## ChessGuide Learning Ontology v1 [PROPOSAL — doctrine-reconciled]
+
+### Layer A — Ontological primitives
+
+| Entity | Role |
+|--------|------|
+| **Reality** | Domain occurrence |
+| **Actor** | Learner identity |
+| **Observation** | Registered phenomenon |
+| **Episode / Event** | Custody structure |
+
+### Layer B — Process primitives (non-persisted nouns)
+
+| Process | Role |
+|---------|------|
+| **Integration** | Learning mechanism (= Learning) |
+| **Replay** | Reconstruction |
+| **Stewardship** | Governance gate |
+
+### Layer C — Derived artefacts
+
+| Artefact | Role |
+|----------|------|
+| **Evidence** | Lineage-eligible records |
+| **Understanding** | Interpretation |
+| **Knowledge** | Consolidated resource |
+| **Wisdom** | Normative guidance |
+| **ExplanationArtifact** | Durable best-why |
+
+### Layer D — Emergent outcomes
+
+| Outcome | Role |
+|---------|------|
+| **Pattern** | Cross-episode structure |
+| **Capability** | Durable enactment |
+| **Transformation** | Observed change / claim |
+| **Mastery Horizon** | Long-horizon state |
+
+### Layer E — Proposals (pre-governance)
+
+Experience, Knowledge Concept, Cognitive Chunk, Narrative Chunk, Retrieval Cue, Learning Opportunity.
+
+### Smallest stable unit of understanding — final answer
+
+> **[INFERENCE]** The smallest **stable** unit of understanding is an **integrated semantic binding**: a connection between a **phenomenon** (observation + attention) and **prior structure** that persists across retrieval.
+
+**Doctrine nearest types:**
+
+1. **Understanding artefact** (ChessReasoning at chain stage) — [DOCTRINE]
+2. **Explicit integration LOE** with lineage — [DOCTRINE]
+3. **Cognitive Chunk** (proposal) — names compression of (1) for enactment — [PROPOSAL]
+
+**Not** stable units: raw Observation, Knowledge ref without integration, Episode container, LearningTrace file.
+
+## Hypothesis evaluation (synthesis)
+
+### Crow Epistemology — Learning Opportunity typing
+
+| Candidate type | Verdict | Class |
+|----------------|---------|-------|
+| **Entity** | Weak — transient, high churn | [INFERENCE] |
+| **Event** | Partial — could be `opportunity.detected` LOE | [PROPOSAL] |
+| **Relationship** | **Strong** — Attention × Concept × Policy alignment | [PROPOSAL] |
+| **Capability Condition** | Partial — timing sub-condition | [DOCTRINE ALIGNED] |
+
+**Recommendation:** Model as **Relationship** (or **Event** if logged), not primitive entity.
+
+### Narrative Chunk Hypothesis
+
+> Narrative structures act as retrieval scaffolds for knowledge concepts.
+
+| Assessment | Class |
+|------------|-------|
+| Compatible; untested in doctrine | [PROPOSAL] |
+| Orthogonal to Cognitive Chunk | [PROPOSAL] CCNLAR |
+
+### Learner Integration Hypothesis
+
+> Knowledge becomes personal understanding only when integrated with prior knowledge, purpose and reflection.
+
+| Assessment | Class |
+|------------|-------|
+| **Core doctrine** — integration definition (CG-FLL-002) | [DOCTRINE] |
+| Purpose + reflection = explicit channel accelerators | [DOCTRINE ALIGNED] |
+
+## Conclusions (Phase 6)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P6-1 | **13 doctrine primitives/processes** + **6 emergent** + **6 proposals** form complete inventory | [INFERENCE] |
+| P6-2 | Candidate user tree **over-flattens** — must separate process, container, outcome | [INFERENCE] |
+| P6-3 | Smallest understanding unit = **integrated semantic binding** ≈ Understanding artefact | [INFERENCE] |
+| P6-4 | Ontology **sufficient for ADR-001 scope** if ADR stays Episode/evidence boundary | [INFERENCE] |
+
+## Open Questions (Phase 6)
+
+| ID | Question |
+|----|----------|
+| OQ-SYN1 | Publish Learning Ontology v1 as governance annex? |
+| OQ-SYN2 | Merge LearningTrace and LearningJourney names in future ADR? |
+| OQ-SYN3 | Minimum LOE set constituting understanding unit? |
