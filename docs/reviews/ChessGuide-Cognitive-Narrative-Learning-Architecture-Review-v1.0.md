@@ -126,3 +126,117 @@ CG-FLL-002 (primary), LEF-0E, LEF-1D, CB-004, CB-006.
 | P1-2 | **Chunking and narrative memory** are the largest **unformalized** cognitive contributions | [NEW INSIGHT] |
 | P1-3 | External literature **may inform** architecture but **must not override** CG-FLL-002 integration theory | [DOCTRINE] per review mandate |
 | P1-4 | Complete theory of learning **before ADR-001** requires chunk/narrative clarification | [INFERENCE] |
+
+---
+
+# Part 2 — Chunk Architecture Review
+
+## Repository State (Phase 2)
+
+Committed: `review: phase-2 chunk architecture review`
+
+## Evidence Reviewed
+
+CB-005, CB-000, CB-002, CG-FLL-002, CG-FLL-1E, CFA-v1.0, LEF-0E, LEF-1B, CEAR-v1.0 Part 1.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-005-learningtrace-product-schema.md` | Knowledge refs, anchors, position_class |
+| `docs/governance/chessbuddy/CB-002-longitudinal-skill-development-domain.md` | ChessKnowledge, transferable pattern |
+| `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` | Encoding, Memory, patterns |
+| `docs/governance/chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md` | LOE-002 Pattern Recognition |
+| `docs/governance/federation/CFA-v1.0.md` | Implicit integration, compression |
+| `src/data/openings.ts` | Embedded knowledge corpus (runtime) |
+
+## Doctrine Sources
+
+CB-005, CG-FLL-002, LOE-002 (via CG-FLL-1E), LEF-0E implicit integration.
+
+## Runtime Sources
+
+`openings.ts` — hierarchical opening labels as knowledge corpus; no chunk model.
+
+## Term distinctions [DOCTRINE + INFERENCE]
+
+| Term | Repository status | Role | Class |
+|------|-------------------|------|-------|
+| **Knowledge Concept** | CEAR synthesis; not repo type | Referencable semantic unit (opening, principle) | [INFERENCE] |
+| **Pattern** | LOE-002; anchor `position_class`; observation capacity | Recurring structure across episodes | [DOCTRINE] |
+| **Chunk** | **Absent** | — | [NEW INSIGHT] |
+| **Skill** | LSDD actionable competence (CB-002) | Integration outcome in domain | [DOCTRINE] |
+| **Capability** | CFA durable capacity | Post-integration, steward-gated claims | [DOCTRINE] |
+
+## Chunk Architecture v1 [PROPOSAL — doctrine-grounded]
+
+### Cognitive Chunk
+
+> A **Cognitive Chunk** is a **compressed, retrievable mental structure** that binds multiple chess features into one executable unit — enabling rapid recognition and action without full conscious decomposition.
+
+**Examples (illustrative):** Back Rank Mate, Fork, Lucena, Opposition.
+
+**Doctrine mapping:**
+
+| Chunk property | Nearest repo construct | Gap |
+|--------------|------------------------|-----|
+| Compression | Expert compression Observation→Knowledge (CG-FLL-002) | Implicit, not typed |
+| Multiple features → one unit | LOE-002 pattern recognition | Event type, not structure |
+| Retrieval speed | Recall path (CG-FLL-002) | Distinct from integration |
+| Durability | Integration required (H4) | Chunk ≠ stored until integrated |
+
+**[INFERENCE]** Cognitive chunks are **integration products** sitting between **Pattern** (observable recurrence) and **Capability** (durable enactment).
+
+### Narrative Chunk
+
+> A **Narrative Chunk** is a **memorable story scaffold** that binds a chess situation to human-meaningful roles — enabling retention and transfer through episodic memory, not only pattern frequency.
+
+**Examples (illustrative):** The Trapped King, The Knight Ambush, The Last Defender, The Silent Weakness.
+
+**Doctrine mapping:**
+
+| Narrative property | Nearest repo construct | Gap |
+|--------------------|------------------------|-----|
+| Story structure | `reflection.recorded` (CB-005) | Learner prose, not schema |
+| Explanation binding | ExplanationArtifact P1 (LEF-0D) | Causal why, not narrative arc |
+| Buddy teaching | Illuminate → Explain → Connect (CB-004) | Pedagogical, not memory architecture |
+| Scene extraction | Practice mode from anchors (CB-006) | Episode slice, not narrative scene |
+
+**[INFERENCE]** Narrative chunks are **orthogonal** to Cognitive Chunks — same position may have both.
+
+### Composition rules [PROPOSAL]
+
+| Question | Answer | Class |
+|----------|--------|-------|
+| Can multiple concepts belong to one chunk? | **Yes** — e.g. Lucena = king opposition + rook placement + winning technique | [INFERENCE] |
+| Can one concept belong to multiple chunks? | **Yes** — opposition appears in Lucena, Philidor, endgame technique chunks | [INFERENCE] |
+| Are chunks closer to human memory than concepts? | **Yes** — concepts are referencable units; chunks are **operational memory structures** | [NEW INSIGHT] |
+| Are chunks Knowledge? | **No** — knowledge is resource; chunk is **integrated structure** (CG-FLL-002) | [DOCTRINE ALIGNED] |
+
+### Does ChessGuide require formal chunk modeling?
+
+| Criterion | Verdict | Class |
+|-----------|---------|-------|
+| Doctrine completeness without chunks | **Partial** — expert compression covers limit case | [INFERENCE] |
+| Pedagogy completeness without chunks | **Weak** — Buddy explains patterns, not chunk formation | [INFERENCE] |
+| ADR-001 dependency | **Likely** — Episode schema must know what gets integrated | [INFERENCE] |
+| Runtime today | **No chunk witness** | [RUNTIME] |
+
+**Verdict:** Formal chunk modeling is **not doctrine today** but **fills a gap** between Pattern and Capability that expert compression alone does not name.
+
+## Conclusions (Phase 2)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P2-1 | **Chunk** is absent from repository vocabulary | [DOCTRINE] absent |
+| P2-2 | **Pattern** and **expert compression** are partial chunk analogues | [DOCTRINE ALIGNED] |
+| P2-3 | Cognitive and Narrative chunks are **distinct proposal types** | [PROPOSAL] |
+| P2-4 | Chunk Architecture v1 should be **governance proposal**, not runtime schema, before ADR-001 | [INFERENCE] |
+
+## Open Questions (Phase 2)
+
+| ID | Question |
+|----|----------|
+| OQ-CH1 | Should chunks be LOE event types, graph nodes, or interpretive read models? |
+| OQ-CH2 | Does Narrative Chunk require ExplanationArtifact or a separate artefact family? |
+| OQ-CH3 | Can opening tree nodes serve as cognitive chunk seeds without new ontology? |
