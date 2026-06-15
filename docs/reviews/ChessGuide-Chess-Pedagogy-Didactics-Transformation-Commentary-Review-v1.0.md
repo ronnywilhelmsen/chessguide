@@ -203,3 +203,90 @@ Didactic Target State =
 | OQ-DID1 | Formalize learner state as governance type or LOE read model? |
 | OQ-DID2 | Minimum LOE bundle to declare "state achieved"? |
 | OQ-DID3 | Who defines target states — steward, Buddy, or curriculum artefact? |
+
+---
+
+# Part 3 — Transformation Theory Review
+
+## Repository State (Phase 3)
+
+Committed: `review: phase-3 transformation theory review`
+
+## Evidence Reviewed
+
+CG-FLL-002, LEF-0E, CFA-v1.0, LEF-1C/1D/1E, CG-FLL-1E Part VII–VIII, CCNLAR.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` | Integration, transformation evidence |
+| `docs/governance/federation/studies/LEF-0E-integration-theory.md` | Channels, claims vs signals |
+| `docs/governance/federation/CFA-v1.0.md` | Transformation Claim ladder |
+| `docs/governance/chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md` | Replay, C4, Part VIII |
+
+## Doctrine Sources
+
+LEF-0E, CFA-v1.0, CG-FLL-002.
+
+## Runtime Sources
+
+None.
+
+## Transformation Architecture Review v1
+
+### Transformation typing [DOCTRINE]
+
+| Candidate | Verdict | Evidence |
+|-----------|---------|----------|
+| **Process** | **Partial** — Integration is process; Transformation is not | LEF-0E |
+| **Capability** | **Partial** — Transformation **targets** capability change | CB-000A |
+| **Outcome** | **Strong** — observed capacity delta | CG-FLL-002 H5 |
+| **Relationship** | **Weak** — steward-learner claim relationship | CG-FLL-1E C4 |
+
+**Verdict:** [DOCTRINE] Transformation is primarily **outcome** (observed change) with **governed claim** as derived relationship — **not** a process noun (Integration owns process).
+
+### Transformation Hypothesis evaluation
+
+> Learning is an entertaining experience of a well-directed sequence of controlled transformations.
+
+| Element | Assessment | Class |
+|---------|------------|-------|
+| **Controlled transformations** | Aligns with steward-gated LOE-011, phased pilot | [DOCTRINE ALIGNED] partial |
+| **Well-directed sequence** | CB-003 phases; CFA ladder | [DOCTRINE ALIGNED] |
+| **Entertaining experience** | H6/H7 engagement — amplifier, not proof | [DOCTRINE CONFLICT] if entertainment substitutes integration |
+| **Learning = experience** | **Rejected** — activity≠learning | [DOCTRINE] |
+
+### Conditions [DOCTRINE + INFERENCE]
+
+| Type | Conditions | Source |
+|------|------------|--------|
+| **Produce** | Integration, continuity, optimal traversal, explicit LOE density | CFA, LEF-1D |
+| **Block** | Activity without LOE; autonomy violation; engine flood | I-3, CB-004 |
+| **Stabilize** | Stewardship replay; cross-episode LOE-004; C4 supported | CG-FLL-1E |
+
+### External learning science (subordinate)
+
+| Author | Transformation relevance | Class |
+|--------|-------------------------|-------|
+| **Waitzkin** | Deliberate practice cycles | [DOCTRINE ALIGNED] via modes |
+| **Dweck** | Mindset — not in repo | [EXTERNAL] |
+| **Locke** | Goals / focus_contract | [DOCTRINE ALIGNED] partial |
+| **Csikszentmihalyi** | Traversal quality — not transformation proof | [DOCTRINE ALIGNED] reinterpreted |
+| **Oakley** | Compression after integration | [NEW INSIGHT] CCNLAR |
+
+## Conclusions (Phase 3)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P3-1 | Transformation is **outcome + claim**, Integration is **process** | [DOCTRINE] |
+| P3-2 | Entertainment hypothesis **unsafe** without integration witness | [DOCTRINE CONFLICT] |
+| P3-3 | Orchestration = **Capability Conditions + mode + LOE sequence** | [INFERENCE] |
+| P3-4 | Stabilization requires **stewardship**, not episode spike | [DOCTRINE] |
+
+## Open Questions (Phase 3)
+
+| ID | Question |
+|----|----------|
+| OQ-TR1 | Can implicit transformation signals suffice for Buddy guidance without C4? |
+| OQ-TR2 | Is "controlled transformation" a product term or steward term only? |
