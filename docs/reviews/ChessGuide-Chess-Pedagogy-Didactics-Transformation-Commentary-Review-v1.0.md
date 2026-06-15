@@ -612,3 +612,164 @@ Horizontal: Narrative Bridge [PROPOSAL] links Episode transitions
 | OQ-SYN1 | Publish Transformation Architecture v1 as governance annex? |
 | OQ-SYN2 | Narrative Bridge vs Narrative Chunk relationship? |
 | OQ-SYN3 | Minimum orchestration schema before Buddy automation? |
+
+---
+
+# Part 7 — Strategic Assessment
+
+## Repository State (Phase 7)
+
+Committed: `review: phase-7 strategic assessment`
+
+## Evidence Reviewed
+
+All Parts 1–6, CEAR, CCNLAR, CLOR ADR readiness sections.
+
+## Files Reviewed
+
+Full CPDTCR corpus.
+
+## Doctrine Sources
+
+CB-004, CG-FLL-1E, CFA-v1.0, prior reviews.
+
+## Runtime Sources
+
+LEF-2C — no pedagogy/transformation orchestration in code.
+
+## Strategic findings
+
+| # | Finding | Class |
+|---|---------|-------|
+| P7-1 | **Most important pedagogical insight:** Explain-after-experience + proportionality (CB-004/006) outperforms volume traditions under I-3 | [DOCTRINE] |
+| P7-2 | **Most important didactic insight:** LOE catalogue **implicitly** defines state transitions — needs **Didactic Target State** [PROPOSAL] | [INFERENCE] |
+| P7-3 | **Most important transformation insight:** Integration processes; Transformation outcomes; Stewardship stabilizes | [DOCTRINE] |
+| P7-4 | **Most important commentary insight:** LOE-009 + Replay reconstructability = strongest understanding signal | [DOCTRINE] |
+| P7-5 | **Most important doctrine gap:** No **Transformation Orchestration** or **Didactics** governance document | [INFERENCE] |
+| P7-6 | **Highest-value ADR:** (1) Episode Schema v1, (2) Didactic Target State / LOE orchestration governance | [INFERENCE] |
+
+## Sufficiency assessment
+
+| Layer | Sufficient for architecture decisions? | Class |
+|-------|----------------------------------------|-------|
+| **Epistemology** | **Yes** — CG-FLL-002, LEF-0E, CFA, CEAR | [DOCTRINE] |
+| **Ontology** | **Yes** for ADR-001 scope — CLOR | [INFERENCE] |
+| **Transformation Theory** | **Partial** — outcome/claim strong; orchestration proposed | [INFERENCE] |
+| **Pedagogy / Didactics** | **Partial** — CB-004 product pedagogy; no chess didactics canon | [INFERENCE] |
+| **Commentary architecture** | **Partial** — Post-Game + LOE; no commentary quality model | [INFERENCE] |
+
+**Verdict:** [INFERENCE] ChessGuide possesses **sufficient epistemology and ontology** for **ADR-001** and high-level architecture. **Transformation orchestration** and **didactic state models** should follow as **governance studies**, not block Episode ADR.
+
+## ADR Readiness Assessment
+
+| ADR | Proceed? | Scope boundary |
+|-----|----------|----------------|
+| **ADR-001 Episode Schema** | **Yes** | Evidence custody; LOE refs optional |
+| **Didactics / Orchestration ADR** | **Defer** | After Didactic Target State proposal adopted |
+| **Commentary Evidence ADR** | **Defer** | After LOE-009 quality rubric study |
+
+## Conclusions (Phase 7)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P7-7 | External chess pedagogy **informs** but CB-004/006/1E **govern** | [DOCTRINE] |
+| P7-8 | Transformation Direction Hypothesis **supported** as layering model | [INFERENCE] |
+| P7-9 | Narrative Bridges **optional** pedagogical concept — not blocking | [PROPOSAL] |
+
+---
+
+# Executive Summary
+
+ChessGuide already encodes **substantial pedagogy** in CB-004 (Illuminate→Validate), **modes** in CB-006, and **evidence-based transformation** in CG-FLL-1E + CFA. External chess traditions **align** when they require integration; **conflict** when they rely on volume alone.
+
+This review proposes **ChessGuide Transformation Architecture v1**: four layers — **Pedagogy** (principles), **Didactics** (target LOE states), **Orchestration** (modes/methods), **Epistemic** (CFA) — plus **Commentary** as observable understanding signals.
+
+**Core orchestration loop** (doctrine-grounded): Purpose → Attention → Observation → Question (DOE-001) → Explanation (LOE-009) → Reflection → Application → new Observation — embedded in **longitudinal** LearningTrace with **stewardship** for durable claims.
+
+**Gaps:** Didactic Target State, Narrative Bridges, Transformation Orchestration governance doc, commentary quality rubric.
+
+**ADR-001:** Proceed. **Next governance:** Didactics / orchestration study, then optional ADR.
+
+---
+
+# Repository Evidence Summary
+
+| Layer | Key files |
+|-------|-----------|
+| Product pedagogy | CB-004, CB-006 |
+| Pilot didactics/evidence | CG-FLL-1E, CG-FLL-001 |
+| Transformation epistemology | LEF-0E, CFA-v1.0 |
+| Prior reviews | CEAR, CCNLAR, CLOR |
+
+---
+
+# Chess Pedagogy Findings (consolidated)
+
+Graduated difficulty, explain-after-experience, longitudinal focus [DOCTRINE]. Chess school names [EXTERNAL]. Volume-only conflict with I-3 [DOCTRINE].
+
+---
+
+# Didactics Findings (consolidated)
+
+LOE catalogue = implicit state machine [INFERENCE]. Didactic Target State [PROPOSAL]. Fork ladder maps to LOE-001→011 [INFERENCE].
+
+---
+
+# Transformation Findings (consolidated)
+
+Transformation = outcome + claim; Integration = process [DOCTRINE]. Entertainment ≠ learning [DOCTRINE]. Orchestration = modes + conditions + LOE sequence [INFERENCE].
+
+---
+
+# Commentary Findings (consolidated)
+
+Commentary evidence when LOE-linked [DOCTRINE]. Narrative ≠ ExplanationArtifact [DOCTRINE]. Post-Game primary architecture [DOCTRINE].
+
+---
+
+# Learning Methods Findings (consolidated)
+
+Methods map to LOE + modes [DOCTRINE ALIGNED]. Practice-from-trace distinctive [DOCTRINE]. Woodpecker needs I-3 tagging [DOCTRINE CONFLICT] risk.
+
+---
+
+# Synthesis Architecture (consolidated)
+
+Pedagogy → Didactics → Orchestration → Epistemic (CFA) → Commentary. Narrative Bridges [PROPOSAL]. Show-Tell-Replay = CG-FLL-001 [DOCTRINE ALIGNED].
+
+---
+
+# Open Questions (consolidated)
+
+OQ-PED1–2, OQ-DID1–3, OQ-TR1–2, OQ-COM1–3, OQ-MET1–2, OQ-SYN1–3 — see phase sections.
+
+---
+
+# Candidate Future ADRs (consolidated)
+
+1. LearningTrace Episode Schema v1 — **proceed**
+2. Didactic Target State & LOE Orchestration governance
+3. Commentary Evidence Rubric (LOE-009 quality)
+4. Narrative Bridge vs Chunk boundary (with CCNLAR)
+
+---
+
+# Commit Log (review branch)
+
+| Phase | Commit message | SHA |
+|-------|----------------|-----|
+| 1 | review: phase-1 chess pedagogy review | `b5688f3` |
+| 2 | review: phase-2 didactics review | `c195add` |
+| 3 | review: phase-3 transformation theory review | `2530ee4` |
+| 4 | review: phase-4 commentary and annotation review | `eee1a52` |
+| 5 | review: phase-5 chess learning methods review | `aa20bb9` |
+| 6 | review: phase-6 synthesis review | `255e3f9` |
+| 7 | review: phase-7 strategic assessment | (pending) |
+
+---
+
+## Document Status
+
+```text
+Accepted Chess Pedagogy, Didactics, Transformation & Commentary Review Candidate
+```
