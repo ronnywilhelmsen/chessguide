@@ -296,3 +296,87 @@ The `???` in the naive ladder is **not one box** — CFA v1.0 resolves it as **l
 |----|----------|
 | OQ-LT1 | Session tier — optional in CB-005; required for FLL-1? |
 | OQ-LT2 | Legacy `Game.toString` migration semantics to Episode ID |
+
+---
+
+# Part 4 — Learner Representation Review
+
+## Repository State (Phase 4)
+
+Committed: `review: phase-4 learner graph review`
+
+## Evidence Reviewed
+
+CFA-v1.0, LEF-1B–1E, CB-005, CDESR, CG-FLL-001, LLD v1.0.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/federation/CFA-v1.0.md` | Full ladder + glossary |
+| `docs/governance/federation/studies/LEF-1B-learningtrace-path-formation-hypothesis.md` | Path on trace |
+| `docs/governance/chessbuddy/CB-005-learningtrace-product-schema.md` | Actor hierarchy |
+| `docs/architecture/ChessGuide-LLD-v1.0.md` | LearningJourney aggregate |
+| `docs/reviews/Canonical-Domain-End-State-Requirements-Review-v1.0-ChessGuide.md` | Actor roles |
+
+## Doctrine Sources
+
+CB-005 Actor, CFA tiers, CG-FLL-001 steward-led pilot.
+
+## Runtime Sources
+
+`Human` in `players.ts` — name + email only; no graph structure.
+
+## Learner Graph v1 [PROPOSAL — doctrine-grounded, not repo type]
+
+```text
+Learner (Actor)
+  └── LearningJourney [1:1]
+        ├── Sessions[] (optional)
+        │     └── Episodes[]
+        │           ├── ChessSignals / Observations
+        │           ├── DecisionTraces (per ply)
+        │           ├── IM1Snapshots
+        │           └── Anchors[]
+        ├── LearningRecords[] (LOE/DOE) ──cross-link──► Episodes
+        ├── EvidenceChain ──► TransformationClaim
+        ├── LongitudinalPath [read model on journey]
+        ├── CapabilityConditions [per session/episode envelope]
+        └── ExplanationArtifacts[] (P1 episodic, P2 attested)
+```
+
+### Node types [INFERENCE from doctrine]
+
+| Node | Doctrine anchor | Class |
+|------|-----------------|-------|
+| **Learner** | CB-005 Actor | [DOCTRINE] |
+| **LearningJourney** | CB-005 LearningTrace container | [DOCTRINE] |
+| **Episode** | CB-005 | [DOCTRINE] |
+| **LongitudinalPath** | LEF-1B, CFA | [DOCTRINE] interpretive |
+| **EvidenceChain** | CG-FLL-1E lineage | [DOCTRINE] |
+| **Learner Graph** (as named graph) | Not in repo | [PROPOSAL] |
+
+### Edges [DOCTRINE]
+
+| Edge | Meaning |
+|------|---------|
+| Episode → Anchor | AN-1–4 |
+| LearningRecord → evidence_refs → Episode/Event | LOE-011 lineage |
+| Integration → LearningRecord | CG-FLL-002 |
+| Steward → validates → EvidenceChain | CG-FLL-001 |
+
+## Conclusions (Phase 4)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P4-1 | Learner representation is **Actor + LearningTrace hierarchy** in doctrine | [DOCTRINE] |
+| P4-2 | **Learner Graph** as graph model is **not named** in repo — synthesis for review | [PROPOSAL] |
+| P4-3 | LLD `LearningJourney` aligns with doctrine | [INFERENCE] |
+| P4-4 | Runtime has **Player name** only — no learner graph | [RUNTIME] |
+
+## Open Questions (Phase 4)
+
+| ID | Question |
+|----|----------|
+| OQ-LG1 | Steward as separate Actor node vs role on HumanActor? |
+| OQ-LG2 | Materialize LongitudinalPath or compute on read? |
