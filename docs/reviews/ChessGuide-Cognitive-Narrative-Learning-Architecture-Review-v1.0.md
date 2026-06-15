@@ -350,3 +350,115 @@ Episode (observable events)
 | OQ-NA1 | Should narrative beats be steward-annotated or algorithmically inferred? |
 | OQ-NA2 | Does Show-Tell-Show require a named learning loop in governance? |
 | OQ-NA3 | Can Narrative Chunk coexist with ExplanationArtifact P1 on same episode? |
+
+---
+
+# Part 4 — Purpose & Attention Review
+
+## Repository State (Phase 4)
+
+Committed: `review: phase-4 purpose and attention review`
+
+## Evidence Reviewed
+
+CG-001, CG-000, CG-FLL-002, CG-FLL-001, CB-005, CB-006, CB-004, LEF-1E, CEAR-v1.0 Part 5.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessguide/CG-001-product-vision.md` | Mission, learning over games |
+| `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` | Attention stage, observation capacity |
+| `docs/governance/chessbuddy/CB-005-learningtrace-product-schema.md` | Attention log, focus_contract anchor |
+| `docs/governance/chessbuddy/CB-006-user-modes.md` | Mode purposes, attention policies |
+| `docs/governance/chessbuddy/CB-004-buddy-persona-and-product-principles.md` | Proportionality, precision |
+| `docs/governance/federation/studies/LEF-1E-capability-conditions-hypothesis.md` | Attention as strong condition |
+
+## Doctrine Sources
+
+CG-FLL-002, CB-000 I-6 (OAT), CB-005, CB-006 mode purposes.
+
+## Runtime Sources
+
+No purpose or attention model in `src/` — hints/CP session-only.
+
+## Purpose & Attention Architecture v1
+
+### Purpose [DOCTRINE]
+
+| Layer | Purpose construct | Source |
+|-------|-------------------|--------|
+| **Product** | Measure learning, not games (CG-001) | [DOCTRINE] |
+| **Mode** | Per-mode purpose statements (CB-006) | [DOCTRINE] |
+| **Episode** | `focus_contract` anchor (CB-005 AN-3) | [DOCTRINE] |
+| **Pilot** | Learner goals at baseline (CG-FLL-001) | [DOCTRINE] |
+| **Learning Intent** | **Not named** as entity | [NEW INSIGHT] gap |
+
+### Attention [DOCTRINE]
+
+| Construct | Role | Source |
+|-----------|------|--------|
+| **Attention (chain stage)** | Filtered highlight on observation stream | CB-000A, chain |
+| **Attention log** | When hints/openings/CP shown | CB-005 |
+| **LOE-001** | Attention events in pilot catalog | CG-FLL-1E |
+| **OAT separation** | Raw observation ≠ attention | CB-000 I-6 |
+
+### Goal Theory alignment [DOCTRINE ALIGNED]
+
+Locke-style goal-directed learning is **partially present** via focus contracts and pilot goals — not as **Goal Theory** ontology.
+
+### Crow Epistemology Hypothesis evaluation
+
+> Humans learn best when a concept is introduced at the moment attention is already focused on a related phenomenon.
+
+| Dimension | Assessment | Class |
+|-----------|------------|-------|
+| Doctrine support | Attention precedes encoding/integration (CG-FLL-002 paths) | [DOCTRINE ALIGNED] |
+| Buddy behaviour | Connect intent links to past trace pattern (CB-004) | [DOCTRINE ALIGNED] |
+| Timing entity | **Learning Opportunity** not first-class | [NEW INSIGHT] |
+| Contradiction risk | Unsolicited hints violate PP-4 autonomy (CB-004) | [DOCTRINE CONFLICT] if mistimed |
+
+**Verdict:** Hypothesis **aligns** with attention-first doctrine; **requires** Learning Opportunity concept to operationalize without violating autonomy.
+
+### Should Learning Opportunity be first-class? [PROPOSAL]
+
+```text
+Learning Opportunity =
+  detected alignment between
+    (a) learner attention on phenomenon P
+    (b) knowledge concept C relevant to P
+    (c) mode-appropriate introduction policy
+```
+
+| For | Against |
+|-----|---------|
+| Crow epistemology; CB-004 Connect | No schema field; risks coaching flood |
+| Reduces wasted exposition | Inference-heavy; steward may disagree |
+| Supports purpose-centered hypothesis | CEAR: Learning Frontier unnamed |
+
+**Recommendation:** [PROPOSAL] Model as **interpretive read model**, not persistence primitive, until ADR-001 defines Episode attention envelope.
+
+### Causal chain evaluation
+
+| Link | Verdict | Class |
+|------|---------|-------|
+| Purpose → Attention | **Yes** — mode purpose sets attention policy (CB-006) | [DOCTRINE] |
+| Attention → Integration | **Yes** — encoding path requires attention (CG-FLL-002) | [DOCTRINE] |
+| Purpose → Integration | **Indirect** — via attention and conditions | [INFERENCE] |
+
+## Conclusions (Phase 4)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P4-1 | **Attention** is doctrine-strong; **Purpose** is vision/mode-level, not typed | [DOCTRINE] |
+| P4-2 | **Learning Opportunity** is absent but **compatible** with Crow hypothesis | [PROPOSAL] |
+| P4-3 | Concepts should be introduced **only when mode and autonomy permit** — not whenever attention exists | [DOCTRINE] CB-004/006 |
+| P4-4 | Purpose-Centered Learning Hypothesis **partially supported** with reflection/application gaps | [NEW INSIGHT] |
+
+## Open Questions (Phase 4)
+
+| ID | Question |
+|----|----------|
+| OQ-PA1 | Is Learning Intent distinct from focus_contract anchor? |
+| OQ-PA2 | Who authorizes opportunity detection — Buddy, steward, or learner? |
+| OQ-PA3 | Does purpose belong in Capability Conditions (LEF-1E Meaning dimension)? |
