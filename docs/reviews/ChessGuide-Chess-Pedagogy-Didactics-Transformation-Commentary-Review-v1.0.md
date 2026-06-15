@@ -290,3 +290,105 @@ None.
 |----|----------|
 | OQ-TR1 | Can implicit transformation signals suffice for Buddy guidance without C4? |
 | OQ-TR2 | Is "controlled transformation" a product term or steward term only? |
+
+---
+
+# Part 4 — Commentary & Annotation Review
+
+## Repository State (Phase 4)
+
+Committed: `review: phase-4 commentary and annotation review`
+
+## Evidence Reviewed
+
+CB-004, CB-005, CB-006 Post-Game, LEF-0C/0D, CG-FLL-1E LOE-009/DOE-006, FDS-001, CCNLAR Part 3.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-004-buddy-persona-and-product-principles.md` | Explanation hierarchy |
+| `docs/governance/chessbuddy/CB-006-user-modes.md` | Post-Game Review |
+| `docs/governance/federation/studies/LEF-0C-explanation-artifact-hypothesis.md` | Narrative vs durable why |
+| `docs/governance/federation/studies/LEF-0D-epistemic-placement-of-explanation-artifact.md` | P1/P2 placement |
+| `docs/governance/federation/FDS-001-dialogue-continuity-study.md` | Dialogue as continuity |
+
+## Doctrine Sources
+
+CB-004, LOE-009, LEF-0C/0D.
+
+## Runtime Sources
+
+None — no commentary artefact in code.
+
+## Commentary Architecture Review v1
+
+### Commentary forms vs doctrine
+
+| Form | Repository mapping | Class |
+|------|-------------------|-------|
+| **Annotated games** | Post-Game + ChessReasoning summaries | [DOCTRINE ALIGNED] |
+| **Master commentary** | Buddy Explain at hierarchy 2–3 | [DOCTRINE] |
+| **Think-aloud** | DOE-006 Reflective Explanation; LOE-005 Simulation | [DOCTRINE] |
+| **Coaching conversation** | DOE catalogue; FDS-001 dialogue | [DOCTRINE] |
+| **Post-game analysis** | Post-Game Review mode | [DOCTRINE] |
+| **Broadcasting** | **No doctrine** — entertainment risk | [EXTERNAL] |
+
+### Observation → Reasoning → Narrative [DOCTRINE + INFERENCE]
+
+```text
+Observation (moves, eval)
+  → Reasoning (ChessReasoning / LOE-009 why)
+  → Narrative (reflection.recorded, story overlay)
+  → ExplanationArtifact P1 (durable causal why — when required)
+```
+
+**Narrative** is **optional overlay**; **Explanation** is **integration mechanism**; **Reasoning** is **Understanding artefact**.
+
+### Commentary Hypothesis
+
+> The ability to narrate a game is an observable manifestation of integrated understanding.
+
+| Assessment | Class |
+|------------|-------|
+| **Partially supported** — LOE-009, teaching LOE-010, post-game reflection | [DOCTRINE ALIGNED] |
+| **Not sufficient** — narrative ≠ durable explanation (LEF-0C) | [DOCTRINE] |
+| **Expert narrative** stronger signal than novice story | [INFERENCE] |
+
+### Why stories over moves? [INFERENCE + EXTERNAL]
+
+Strong players compress chunks into **causal arcs** (crisis, turning point) — aligns with CCNLAR Narrative Chunk [PROPOSAL]. Repository does not encode this pedagogically.
+
+### Evidence eligibility
+
+| Evidence type | Can serve as learning evidence? | Class |
+|---------------|--------------------------------|-------|
+| **Commentary text** | **Yes** — LOE-009, reflection.recorded | [DOCTRINE] |
+| **Explanation quality** | **Yes** — steward DOE-008, C4 procedure | [DOCTRINE] |
+| **Storytelling alone** | **Partial** — needs lineage to observation | [DOCTRINE] LEF-0C |
+
+### Expert Narrative Hypothesis
+
+> Expertise observable through ability to reconstruct and explain transformations within a game.
+
+| Assessment | Class |
+|------------|-------|
+| Aligns with Replay R3–R5 + LOE-011 bundle | [DOCTRINE ALIGNED] |
+| Requires steward or measured corroboration | [DOCTRINE] — not narrative alone |
+
+## Conclusions (Phase 4)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P4-1 | Commentary **is** doctrine-relevant evidence when LOE-linked | [DOCTRINE] |
+| P4-2 | Storytelling **supplements** but does not replace ExplanationArtifact | [DOCTRINE] |
+| P4-3 | Post-Game Review is **primary commentary architecture** in product | [DOCTRINE] |
+| P4-4 | Broadcast-style commentary **out of scope** for learning claims | [INFERENCE] |
+
+## Open Questions (Phase 4)
+
+| ID | Question |
+|----|----------|
+| OQ-COM1 | Score commentary quality or steward-qualitative only? |
+| OQ-COM2 | Should think-aloud be mandatory LOE for Training mode? |
+| OQ-COM3 | Commentary export boundary vs federation? |
