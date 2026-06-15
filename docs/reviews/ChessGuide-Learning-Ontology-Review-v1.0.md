@@ -275,3 +275,99 @@ Reality (domain occurrence)
 | OQ-OBS1 | Is Experience a chain stage, Event tag, or interpretive label? |
 | OQ-OBS2 | Minimum Event set for valid Observation in Episode? |
 | OQ-OBS3 | Does federation ObservationRecord equal Observation or Episode slice? |
+
+---
+
+# Part 3 — Knowledge Ontology Review
+
+## Repository State (Phase 3)
+
+Committed: `review: phase-3 knowledge ontology review`
+
+## Evidence Reviewed
+
+CB-000 I-3, CB-002, CB-005, CG-FLL-002, CG-FLL-1E LOE catalog, CEAR Part 1, CCNLAR Part 3.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-000-federation-alignment.md` | ChessKnowledge, ChessWisdom, I-3 |
+| `docs/governance/chessbuddy/CB-002-longitudinal-skill-development-domain.md` | Domain artefact catalogue |
+| `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` | Knowledge vs Learning vs Recall |
+| `docs/governance/chessbuddy/CB-004-buddy-persona-and-product-principles.md` | Show-Tell hierarchy |
+| `src/data/openings.ts` | Knowledge corpus (runtime) |
+
+## Doctrine Sources
+
+CG-FLL-002, CB-000 I-3, CB-005 knowledge refs.
+
+## Runtime Sources
+
+`openings.ts` — hierarchical opening labels; no Concept type.
+
+## Knowledge Ontology v1
+
+### Entity classification
+
+| Entity | Primitive / Derived / Emergent | Definition | Class |
+|--------|-------------------------------|------------|-------|
+| **Knowledge Concept** | **Derived** (referencable unit) | Semantic unit anchorable in trace — opening ID, principle, position class | [PROPOSAL] CEAR |
+| **Pattern** | **Emergent** | Recurrence across episodes (LOE-002); observation capacity | [DOCTRINE] |
+| **Skill** | **Emergent** | Actionable domain competence through practice (LSDD) | [DOCTRINE] |
+| **Capability** | **Emergent** | Durable capacity after integration + conditions (CFA) | [DOCTRINE] |
+| **Understanding** | **Derived** | Interpretation artefact at chain stage (ChessReasoning) | [DOCTRINE] |
+| **Wisdom** | **Derived** | Normative guidance for action (ChessWisdom); ≠ Knowledge (I-3) | [DOCTRINE] |
+
+### Candidate concept tests
+
+| Item | Is it a Knowledge Concept? | Class |
+|------|---------------------------|-------|
+| **Fork** | **Yes** — referencable tactical pattern label | [INFERENCE] |
+| **Opposition** | **Yes** — referencable endgame concept | [INFERENCE] |
+| **Pattern Recognition** | **No** — LOE-002 **event/capacity signal**, not stored concept | [DOCTRINE] |
+| **Opening line node** | **Yes** — knowledge ref in CB-005 | [DOCTRINE] |
+
+### Understanding vs possession [DOCTRINE]
+
+| State | Indicator | Class |
+|-------|-----------|-------|
+| **Concept possession** | Knowledge refs, recall (LOE-003/004) | [DOCTRINE] |
+| **Understanding** | Usable interpretation under observation; ChessReasoning; integration | [DOCTRINE] CG-FLL-002 |
+
+> A learner may possess knowledge without effectively using it (CG-FLL-002).
+
+### Wisdom vs understanding [DOCTRINE]
+
+| Dimension | Understanding | Wisdom |
+|-----------|---------------|--------|
+| **Nature** | Interpretive (what position means) | Normative (what to do) |
+| **Source** | REA / ChessReasoning | WA / engine vs choice framing |
+| **Invariant** | I-3: Wisdom ≠ Knowledge | [DOCTRINE] |
+
+### Show–Tell Coupling Hypothesis
+
+> Understanding emerges when observed experience and explanation become mutually reinforcing.
+
+| Assessment | Class |
+|------------|-------|
+| **Aligned** — CB-004 Illuminate + Explain; integration mechanisms include explanation | [DOCTRINE ALIGNED] |
+| **Not sufficient alone** — explanation verb ≠ Understanding noun (LEF-0A C-5) | [DOCTRINE] |
+| **Mutual reinforcement** requires **integration**, not juxtaposition | [DOCTRINE] CG-FLL-002 |
+
+## Conclusions (Phase 3)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P3-1 | **Knowledge** chain stage and **ChessKnowledge** are doctrine; **Knowledge Concept** is review synthesis | [DOCTRINE] + [PROPOSAL] |
+| P3-2 | **Understanding** is smallest **named** understanding artefact in doctrine | [DOCTRINE] |
+| P3-3 | **Pattern** is emergent; **Concept** is referencable | [INFERENCE] |
+| P3-4 | Show-Tell Coupling holds only when **integration** closes the loop | [DOCTRINE ALIGNED] |
+
+## Open Questions (Phase 3)
+
+| ID | Question |
+|----|----------|
+| OQ-KN1 | Adopt Knowledge Concept as governance term? |
+| OQ-KN2 | Is Understanding primitive or always derived from Observation+Integration? |
+| OQ-KN3 | Where does Simulation (H3) sit — Knowledge or Integration mechanism? |
