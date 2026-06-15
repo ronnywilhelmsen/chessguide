@@ -371,3 +371,99 @@ CG-FLL-002, CB-000 I-3, CB-005 knowledge refs.
 | OQ-KN1 | Adopt Knowledge Concept as governance term? |
 | OQ-KN2 | Is Understanding primitive or always derived from Observation+Integration? |
 | OQ-KN3 | Where does Simulation (H3) sit — Knowledge or Integration mechanism? |
+
+---
+
+# Part 4 — Memory Ontology Review
+
+## Repository State (Phase 4)
+
+Committed: `review: phase-4 memory ontology review`
+
+## Evidence Reviewed
+
+CB-005 anchors, CB-000A memory unit, CG-FLL-002 recall path, LEF-0C, CCNLAR Parts 2–3, CEAR.
+
+## Files Reviewed
+
+| File | Sections |
+|------|----------|
+| `docs/governance/chessbuddy/CB-005-learningtrace-product-schema.md` | ChessAnchor AN-1–4 |
+| `docs/governance/chessbuddy/CB-000A-longitudinal-learning-model.md` | Series as memory unit |
+| `docs/governance/chessguide/CG-FLL-002-learning-semantics.md` | Encoding, Memory, Recall paths |
+| `docs/governance/chessbuddy/CB-004-buddy-persona-and-product-principles.md` | Longitudinal memory |
+| `docs/reviews/ChessGuide-Cognitive-Narrative-Learning-Architecture-Review-v1.0.md` | Chunk proposals |
+
+## Doctrine Sources
+
+CB-005, CG-FLL-002, CB-000A.
+
+## Runtime Sources
+
+`gameHistory` localStorage — episodic list only.
+
+## External literature (informative — subordinate)
+
+| Author | Contribution | Repo mapping | Class |
+|--------|--------------|--------------|-------|
+| **Barbara Oakley** | Cognitive chunking | Expert compression; no chunk type | [NEW INSIGHT] |
+| **Joshua Foer** | Narrative/mnemonic memory | Reflection narrative only | [NEW INSIGHT] |
+| **Derren Brown** | Memory palace, constructed narrative | **No repo reference** | [EXTERNAL] only |
+
+## Memory Ontology v1
+
+### Distinctions
+
+| Entity | Status | Role | Class |
+|--------|--------|------|-------|
+| **Knowledge Concept** | [PROPOSAL] | Referencable unit in corpus/trace | CEAR |
+| **Cognitive Chunk** | [PROPOSAL] | Compressed integrated mental structure | CCNLAR |
+| **Narrative Chunk** | [PROPOSAL] | Story scaffold for retention | CCNLAR |
+| **Memory Anchor** | **≈ ChessAnchor** | Immutable trace reference (AN-1–4) | [DOCTRINE] |
+| **Retrieval Cue** | **Absent** | Trigger for recall path | [PROPOSAL] |
+
+### Five memory questions
+
+| Question | Answer | Class |
+|----------|--------|-------|
+| **What is remembered?** | Learner state (implicit/explicit integration products) — **not** the trace file itself | [DOCTRINE] I-4 |
+| **What is retrieved?** | Knowledge via recall path after prior integration | [DOCTRINE] |
+| **What is reconstructed?** | Position/history via Replay — external to memory | [DOCTRINE] LEF-0A |
+| **What is compressed?** | Expert paths; **chunk** unnamed | [IMPLICIT] + [PROPOSAL] |
+
+### Composition rules [PROPOSAL + INFERENCE]
+
+| Question | Answer | Class |
+|----------|--------|-------|
+| Concept without chunk? | **Yes** — corpus refs without integration | [DOCTRINE] |
+| Chunk without narrative? | **Yes** — cognitive compression need not be storied | [PROPOSAL] |
+| Narrative without chunk? | **Yes** — reflection prose without tactical compression | [DOCTRINE] reflection.recorded |
+| Retrieval cues first-class? | **Not today** — nearest: anchors, opening.recognized, focus_contract | [PROPOSAL] |
+
+### Narrative Memory Hypothesis
+
+> Concepts retained more effectively when attached to memorable narrative structures.
+
+| Assessment | Class |
+|------------|-------|
+| **Not in doctrine** | [PROPOSAL] |
+| **Compatible** with reflection + Buddy Connect intent (CB-004) | [DOCTRINE ALIGNED] partial |
+| **Distinct from** ExplanationArtifact causal record (LEF-0C) | [DOCTRINE] |
+| **Requires** Narrative Chunk adoption to test | [OPEN QUESTION] |
+
+## Conclusions (Phase 4)
+
+| # | Conclusion | Class |
+|---|------------|-------|
+| P4-1 | **ChessAnchor** is doctrine memory anchor; **Retrieval Cue** is not typed | [DOCTRINE] |
+| P4-2 | **Chunk** and **Narrative Chunk** remain **[PROPOSAL]** — largest memory ontology gap | [INFERENCE] |
+| P4-3 | Longitudinal **series** is primary memory **unit of analysis** (CB-000A) | [DOCTRINE] |
+| P4-4 | External memory literature **informs** but does not override doctrine | [DOCTRINE] per mandate |
+
+## Open Questions (Phase 4)
+
+| ID | Question |
+|----|----------|
+| OQ-MEM1 | Rename ChessAnchor to Memory Anchor in governance? |
+| OQ-MEM2 | Are retrieval cues Events, Anchors, or Attention records? |
+| OQ-MEM3 | Does Narrative Chunk warrant separate artefact from ExplanationArtifact P1? |
