@@ -4,8 +4,8 @@
 |-------|-------|
 | **Document ID** | ADR-004 |
 | **Title** | Stewardship and Transformation Claim Gate v1 |
-| **Version** | 0.1 |
-| **Status** | Draft |
+| **Version** | 1.0 |
+| **Status** | Accepted |
 | **Date** | 2026-06-06 |
 | **Scope** | Governance boundary for stewardship review and learning/integration/transformation claims (semantic only) |
 | **Prerequisites** | [ADR-001](ADR-001-learningtrace-episode-schema-v1.md), [ADR-002](ADR-002-sovereign-reference-model-v1.md), [ADR-003](ADR-003-loe-doe-evidence-record-schema-v1.md), [CB-005](../chessbuddy/CB-005-learningtrace-product-schema.md), [CG-FLL-002](../chessguide/CG-FLL-002-learning-semantics.md), [CG-FLL-1E](../chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md), [CFA v1.0](../federation/CFA-v1.0.md), [FEDERATION.md](../../FEDERATION.md) |
@@ -16,9 +16,20 @@
 
 ## Status
 
-**Draft** — governance-only Architecture Decision Record. Defines when ChessGuide may move from **evidence** to **integration** or **transformation claims** through stewardship review.
+**Accepted** — repository governance decision defining the **Stewardship and Transformation Claim Gate**: when ChessGuide may move from **evidence** to **integration** or **transformation claims** through stewardship review.
 
-Does **not** introduce runtime, JSON Schema, SQL, localStorage, tests, federation export changes, APIs, UI, storage, or implementation files.
+This ADR is **governance only**. Acceptance does **not** introduce:
+
+- Runtime changes
+- Tests
+- Federation export changes
+- JSON Schema
+- SQL
+- localStorage
+- APIs
+- UI
+- Storage implementation
+- Implementation files
 
 ---
 
@@ -28,7 +39,7 @@ Does **not** introduce runtime, JSON Schema, SQL, localStorage, tests, federatio
 
 [ADR-002](ADR-002-sovereign-reference-model-v1.md) (Accepted) separates domain corpus, learner custody, and derived pedagogical views. Federation withholding is strict.
 
-[ADR-003](ADR-003-loe-doe-evidence-record-schema-v1.md) (Accepted) defines **LOE** (Learning Observation Evidence) and **DOE** (Demonstrated Observation Evidence) as unified **Evidence Records**. LOE/DOE support integration assessment but **do not prove integration**. **LOE-011** and the **Transformation Claim gate** are explicitly deferred to ADR-004.
+[ADR-003](ADR-003-loe-doe-evidence-record-schema-v1.md) (Accepted) defines **LOE** (Learning Observation Evidence) and **DOE** (Demonstrated Observation Evidence) as unified **Evidence Records**. LOE/DOE support integration assessment but **do not prove integration**. **LOE-011** and the **Transformation Claim gate** were deferred to ADR-004.
 
 **Doctrine context:**
 
@@ -82,7 +93,7 @@ Stewardship operates on learner-custody evidence under Actor / LearningTrace (AD
 - Neither claim type equals federation export.
 - Neither claim type persists Learning Frontier or learner state as sovereign aggregates (ADR-002 D3–D4).
 
-**Draft decision (OQ-004-2):** One unified **Claim** governance model with `claim_type: integration | transformation`. **Mastery Claim** remains out of scope / future ADR. **LOE-011** is a catalogue label for steward-gated transformation evidence — **not** a third claim type.
+**Unified Claim model (D7):** One **Claim** governance model with `claim_type: integration | transformation`. **Mastery Claim** remains out of scope / future ADR. **LOE-011** is a catalogue label for steward-gated transformation evidence — **not** a third claim type.
 
 ### D3 — LOE-011
 
@@ -102,7 +113,7 @@ LOE-011 is the **catalogue label** for steward-gated transformation evidence; th
 
 Governance minimums — not wire schema.
 
-#### Integration Claim
+#### Integration Claim (formal)
 
 Requires:
 
@@ -113,13 +124,13 @@ Requires:
 | Evidence basis | At least one referenced LOE or DOE Evidence Record via `evidence_refs[]` |
 | Grounding | Grounding reference on cited evidence (`event_id`, `anchor_id`, `corpus_ref`) **or** explicit `limitations` when incomplete (ADR-003 D4) |
 | `claim_scope` | Bounded object: capability label, `corpus_ref`, focus contract, pattern, or episode-linked object |
-| Stewardship | **C0, C1, and C2 completed** at governance level; **C4 verdict `accepted` required** for formal Integration Claim |
+| Stewardship | **C0, C1, and C2 completed**; **C4 verdict `accepted` required** for formal Integration Claim |
 | C3 | Lighter than Transformation Claim unless contradiction exists — replay/contradiction check when triggered |
 | Lineage note | Lighter than Transformation Claim (fewer prior records; single chain stage may suffice) but **still requires lineage** — not free text alone |
 
 Pre-C4 language remains informal: “evidence suggests integration may be emerging” (D8).
 
-#### Transformation Claim
+#### Transformation Claim (formal)
 
 Requires:
 
@@ -183,9 +194,7 @@ No runtime enum or JSON Schema in this ADR.
 
 ### D7 — Claim scope and limitations
 
-Every **Claim** (Integration or Transformation) must define at governance level:
-
-**Unified Claim model (draft decision):** one Claim record shape with `claim_type: integration | transformation` (OQ-004-2).
+Every **Claim** (Integration or Transformation) must define at governance level using the **unified Claim model**:
 
 | Field | Purpose |
 |-------|---------|
@@ -232,7 +241,7 @@ Claims without `limitations` when evidence is weak, single-episode, or contradic
 - Treat verdict as engine decree or permanent mastery
 - Export or mirror claims to federation
 
-Buddy remains **domain mentor**, not steward of record unless explicitly designated in future governance (Open Questions).
+Buddy remains **domain mentor**, not steward of record by default.
 
 Buddy’s **derived pedagogical view** is **not** stewardship unless a future ADR explicitly designates Buddy as steward of record.
 
@@ -318,7 +327,7 @@ Federation: Episode observation slice only — no claims
 3. Minimum lineage rules (D4).
 4. C0–C4 checkpoints (D5).
 5. Verdict vocabulary (D6).
-6. Claim identity fields: scope, limitations (D7).
+6. Unified Claim model and identity fields (D7).
 7. Buddy before/after boundaries (D8).
 8. Federation withholding (D9).
 9. Anti-patterns (D10).
@@ -341,7 +350,6 @@ Federation: Episode observation slice only — no claims
 | **LARIS activation** | FDP-002 |
 | **Graph DB / learner state persist** | ADR-002 |
 | **Numeric transformation metrics** | CEAR: procedural strength |
-| **Marking ADR-004 Accepted** | This document is Draft |
 
 ---
 
@@ -369,7 +377,7 @@ Federation: Episode observation slice only — no claims
 
 **Pros:** Hard separation at storage layer.  
 **Cons:** Duplicates identity, lineage, and verdict fields.  
-**Rejected** — **draft decision:** unified Claim with `claim_type: integration | transformation` (D2; OQ-004-2).
+**Rejected** — **Accepted:** unified Claim with `claim_type: integration | transformation` (D2, D7).
 
 ### Alt-5 — C0–C4 as strict runtime pipeline
 
@@ -388,6 +396,12 @@ Federation: Episode observation slice only — no claims
 **Pros:** Simpler storage.  
 **Cons:** Contradiction handling undefined; audit failure.  
 **Rejected** (D11).
+
+### Alt-8 — `accepted_with_limitations` as separate verdict
+
+**Pros:** Explicit weak-evidence signal in verdict enum.  
+**Cons:** Duplicates `limitations` field semantics.  
+**Rejected** — **`accepted`** with populated **`limitations`** (D6).
 
 ---
 
@@ -420,20 +434,20 @@ Federation: Episode observation slice only — no claims
 
 ## Open questions
 
-| ID | Question | Draft disposition |
-|----|----------|-----------------|
-| **OQ-004-1** | Formal names: Transformation Claim vs Integration Claim vs Stewardship Verdict record? | **Open** — D2/D6/D7 use terms above |
-| **OQ-004-2** | Separate claim types vs one unified Claim with `claim_type`? | **Draft decision:** unified Claim with `claim_type: integration \| transformation`; final acceptance pending |
-| **OQ-004-3** | Minimum EvidenceRecords for Transformation Claim? | **Lean:** two when available (D4; CG-FLL-1E) |
-| **OQ-004-4** | Different chain stages required or recommended? | **Lean:** recommended; steward exception documented |
+| ID | Question | Disposition |
+|----|----------|-------------|
+| **OQ-004-1** | Formal naming among Claim / Verdict / audit records? | **Open** — D2/D6/D7 use terms above |
+| **OQ-004-2** | Separate claim types vs unified Claim with `claim_type`? | **Decided:** unified Claim with `claim_type: integration \| transformation` (D2, D7) |
+| **OQ-004-3** | Minimum EvidenceRecords for Transformation Claim beyond “two when available”? | **Open** — two when available minimum (D4; CG-FLL-1E) |
+| **OQ-004-4** | Different chain stages required or recommended? | **Open** — recommended; steward exception documented (D4) |
 | **OQ-004-5** | Who may act as steward in v1? | **Open** — human steward primary in CG-FLL-1E; learner/tool roles TBD |
-| **OQ-004-6** | Can Buddy issue C4 verdict? | **Lean:** no — recommend only (D8) |
-| **OQ-004-7** | How is revocation represented? | **Lean:** verdict state `revoked` + audit append (D11); wire format deferred |
-| **OQ-004-8** | Mastery claims deferred? | **Lean:** yes — future ADR (D2) |
-| **OQ-004-9** | Claim confidence field vs limitations only? | **Lean:** limitations + verdict; no claim confidence score |
+| **OQ-004-6** | Can Buddy issue C4 verdict? | **Decided:** no by default — recommend only (D8) |
+| **OQ-004-7** | How is revocation represented in wire format? | **Deferred** — verdict `revoked` + audit append (D11) |
+| **OQ-004-8** | Mastery claims deferred? | **Decided:** yes — future ADR (D2) |
+| **OQ-004-9** | Claim confidence field vs limitations only? | **Decided:** limitations + verdict only; no claim confidence score (D6) |
 | **OQ-004-10** | First implementation artifact after ADR-004/005/006? | **Deferred** |
 | **OQ-004-11** | Map ADR-004 C0–C4 to CG-FLL-1E pilot checkpoint timing? | **Open** — semantic vs pilot schedule |
-| **OQ-004-12** | Must formal Integration Claims require C4 verdict? | **Draft decision:** yes — formal Integration Claims require C4 **`accepted`**; pre-C4 language is “evidence suggests integration may be emerging” (D4, D8) |
+| **OQ-004-12** | Must formal Integration Claims require C4 `accepted`? | **Decided:** yes — C0, C1, C2, C4 required; pre-C4 = “evidence suggests integration may be emerging” (D4, D8) |
 
 ---
 
@@ -443,6 +457,10 @@ Federation: Episode observation slice only — no claims
 |---------------|------------------|-----------|----------------|
 | Episode custody | ADR-001 Accepted | ADR | [DOCTRINE] |
 | Evidence Records | ADR-003 Accepted | ADR | [DOCTRINE] |
+| Unified Claim model | ADR-004 D2, D7 | ADR | [ACCEPTED] |
+| Formal Integration Claim gate | ADR-004 D4, D5 | ADR | [ACCEPTED] |
+| Verdict vocabulary | ADR-004 D6 | ADR | [ACCEPTED] |
+| Buddy boundary | ADR-004 D8; CB-004 | ADR + Doctrine | [ACCEPTED] |
 | LOE-011 → ADR-004 | ADR-003 D7; CG-FLL-1E | ADR + Doctrine | [DOCTRINE] |
 | Learning = integration | CG-FLL-002 | Doctrine | [DOCTRINE] |
 | Activity is not learning | CG-FLL-001 I-3 | Doctrine | [DOCTRINE] |
