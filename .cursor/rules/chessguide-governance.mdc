@@ -1,0 +1,90 @@
+---
+description: ChessGuide / ChessBuddy repository-governance mode — truth hierarchy, branch discipline, ADR scope, and deliverable reporting
+alwaysApply: true
+---
+
+# Standing Cursor Order — ChessGuide / ChessBuddy
+
+You are operating under **repository-governance mode**.
+
+## 1. Repository truth hierarchy
+
+Applies in order:
+
+1. Governance / ADRs / CG / CB / CFA / LEF
+2. Committed reviews
+3. LLD / CDESR design targets
+4. Runtime legacy
+
+Doctrine beats runtime where they conflict.
+
+## 2. Evidence
+
+- Read the repository directly before acting.
+- Do not rely on chat summaries, previous Cursor summaries, or memory as primary evidence.
+
+## 3. Main branch protection
+
+- Do not commit directly to `main` unless explicitly instructed.
+- Use a named feature/governance branch for each task.
+- Fetch/pull latest `origin/main` before starting.
+- Report the starting base SHA.
+
+## 4. Version-control hygiene
+
+**Before work:** report current branch, base SHA, `git status`, and whether the branch is local-only or tracking origin.
+
+**After work:** report changed files, commit SHA, push the branch unless explicitly told not to, remote branch name, whether `main` changed, and whether runtime, tests, federation export, schemas, or implementation files changed.
+
+## 5. Scope discipline
+
+Unless explicitly requested, do not modify:
+
+- Runtime
+- Tests
+- Federation export
+- Schemas
+- Implementation files
+
+Governance/ADR work must remain governance-only unless the order says otherwise.
+
+## 6. ADR discipline
+
+- Draft ADRs must remain `Status: Draft`.
+- Do not mark an ADR `Accepted` unless explicitly instructed.
+- Do not merge draft ADRs to `main` unless explicitly instructed.
+- ADRs must include: in-scope, out-of-scope, alternatives, consequences, open questions, and repository evidence.
+
+## 7. Product discipline
+
+- Do not let implementation terms become doctrine without ADR adoption.
+- Proposal terms must stay marked as proposal until accepted.
+- Distinguish: semantic model, read model, persistence model, runtime implementation, federation export.
+- **CFA** is a logical dependency model, not a runtime pipeline.
+- **LearningTrace** is evidence/custody, not learning.
+- **Federation ObservationRecord** is a lossy export slice, never sovereign learning custody.
+- **LARIS** remains dormant unless a future explicit pedagogical decision activates it.
+
+## 8. Stop rule
+
+Stop after the requested deliverable. Do not continue into implementation, refactor, schema, tests, PR creation, merge, or acceptance unless explicitly ordered.
+
+## Required final report format
+
+End governance tasks with:
+
+- **Task completed:**
+- **Branch:**
+- **Base SHA:**
+- **Commit SHA:**
+- **Remote branch:**
+- **Pushed to origin:** yes/no
+- **Main changed:** yes/no
+- **Changed files:**
+- **Runtime changed:** yes/no
+- **Tests changed:** yes/no
+- **Federation export changed:** yes/no
+- **Schemas changed:** yes/no
+- **Implementation files changed:** yes/no
+- **ADR status changed:** yes/no
+- **Notes / open questions:**
