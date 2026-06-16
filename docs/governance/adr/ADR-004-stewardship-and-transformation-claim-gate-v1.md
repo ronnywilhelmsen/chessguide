@@ -86,6 +86,13 @@ Stewardship operates on learner-custody evidence under Actor / LearningTrace (AD
 | **Transformation Claim** | Governed claim that learner **capacity has changed** in an observable, replayable, sufficiently stable way | Stronger; requires richer lineage + C4 verdict | ADR-004 |
 | **Mastery Claim** | Long-horizon capability state (CFA Mastery Horizon) | **Out of scope** — future ADR if needed | Deferred |
 
+**Claim as hypothesis (not evidence):**
+
+- A **Claim** is a governed **hypothesis / påstand** about learner integration or transformation.
+- A **Claim** is **not** itself evidence.
+- A **Claim** must be **evaluated against evidence lineage**.
+- Evidence lineage is represented by ordered **`evidence_refs[]`**.
+
 **Rules:**
 
 - Claims are **stronger** than LOE/DOE Evidence Records.
@@ -112,6 +119,13 @@ LOE-011 is the **catalogue label** for steward-gated transformation evidence; th
 ### D4 — Minimum lineage for claim eligibility
 
 Governance minimums — not wire schema.
+
+**Lineage grounding:**
+
+- A **formal claim** is never grounded by an isolated Evidence Record alone.
+- It is grounded by **evidence lineage**.
+- For **Integration Claims**, the lineage may be **minimal and bounded**.
+- For **Transformation Claims**, the lineage must be **stronger**, preferably multiple Evidence Records and multiple chain stages.
 
 #### Integration Claim (formal)
 
@@ -184,6 +198,9 @@ Governance-level verdicts for C4 (and claim state):
 
 **Rules:**
 
+- A **verdict** evaluates the **claim** against its cited **evidence lineage**.
+- **`accepted`** does not mean “proven absolutely”; it means **accepted within `claim_scope` and `limitations`**.
+- **`rejected`**, **`deferred`**, and **`revoked`** are also verdicts on the **claim-hypothesis**, not changes to the underlying Evidence Records.
 - Verdict must cite `evidence_refs[]` or equivalent lineage.
 - Verdict must identify **steward/source boundary** (human steward, learner self-attestation with steward review, tool-assisted review — see Open Questions).
 - `accepted` does not imply unbounded mastery or permanent skill state.
@@ -201,6 +218,7 @@ Every **Claim** (Integration or Transformation) must define at governance level 
 | `claim_id` | Stable identifier under Actor custody |
 | `claim_type` | `integration` \| `transformation` |
 | `actor_id` | Learner under custody |
+| `claim_statement` | *(Optional governance field)* — the bounded **hypothesis / påstand** being evaluated |
 | `claim_scope` | Bounded capability, `corpus_ref`, focus contract, pattern, or episode-linked object |
 | `evidence_refs[]` | Ordered lineage to Evidence Records (and prior claims if applicable) |
 | `steward_source` | Who/what performed review (governance label) |
