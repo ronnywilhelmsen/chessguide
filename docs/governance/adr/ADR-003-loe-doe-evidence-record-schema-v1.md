@@ -4,8 +4,8 @@
 |-------|-------|
 | **Document ID** | ADR-003 |
 | **Title** | LOE/DOE Evidence Record Schema v1 |
-| **Version** | 0.1 |
-| **Status** | Draft |
+| **Version** | 1.0 |
+| **Status** | Accepted |
 | **Date** | 2026-06-06 |
 | **Scope** | Governance schema boundary for LOE/DOE Evidence Records (semantic only) |
 | **Prerequisites** | [ADR-001](ADR-001-learningtrace-episode-schema-v1.md), [ADR-002](ADR-002-sovereign-reference-model-v1.md), [CB-005](../chessbuddy/CB-005-learningtrace-product-schema.md), [CG-FLL-002](../chessguide/CG-FLL-002-learning-semantics.md), [CG-FLL-1E](../chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md), [CFA v1.0](../federation/CFA-v1.0.md), [FEDERATION.md](../../FEDERATION.md) |
@@ -16,15 +16,28 @@
 
 ## Status
 
-**Draft** — governance-only Architecture Decision Record. Defines the LOE/DOE Evidence Record schema **boundary** at semantic level. Does **not** introduce runtime, JSON Schema, SQL, localStorage, tests, federation export changes, APIs, UI, storage, or implementation files.
+**Accepted** — repository governance decision defining the semantic **Evidence Record** boundary for LOE and DOE under learner custody.
+
+This ADR is **governance only**. Acceptance does **not** introduce:
+
+- Runtime changes
+- Tests
+- Federation export changes
+- JSON Schema
+- SQL
+- localStorage
+- APIs
+- UI
+- Storage implementation
+- Implementation files
 
 ---
 
 ## Context
 
-[ADR-001](ADR-001-learningtrace-episode-schema-v1.md) (Accepted) establishes **Episode** as the sovereign learner-custody persistence boundary. **LearningTrace** is evidence + custody, not learning. Full LOE/DOE schema was **deferred**; Episode v1 may carry optional opaque `loe_ref` / `doe_ref` only.
+[ADR-001](ADR-001-learningtrace-episode-schema-v1.md) (Accepted) establishes **Episode** as the sovereign learner-custody persistence boundary. **LearningTrace** is evidence + custody, not learning. Full LOE/DOE schema was **deferred** in ADR-001; Episode v1 may carry optional opaque `loe_ref` / `doe_ref` only.
 
-[ADR-002](ADR-002-sovereign-reference-model-v1.md) (Accepted) separates **domain corpus**, **learner custody**, and **derived pedagogical views**. **Corpus Reference** and `corpus_ref` are accepted v1 vocabulary. Future LOE/DOE records **must** reference `episode_id` and **may** reference `event_id`, `anchor_id`, `corpus_ref`, and `evidence_refs[]`. Federation withholding remains strict.
+[ADR-002](ADR-002-sovereign-reference-model-v1.md) (Accepted) separates **domain corpus**, **learner custody**, and **derived pedagogical views**. **Corpus Reference** and `corpus_ref` are accepted v1 vocabulary. LOE/DOE records **must** reference `episode_id` and **may** reference `event_id`, `anchor_id`, `corpus_ref`, and `evidence_refs[]`. Federation withholding remains strict.
 
 **Doctrine context:**
 
@@ -48,11 +61,11 @@ ChessGuide adopts **LOE/DOE Evidence Record Schema v1** as the governance bounda
 
 ### D1 — LOE definition
 
-**LOE (Learning Observation Evidence)** — **ADR-003 draft vocabulary** aligned with the existing CG-FLL-1E LOE catalogue (LOE-001–010):
+**LOE (Learning Observation Evidence)** — accepted governance vocabulary aligned with the CG-FLL-1E LOE catalogue (LOE-001–010):
 
 - A **bounded observation** that something happened or was demonstrated under learner custody.
 - Records **observable evidence** — what was noticed, recalled, explained, simulated, or otherwise registered — at a chain stage (Observation, Understanding, Knowledge, etc.).
-- Maps to catalog entries **LOE-001 through LOE-010** (CG-FLL-1E) when typed.
+- Maps to catalog entries **LOE-001 through LOE-010** (CG-FLL-1E) via `catalog_id` when typed.
 
 **LOE is not:**
 
@@ -62,11 +75,11 @@ ChessGuide adopts **LOE/DOE Evidence Record Schema v1** as the governance bounda
 
 ### D2 — DOE definition
 
-**DOE (Demonstrated Observation Evidence)** — **ADR-003 draft working term** aligned with the existing CG-FLL-1E DOE catalogue (DOE-001–008). Exact acronym expansion is **draft vocabulary**; final governance glossary acceptance pending (OQ-003-1).
+**DOE (Demonstrated Observation Evidence)** — accepted governance vocabulary aligned with the CG-FLL-1E DOE catalogue (DOE-001–008):
 
 - A **stronger evidence record** where capability, understanding, or response is **demonstrated under observable conditions** — typically dialogue-mediated (CG-FLL-1E Part III; FDS-001 lineage).
 - May **support** later integration assessment and stewardship replay.
-- Maps to catalog entries **DOE-001 through DOE-008** when typed.
+- Maps to catalog entries **DOE-001 through DOE-008** via `catalog_id` when typed.
 
 **DOE is not:**
 
@@ -78,9 +91,12 @@ ChessGuide adopts **LOE/DOE Evidence Record Schema v1** as the governance bounda
 
 ### D3 — Evidence Record identity
 
-An **Evidence Record** is a learner-custody record in the evidence chain connected to Episode custody (and grounding references below).
+An **Evidence Record** is a learner-custody record in the evidence chain connected to Episode custody and grounding references.
 
-**Draft decision (OQ-003-2):** One unified **Evidence Record** type with `evidence_type: LOE | DOE` and optional `catalog_id` — final acceptance pending.
+**Accepted model:** One unified **Evidence Record** type with:
+
+- `evidence_type: LOE | DOE`
+- `catalog_id` distinguishing LOE-00x and DOE-00x catalogue mappings (e.g. `LOE-009`, `DOE-007`)
 
 **Minimum identity fields (governance level — not JSON Schema):**
 
@@ -112,14 +128,14 @@ Every Evidence Record **should** include **at least one grounding reference** wh
 | `event_id` | Learner custody | Atomic Episode event (move, signal) |
 | `anchor_id` | Learner custody | ChessAnchor per ADR-001 AN-1–4 |
 | `corpus_ref` | Semantic domain reference | Corpus Reference per ADR-002 D5 — **not** evidence custody |
-| `evidence_refs[]` | Lineage | Prior Evidence Record IDs — **ordered list forming lineage, not a graph database** |
+| `evidence_refs[]` | Lineage | Prior Evidence Record IDs — **ordered, append-oriented list** forming lineage, not a graph database |
 
 **Grounding rules:**
 
 - **Free text alone is never sufficient** for evidence lineage.
-- When only `episode_id` is available during draft capture, the record **must** carry an explicit **`limitations`** note explaining missing grounding (CG-FLL-1E: anchor required for LOE when capturable).
+- When only `episode_id` is available, the record **must** carry an explicit **`limitations`** note explaining missing grounding (CG-FLL-1E: anchor required for LOE when capturable).
 - `corpus_ref` points to domain corpus; it does **not** copy corpus into learner custody as learned knowledge (ADR-002 D2, D8).
-- `evidence_refs[]` forms **evidence lineage** for replay and future stewardship — not traversal API or graph storage.
+- `evidence_refs[]` is **ordered**; evidence lineage is **append-oriented** and governed by **append-only principle** (aligned with ADR-001 custody spirit). Exact implementation mechanics are deferred.
 
 ### D5 — Evidence payload minimum
 
@@ -145,6 +161,8 @@ Aligns with CG-FLL-1E per-event minimum: Event ID, Episode ID, timestamp, type, 
 - `quality_flag` is **not** ranking.
 - `quality_flag` is **not** integration evidence by itself.
 - It may only mark **evidence quality**, **provenance confidence**, or **limitation** — steward-safe ordinal or narrative label only.
+
+Concrete `quality_flag` vocabulary is **deferred** (OQ-003-3).
 
 ### D6 — Forbidden fields / anti-patterns
 
@@ -176,7 +194,7 @@ Evidence Records **must not** directly store or assert:
 | **LOE/DOE role** | May **support** later integration assessment; do **not** prove integration |
 | **Implicit integration** | May occur without explicit LOE surface (LEF-0E) — absence of LOE ≠ no learning |
 | **Transformation Claim** | **ADR-004** — LOE-011, C0–C4, steward sign-off (CG-FLL-1E I-1, I-2) |
-| **Lineage** | No claim without lineage; LOE-011 requires ≥2 prior events from different chain stages (CG-FLL-1E) |
+| **Lineage** | No transformation claim without lineage and stewardship; LOE-011 requires ≥2 prior events from different chain stages (CG-FLL-1E) |
 
 **ADR-003 scope:** Evidence Record shape for LOE and DOE catalog types **LOE-001–010** and **DOE-001–008**.
 
@@ -186,13 +204,13 @@ Evidence Records **must not** directly store or assert:
 
 - Evidence Records **may** include `corpus_ref` — “evidence about this reference unit.”
 - `corpus_ref` is semantic pointer to domain corpus (ADR-002 D5) — **not** learner evidence custody.
-- **Corpus snapshots** in payload require explicit provenance (`source=corpus_snapshot`); snapshots are **not** sovereign learning evidence (ADR-002 D2).
+- **Corpus snapshots** in payload require explicit provenance (`source=corpus_snapshot`); snapshots are **not** sovereign learning evidence (ADR-002 D2). Policy beyond this provenance rule is **deferred** (OQ-003-6).
 - Anchors with `corpus_ref` (ADR-002 D6) and Evidence Records with `corpus_ref` are complementary — anchor immutability AN-2 applies to anchors, not corpus versions.
 
 ### D9 — Relationship to federation
 
 - LOE/DOE Evidence Records **must not** cross federation export (FEDERATION.md; ADR-001 D11; ADR-002 D8).
-- No `corpus_ref`, learning metadata, derived state, `evidence_refs[]`, or transformation content in `ObservationRecord`.
+- No LOE/DOE records, `corpus_ref`, learning metadata, derived state, `evidence_refs[]`, or transformation content in `ObservationRecord`.
 - ADR-003 **does not modify** federation export or `export_v1`.
 
 ### D10 — Storage and implementation boundary
@@ -205,7 +223,7 @@ ADR-003 defines **governance schema boundary only**.
 - Runtime changes (`src/`)
 - Tests, APIs, UI
 - Graph database, traversal service
-- Inline-vs-sidecar storage placement (open question — see below)
+- Inline-vs-sidecar storage placement (deferred — OQ-003-7)
 
 Future concrete schema / storage / migration requires governance acceptance of an **implementation phase** ADR after ADR-004.
 
@@ -218,7 +236,7 @@ Future concrete schema / storage / migration requires governance acceptance of a
 | **ADR-006** | Buddy Pedagogical Use of Reference Model | Frontier surfacing, hints, non-authoritative pedagogy |
 | **Future** | Concrete schema / storage / migration | Wire format, inline vs sidecar, persistence — **only after** ADR-004 acceptance and explicit implementation phase |
 
-**Recommended sequencing:** ADR-003 Accepted (draft → review) → ADR-004 → ADR-005 / ADR-006 → implementation phase ADR.
+**Sequencing:** ADR-003 Accepted → ADR-004 → ADR-005 / ADR-006 → implementation phase ADR.
 
 ### Semantic placement
 
@@ -245,14 +263,14 @@ Federation: terminal Episode only → ObservationRecord (no LOE/DOE)
 ## In scope
 
 1. LOE and DOE governance definitions (D1, D2).
-2. Evidence Record identity minimum fields (D3).
-3. Allowed reference targets and grounding rules: `episode_id` required; grounding refs when available (D4).
+2. Unified Evidence Record identity (D3).
+3. Reference targets and grounding rules (D4).
 4. Minimum conceptual payload (D5).
 5. Forbidden fields and anti-patterns (D6).
 6. Boundary vs integration, transformation, Corpus Reference, federation (D7–D9).
 7. Implementation exclusion (D10).
 8. Downstream ADR sequencing (D11).
-9. Mapping to CG-FLL-1E LOE-001–010 and DOE-001–008 catalog (semantic alignment).
+9. Mapping to CG-FLL-1E LOE-001–010 and DOE-001–008 catalog.
 
 ---
 
@@ -261,8 +279,8 @@ Federation: terminal Episode only → ObservationRecord (no LOE/DOE)
 | Excluded | Rationale |
 |----------|-----------|
 | **Runtime / `src/`** | Governance only |
-| **Tests** | Not requested |
-| **Federation export changes** | ADR-001/002 locked |
+| **Tests** | Not in scope |
+| **Federation export changes** | ADR-001/002 locked; D9 |
 | **JSON Schema, SQL, localStorage** | D10 |
 | **LOE-011 / Transformation Claim workflow** | ADR-004 |
 | **Stewardship C0–C4 mechanics** | ADR-004 |
@@ -271,10 +289,11 @@ Federation: terminal Episode only → ObservationRecord (no LOE/DOE)
 | **Learning Frontier / learner state persistence** | ADR-002 derived views |
 | **Graph DB / traversal API** | ADR-002 |
 | **LARIS activation** | FDP-002 |
-| **Activity tag schema** (`activity.*`) | May reference Episode; full activity model deferred |
+| **Activity tag schema** (`activity.*`) | Deferred (OQ-003-9) |
 | **ExplanationArtifact record shape** | LEF-0C/0D; orthogonal to LOE/DOE |
 | **IM-1 full field schema** | CB-005 semantic; optional on Evidence Record |
-| **Marking ADR-003 Accepted** | This document is Draft |
+| **Concrete `quality_flag` vocabulary** | Deferred (OQ-003-3) |
+| **Inline vs sidecar storage** | Deferred (OQ-003-7) |
 
 ---
 
@@ -284,13 +303,13 @@ Federation: terminal Episode only → ObservationRecord (no LOE/DOE)
 
 **Pros:** One type, simpler custody model; `catalog_id` preserves LOE/DOE catalogue distinction.  
 **Cons:** LOE and DOE have distinct catalog semantics and dialogue role (CG-FLL-1E).  
-**Draft decision:** unified **Evidence Record** with `evidence_type: LOE | DOE` and `catalog_id` (e.g. `LOE-009`, `DOE-007`) — final acceptance pending (OQ-003-2).
+**Accepted** — unified Evidence Record with `evidence_type: LOE | DOE` and `catalog_id` (D3).
 
 ### Alt-2 — LOE/DOE inline-only inside Episode blob
 
 **Pros:** Matches legacy episode string simplicity.  
 **Cons:** Rejected by ADR-001 D10; conflates observation custody with claim lineage.  
-**Rejected** — sidecar or parallel record model at implementation time; governance defines record boundary first.
+**Rejected** — governance defines record boundary; storage placement deferred.
 
 ### Alt-3 — LOE/DOE as federation-exportable metadata
 
@@ -308,13 +327,19 @@ Federation: terminal Episode only → ObservationRecord (no LOE/DOE)
 
 **Pros:** Machine comparison.  
 **Cons:** CEAR: strength is procedural/steward-narrative; CB-002 warns Elo-only.  
-**Rejected** — optional ordinal `quality_flag` only (D5, D6).
+**Rejected** — optional `quality_flag` with D5 anti-patterns only.
 
-### Alt-6 — evidence_refs[] as graph edges / Neo4j model
+### Alt-6 — evidence_refs[] as graph edges
 
 **Pros:** Rich lineage queries.  
 **Cons:** ADR-002: lineage is ordered refs, not graph DB.  
-**Rejected** — append-oriented ref list (D4).
+**Rejected** — ordered, append-oriented ref list (D4).
+
+### Alt-7 — Separate LOE and DOE record types (no unified Evidence Record)
+
+**Pros:** Hard type separation at storage layer.  
+**Cons:** Duplicates identity and grounding rules; ADR-002 D7 already allows shared reference targets.  
+**Rejected** — unified Evidence Record with `evidence_type` (D3).
 
 ---
 
@@ -322,17 +347,17 @@ Federation: terminal Episode only → ObservationRecord (no LOE/DOE)
 
 ### Positive
 
-- Completes the trilogy ADR-001 (Episode) → ADR-002 (reference model) → ADR-003 (evidence records).
+- Completes ADR-001 (Episode) → ADR-002 (reference model) → ADR-003 (evidence records).
 - Enables pilot-aligned LOE/DOE capture design without conflating evidence and learning.
 - Preserves federation export boundary.
-- Gives ADR-004 a clear input: Evidence Records with lineage, not claims.
+- Gives ADR-004 a clear input: Evidence Records with ordered lineage, not claims.
 
 ### Negative / risks
 
-- Working expansions for LOE/DOE acronyms may differ from historical pilot usage — glossary discipline required.
-- Inline vs sidecar storage still open — implementers need ADR-004+ or implementation ADR.
+- LOE/DOE acronym expansions are now governance vocabulary — pilot prose may need alignment.
+- Inline vs sidecar storage deferred — implementers need post-ADR-004 implementation ADR.
 - Runtime gap persists until separate implementation effort (LEF-2C).
-- Optional `quality_flag` may be misused as score without stewardship — mitigated by D6.
+- Optional `quality_flag` may be misused without concrete vocabulary — mitigated by D5/D6 until OQ-003-3 resolved.
 
 ### Unlocked downstream
 
@@ -347,18 +372,18 @@ Federation: terminal Episode only → ObservationRecord (no LOE/DOE)
 
 ## Open questions
 
-| ID | Question | Draft disposition |
-|----|----------|-----------------|
-| **OQ-003-1** | Exact DOE expansion in governance glossary? | **Draft working term:** Demonstrated Observation Evidence — final acceptance pending |
-| **OQ-003-2** | Separate LOE/DOE types vs one `EvidenceRecord` + `evidence_type`? | **Draft decision:** unified EvidenceRecord with `evidence_type`; final acceptance pending |
-| **OQ-003-3** | Minimum `confidence` / `quality_flag` vocabulary? | **Open** — ordinal steward-safe only |
-| **OQ-003-4** | Should `evidence_refs[]` be ordered? | **Lean:** yes — lineage order matters for replay |
-| **OQ-003-5** | Evidence lineage append-only? | **Lean:** yes — align ADR-001 append-only spirit |
-| **OQ-003-6** | Corpus snapshots inside Evidence Record payload vs `corpus_ref` link only? | **Lean:** link preferred; snapshot with provenance only if required |
+| ID | Question | Disposition |
+|----|----------|-------------|
+| **OQ-003-1** | DOE expansion in governance glossary? | **Decided:** Demonstrated Observation Evidence (D2) |
+| **OQ-003-2** | Separate LOE/DOE types vs unified EvidenceRecord? | **Decided:** unified Evidence Record + `evidence_type` + `catalog_id` (D3) |
+| **OQ-003-3** | Minimum `quality_flag` vocabulary? | **Deferred** |
+| **OQ-003-4** | Should `evidence_refs[]` be ordered? | **Decided:** yes — ordered lineage (D4) |
+| **OQ-003-5** | Evidence lineage append-only? | **Decided:** append-oriented / append-only governance principle (D4); implementation mechanics deferred |
+| **OQ-003-6** | Corpus snapshots in payload vs `corpus_ref` link only? | **Deferred** — provenance rule in D8; policy beyond that open |
 | **OQ-003-7** | Inline vs sidecar storage relative to Episode? | **Deferred** — implementation ADR post ADR-004 |
-| **OQ-003-8** | Exact LOE acronym expansion in governance glossary? | **Draft vocabulary:** Learning Observation Evidence — aligns with LOE catalogue; final acceptance pending |
-| **OQ-003-9** | Include `activity.*` tags in ADR-003 or separate ADR? | **Deferred** — activity is not learning (I-3) |
-| **OQ-003-10** | First implementation artifact after ADR-004? | **Lean:** governance-side event type enum + storage ADR |
+| **OQ-003-8** | LOE acronym expansion? | **Decided:** Learning Observation Evidence (D1) |
+| **OQ-003-9** | Include `activity.*` tags in ADR-003? | **Deferred** — activity is not learning (I-3) |
+| **OQ-003-10** | First implementation artifact after ADR-004? | **Deferred** |
 
 ---
 
@@ -369,6 +394,10 @@ Federation: terminal Episode only → ObservationRecord (no LOE/DOE)
 | Episode custody prerequisite | ADR-001 Accepted | ADR | [DOCTRINE] |
 | Reference targets | ADR-002 D7 Accepted | ADR | [DOCTRINE] |
 | LOE/DOE deferred from ADR-001 | ADR-001 D10 | ADR | [DOCTRINE] |
+| LOE = Learning Observation Evidence | ADR-003 D1 | ADR | [ACCEPTED] |
+| DOE = Demonstrated Observation Evidence | ADR-003 D2 | ADR | [ACCEPTED] |
+| Unified Evidence Record | ADR-003 D3 | ADR | [ACCEPTED] |
+| Ordered append-oriented lineage | ADR-003 D4 | ADR | [ACCEPTED] |
 | LOE-001–011 catalogue | CG-FLL-1E Part II | Doctrine | [DOCTRINE] |
 | DOE-001–008 catalogue | CG-FLL-1E Part III | Doctrine | [DOCTRINE] |
 | Per-event minimum fields | CG-FLL-1E L189–201 | Doctrine | [DOCTRINE] |
@@ -380,7 +409,7 @@ Federation: terminal Episode only → ObservationRecord (no LOE/DOE)
 | Corpus Reference | ADR-002 D1, D5 | ADR | [DOCTRINE] |
 | CFA Integration / Claim | CFA v1.0; LEF-0E | Doctrine | [DOCTRINE] |
 | No LOE in runtime | LEF-2C | Study | [RUNTIME GAP] |
-| Inline vs sidecar | ADR-001 OQ-ADR3; LEF-0B OQ-B4 | ADR + Study | [OPEN] |
+| Inline vs sidecar | ADR-001 OQ-ADR3; LEF-0B OQ-B4 | ADR + Study | [DEFERRED] |
 | LOE-011 → stewardship | CG-FLL-1E I-1, I-2 | Doctrine | [DOCTRINE] → ADR-004 |
 | Discovery sequencing | CDIA; ADR-002 downstream table | Review | [INFERENCE] |
 
