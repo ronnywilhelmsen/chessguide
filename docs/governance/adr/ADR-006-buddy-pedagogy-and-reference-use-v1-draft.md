@@ -5,7 +5,7 @@
 | **Document ID** | ADR-006 |
 | **Title** | Buddy Pedagogy and Reference Use v1 |
 | **Version** | 0.1 |
-| **Status** | Draft |
+| **Status** | Accepted |
 | **Date** | 2026-06-17 |
 | **Scope** | Governance / semantic model only — Buddy pedagogical use of corpus, DecisionTrace, evidence, and reference lanes |
 | **Prerequisites** | [ADR-001](ADR-001-learningtrace-episode-schema-v1.md), [ADR-002](ADR-002-sovereign-reference-model-v1.md), [ADR-003](ADR-003-loe-doe-evidence-record-schema-v1.md), [ADR-004](ADR-004-stewardship-and-transformation-claim-gate-v1.md), [ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md), [CCCR v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md), [CB-004](../chessbuddy/CB-004-buddy-persona-and-product-principles.md), [CB-005](../chessbuddy/CB-005-learningtrace-product-schema.md), [CG-FLL-002](../chessguide/CG-FLL-002-learning-semantics.md), [CG-FLL-1E](../chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md), [FEDERATION.md](../../FEDERATION.md) |
@@ -16,9 +16,9 @@
 
 ## Status
 
-**Draft** — governance-only Architecture Decision Record defining **Buddy Pedagogy and Reference Use v1**: how Buddy may use ChessGuide’s reference model, `corpus_ref`, DecisionTrace, LOE/DOE evidence, Stockfish/engine reference, and pedagogical prompts.
+**Accepted** — repository governance decision defining **Buddy Pedagogy and Reference Use v1**: how Buddy may use ChessGuide's reference model, `corpus_ref`, DecisionTrace, LOE/DOE evidence, Stockfish/engine reference, and pedagogical prompts.
 
-This ADR is **governance only**. Draft acceptance does **not** introduce:
+This ADR is **governance only**. Acceptance does **not** introduce:
 
 - Runtime changes
 - Tests
@@ -36,7 +36,6 @@ This ADR is **governance only**. Draft acceptance does **not** introduce:
 This ADR does **not**:
 
 - Mark Buddy as **steward of record**
-- Mark [ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md) **Accepted**
 - Activate **LARIS** (CG-002; FDP-002)
 
 ---
@@ -51,7 +50,7 @@ This ADR does **not**:
 
 [ADR-004](ADR-004-stewardship-and-transformation-claim-gate-v1.md) (Accepted) defines **Claim** as governed **hypothesis / påstand** evaluated against evidence lineage. Formal claims require stewardship. Buddy may say “evidence suggests…” before stewardship but **may not issue C4 or LOE-011 by default** (ADR-004 D8).
 
-[ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md) (Draft) defines **DecisionTrace** as learner-custody reasoning context per ply. Buddy-prompted traces require **`trace_source: buddy_prompted`** and **`buddy_prompt_ref`** separation from learner response (ADR-005 D8).
+[ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md) (Accepted) defines **DecisionTrace** as learner-custody reasoning context per ply. Buddy-prompted traces require **`trace_source: buddy_prompted`** and **`buddy_prompt_ref`** separation from learner response (ADR-005 D8).
 
 [CCCR v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md) proposes Chess Corpus taxonomy and **`corpus_ref`** candidates. **Stockfish / engine** is **reference / measurement lane** — not pedagogical authority by itself, not corpus truth, not learner evidence.
 
@@ -141,7 +140,7 @@ Governance ladder for Buddy interventions — **semantic levels**, not UI implem
 
 ### D4 — Buddy use of DecisionTrace
 
-Buddy may help create **DecisionTrace** per [ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md) (Draft).
+Buddy may help create **DecisionTrace** per [ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md) (Accepted).
 
 | Situation | Required governance |
 |-----------|---------------------|
@@ -333,11 +332,11 @@ Buddy requires a **system chess competence lane** to teach chess well. **This AD
 |------|-------|
 | **ADR-007** (or review) | Stockfish Reference / System Chess Competence Boundary |
 | **Future ADR** | Corpus Reference Registry v1 (CCCR MVP) |
-| **Future ADR** | DecisionTrace wire schema / storage (after ADR-005 Accepted) |
+| **Future ADR** | DecisionTrace wire schema / storage (ADR-005) |
 | **Future product ADR/design** | Buddy modes, copy, UI |
 | **Future implementation** | LOE/DOE capture using DecisionTrace |
 
-**Sequencing:** ADR-005 / ADR-006 (Draft, may parallel) → ADR-007 / Corpus Registry → implementation phase.
+**Sequencing:** ADR-005 (Accepted) → ADR-006 (Accepted) → ADR-007 / Corpus Registry → implementation phase.
 
 ### Semantic placement
 
@@ -345,7 +344,7 @@ Buddy requires a **system chess competence lane** to teach chess well. **This AD
 Episode / MoveRecord — ADR-001
         │
         ▼
-DecisionTrace — ADR-005 (Draft)
+DecisionTrace — ADR-005 (Accepted)
         │
         ├── Buddy prompt / buddy_prompt_ref — ADR-006
         ├── corpus_ref — ADR-002 / CCCR
@@ -397,7 +396,6 @@ Not: learner / steward / engine oracle / federation exporter
 | **Corpus registry implementation** | Future ADR |
 | **Stewardship C0–C4 mechanics** | ADR-004 |
 | **Claim record shape** | ADR-004 |
-| **Accepting ADR-005** | Separate acceptance task |
 | **LARIS activation** | FDP-002 |
 
 ---
@@ -503,7 +501,7 @@ Not: learner / steward / engine oracle / federation exporter
 | corpus_ref / derived views | ADR-002 Accepted | ADR | [DOCTRINE] |
 | LOE/DOE evidence | ADR-003 Accepted | ADR | [DOCTRINE] |
 | Claim / stewardship gate | ADR-004 Accepted | ADR | [DOCTRINE] |
-| DecisionTrace / capture_timing / trace_source | ADR-005 Draft | ADR | [DRAFT] |
+| DecisionTrace / capture_timing / trace_source | ADR-005 Accepted | ADR | [DOCTRINE] |
 | Corpus / Stockfish boundary | CCCR v1.0 | Review | [PROPOSAL] |
 | Buddy persona; reference over decree | CB-004 | Doctrine | [DOCTRINE] |
 | LearningTrace product schema | CB-005 | Doctrine | [DOCTRINE] |
@@ -512,19 +510,19 @@ Not: learner / steward / engine oracle / federation exporter
 | Federation export boundary | FEDERATION.md | Doctrine | [DOCTRINE] |
 | Engine CP measured lane | `helper.ts`, `CP.tsx` | Runtime | [RUNTIME] |
 | Opening runtime corpus | `openings.ts`, `openingdata.ts` | Runtime | [RUNTIME] |
-| Buddy pedagogy definition | ADR-006 D1–D14 | ADR | [DRAFT] |
+| Buddy pedagogy definition | ADR-006 D1–D14 | ADR | [DOCTRINE] |
 
 ---
 
 ## Downstream ADRs
 
-See **D14**. ADR-006 does not subsume ADR-005 DecisionTrace acceptance or ADR-007 Stockfish / system competence.
+See **D14**. ADR-006 does not subsume DecisionTrace implementation storage ADRs or ADR-007 Stockfish / system competence.
 
 ---
 
 ## Governance boundary statement
 
-**ADR-006 does not modify** runtime, tests, federation export, schemas, implementation files, **accepted ADRs**, or **ADR-005 status** (remains Draft v0.1).
+**ADR-006 does not modify** runtime, tests, federation export, schemas, implementation files, or **accepted ADRs** other than its own acceptance status.
 
 ---
 
@@ -534,7 +532,7 @@ See **D14**. ADR-006 does not subsume ADR-005 DecisionTrace acceptance or ADR-00
 - [ADR-002 — Sovereign Reference Model v1](ADR-002-sovereign-reference-model-v1.md)
 - [ADR-003 — LOE/DOE Evidence Record Schema v1](ADR-003-loe-doe-evidence-record-schema-v1.md)
 - [ADR-004 — Stewardship and Transformation Claim Gate v1](ADR-004-stewardship-and-transformation-claim-gate-v1.md)
-- [ADR-005 — DecisionTrace / Per-Ply Reasoning v1 (Draft)](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md)
+- [ADR-005 — DecisionTrace / Per-Ply Reasoning v1](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md)
 - [ChessGuide Corpus Content Review v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md)
 - [CB-004 — Buddy Persona & Product Principles](../chessbuddy/CB-004-buddy-persona-and-product-principles.md)
 - [CB-005 — LearningTrace Product Schema](../chessbuddy/CB-005-learningtrace-product-schema.md)
