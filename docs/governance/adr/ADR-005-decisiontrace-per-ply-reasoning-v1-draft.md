@@ -89,7 +89,7 @@ It records:
 - **Mastery**, skill vector, or learner state
 - **Federation export** (D9)
 
-**Per-ply reasoning** is the bounded reasoning attached to one ply or move decision. It may be captured before the move, during review, or after the game — but **`timing_source` must be explicit** (D3). Post-hoc reconstruction must not be treated as equivalent to pre-move reasoning unless explicitly marked and bounded.
+**Per-ply reasoning** is the bounded reasoning attached to one ply or move decision. It may be captured before the move, during review, or after the game — but **`capture_timing` and `trace_source` must both be explicit** (D3). Post-hoc reconstruction must not be treated as equivalent to pre-move reasoning unless explicitly marked and bounded.
 
 ### D2 — MoveRecord vs DecisionTrace vs EvidenceRecord vs Claim
 
@@ -108,27 +108,48 @@ It records:
 - EvidenceRecord citing DecisionTrace still does **not** prove integration without stewardship (ADR-003 D7; ADR-004).
 - Claim citing EvidenceRecords that cite DecisionTraces still requires C0–C4 and `evidence_refs[]` lineage (ADR-004).
 
-### D3 — Timing / source classification
+### D3 — Capture timing and trace source classification
 
-Every DecisionTrace **must** classify **`timing_source`**:
+DecisionTrace classification uses **two independent axes** — when reasoning was captured (`capture_timing`) and how or from whom it came (`trace_source`). These must **not** be conflated in a single field.
+
+Every DecisionTrace **must** set both **`capture_timing`** and **`trace_source`**.
+
+#### Table A — `capture_timing` (when)
 
 | Value | Meaning | Evidential note |
 |-------|---------|-----------------|
 | **`pre_move`** | Reasoning captured before committing the move | Strongest for decision-process evidence |
 | **`in_game`** | Reasoning captured during live play (not strictly pre-commit) | Strong; timing must be explicit |
-| **`post_move`** | Reflection immediately after the move is played | Valid; not equivalent to pre-move unless marked |
+| **`post_move`** | Reflection immediately after the move is played | Valid; not equivalent to pre-move |
 | **`post_game_review`** | Reasoning during structured post-game review | Valid; review-mediated |
 | **`reconstructed`** | Reconstructed from replay, notes, or memory later | Allowed; **`limitations` required** |
-| **`buddy_prompted`** | Elicited by Buddy question/prompt | Must distinguish **learner statement** from **Buddy prompt** (`buddy_prompt_ref`) |
+
+#### Table B — `trace_source` (how / from whom)
+
+| Value | Meaning | Evidential note |
+|-------|---------|-----------------|
+| **`learner_direct`** | Learner authored or spoke without elicitation prompt | Default when learner initiates capture |
+| **`buddy_prompted`** | Elicited by Buddy question or prompt | Must distinguish **learner statement** from **Buddy prompt** (`buddy_prompt_ref`) |
+| **`steward_recorded`** | Steward paraphrase or steward-mediated capture | CG-FLL-1E steward-recorded paraphrase; not learner-direct unless verified |
 | **`imported`** | Brought in from external source | Provenance required; **`limitations` likely required** |
+| **`engine_assisted`** | Engine output materially shaped the trace content | **`engine_ref` required**; must not masquerade as learner reasoning |
+| **`tool_assisted`** | Other tool-assisted capture (not engine-primary) | Tool boundary explicit; not `learner_direct` unless verified |
+
+**Combination examples:**
+
+- `capture_timing: post_game_review` + `trace_source: buddy_prompted` — Buddy asks “What were you thinking on move 12?” after the game.
+- `capture_timing: reconstructed` + `trace_source: learner_direct` — Learner rebuilds rationale from memory without Buddy prompt.
+- `capture_timing: pre_move` + `trace_source: engine_assisted` — Learner reviews engine lines before committing; engine cited via `engine_ref`.
 
 **Rules:**
 
-- **`pre_move`** and **`in_game`** traces have **stronger evidential value** for decision-process claims than reconstructed traces.
-- **`reconstructed`** traces are allowed but **must carry populated `limitations`** explaining reconstruction gap.
-- **`buddy_prompted`** traces **must** record the prompt separately from learner response — Buddy text is not learner reasoning.
-- **Engine-derived statements** must use **`engine_ref`** and **`source_actor`** separation — engine output must **not** masquerade as learner reasoning (CB-004 PP-7).
-- Post-hoc **`reconstructed`** or **`post_game_review`** traces must **not** be treated as **`pre_move`** without explicit reclassification and audit note.
+- **`capture_timing`** values describe **when** reasoning was captured; **`trace_source`** values describe **how or from whom** the trace came.
+- **`pre_move`** and **`in_game`** **`capture_timing`** traces have **stronger evidential value** for decision-process evidence than **`capture_timing: reconstructed`**.
+- **`capture_timing: reconstructed`** traces **must carry populated `limitations`** explaining reconstruction gap.
+- **`trace_source: imported`** traces require **provenance**; **`limitations` likely required**.
+- **`trace_source: buddy_prompted`** traces **must** record the prompt separately from learner response — Buddy text is not learner reasoning.
+- **`trace_source: engine_assisted`** traces **must** use **`engine_ref`** and explicit source separation — engine output must **not** masquerade as learner reasoning (CB-004 PP-7).
+- Post-hoc **`capture_timing: reconstructed`** or **`post_game_review`** traces must **not** be stored as **`capture_timing: pre_move`** without explicit reclassification and audit note.
 
 ### D4 — Governance-level DecisionTrace fields
 
@@ -143,7 +164,8 @@ Semantic fields only — **not JSON Schema**, not wire format.
 | `side_to_move` | Color / side for the decision |
 | `move_ref` / `chosen_move` | The move the trace is about (may differ from eventual MoveRecord if illegal attempt logged) |
 | `position_anchor` or `position_ref` | FEN, anchor_id, or position class reference |
-| `timing_source` | D3 classification — **required** |
+| `capture_timing` | D3 Table A — **when** reasoning was captured — **required** |
+| `trace_source` | D3 Table B — **how / from whom** — **required** |
 | `candidate_moves[]` | Moves considered |
 | `selected_candidate` | Move chosen from candidate set |
 | `rejected_candidates[]` | Alternatives not chosen |
@@ -157,8 +179,8 @@ Semantic fields only — **not JSON Schema**, not wire format.
 | `limitations` | Reconstruction gaps, prompt-led answers, single-episode caveats |
 | `created_at` / `recorded_at` | Temporal ordering |
 | `source_actor` | `learner` \| `steward` \| `tool-assisted` \| `import` |
-| `buddy_prompt_ref` | Reference to Buddy prompt when `timing_source = buddy_prompted` |
-| `engine_ref` | Engine profile / eval snapshot reference when engine input is cited — **explicitly separated** from learner reasoning |
+| `buddy_prompt_ref` | Reference to Buddy prompt when `trace_source = buddy_prompted` — **conditional** |
+| `engine_ref` | Engine profile / eval snapshot reference when `trace_source = engine_assisted` or engine input is cited — **conditional**; **explicitly separated** from learner reasoning |
 | `corpus_ref` (optional) | Semantic reference to opening/pattern/position class (ADR-002) — not evidence custody |
 | `event_id` / `anchor_id` (optional) | Link to Episode event or ChessAnchor (ADR-001 AN-1–4) |
 
@@ -166,7 +188,7 @@ Semantic fields only — **not JSON Schema**, not wire format.
 
 - `decision_trace_id`, `episode_id`, `actor_id`
 - `ply_index` or `move_index` + `chosen_move` or `move_ref`
-- `timing_source`
+- `capture_timing` and `trace_source`
 - At least one of: `rationale_statement`, `candidate_moves[]`, `decision_frame[]`, `reflection`
 
 When grounding to position is incomplete, **`limitations` is required** (aligned with ADR-003 D4 spirit).
@@ -187,7 +209,7 @@ DecisionTrace **should** support a bounded option space:
 **Rules:**
 
 - Candidate set may be **partial** — learner may not recall all options; **`limitations` required** when incomplete.
-- **Engine-suggested candidates** must be marked via `engine_ref` / candidate source note — not presented as recalled human options without disclosure.
+- **Engine-suggested candidates** must be marked via `engine_ref`, **`trace_source: engine_assisted`** when applicable, and candidate source note — not presented as recalled human options without disclosure.
 - **Illegal move attempts** may be logged in candidate/rejected set with reason — factual, not shaming (CB-004).
 - Empty candidate set with only `rationale_statement` is **valid** but **weak** — LOE/DOE citing such a trace should note limitation.
 - DecisionTrace does **not** require engine evaluation to be valid.
@@ -196,34 +218,37 @@ DecisionTrace **should** support a bounded option space:
 
 DecisionTrace content **must** be interpretable by phase:
 
-| Phase | Typical `timing_source` | Content focus |
-|-------|----------------------|---------------|
+| Phase | Typical `capture_timing` | Content focus |
+|-------|--------------------------|---------------|
 | **Pre-move reasoning** | `pre_move`, `in_game` | Candidates, plan, expected outcome, assumptions before commit |
 | **Post-move reflection** | `post_move`, `in_game` | `observed_after_move`, surprise, immediate correction notes |
 | **Post-game reconstruction** | `post_game_review`, `reconstructed` | Full rationale rebuilt from replay; **`limitations` required** |
 
 **Rules:**
 
-- A single DecisionTrace record may span phases only if **`timing_source`** reflects the **primary capture moment** and other phases are labeled in `reflection` / `observed_after_move` with explicit timing notes.
+- A single DecisionTrace record may span phases only if **`capture_timing`** reflects the **primary capture moment** and other phases are labeled in `reflection` / `observed_after_move` with explicit timing notes.
 - **Pre-move** and **post-game reconstructed** reasoning must **not** be merged silently — prefer separate traces or explicit `limitations`.
-- **LOE-009** (Explanation) Evidence Records often align with **post-move** or **review** timing — still valid evidence, different evidential weight than `pre_move` (LEF-0D P1).
-- Buddy post-game prompts (“What were you thinking on move 12?”) produce **`buddy_prompted`** + **`post_game_review`** traces — not **`pre_move`**.
+- **LOE-009** (Explanation) Evidence Records often align with **`capture_timing: post_move`** or **`post_game_review`** — still valid evidence, different evidential weight than **`pre_move`** (LEF-0D P1).
+- Buddy post-game prompts (“What were you thinking on move 12?”) produce **`capture_timing: post_game_review`** + **`trace_source: buddy_prompted`** — not **`capture_timing: pre_move`**.
+- Reconstructed post-game reasoning must **not** be labelled **`capture_timing: pre_move`**.
 
 ### D7 — LOE/DOE reference linkage
 
-DecisionTrace is a **reference target** for Evidence Records — not a replacement for them.
+DecisionTrace is a **reference target** for Evidence Records — **not** an Evidence Record itself and **not** a replacement for LOE/DOE.
 
 | Link direction | Rule |
 |----------------|------|
 | **EvidenceRecord → DecisionTrace** | Evidence Record **may** include `decision_trace_id` (governance extension to ADR-003 reference targets) alongside `event_id`, `anchor_id`, `corpus_ref` |
 | **DecisionTrace → EvidenceRecord** | DecisionTrace **must not** embed LOE/DOE payload as sovereign substitute — cite via separate Evidence Record IDs if needed |
+| **Type boundary** | DecisionTrace is **evidence context**; EvidenceRecord is **observation/demonstration** under ADR-003 — distinct governance objects |
 | **Catalogue mapping** | **LOE-009** (Explanation), **DOE-006** (Reflective Explanation), and related Understanding-stage types commonly cite DecisionTrace |
 | **Lineage** | Evidence Records citing DecisionTrace still participate in ordered **`evidence_refs[]`** for claim lineage (ADR-004) |
 | **Claims** | DecisionTrace **never** becomes a Claim directly — Claims evaluate hypothesis against Evidence Record lineage |
 
 **Rules:**
 
-- One DecisionTrace may be cited by **multiple** Evidence Records (e.g. LOE-009 + DOE-006) — each record retains its own identity.
+- DecisionTrace **alone** is **not** a Claim, **not** integration proof, and **not** LOE-011.
+- One DecisionTrace may be cited by **multiple** Evidence Records (e.g. LOE-009 + DOE-006) — each Evidence Record retains its own identity.
 - Citing DecisionTrace in an Evidence Record does **not** auto-approve integration — stewardship still required for formal claims.
 - **`decision_trace_id` on Evidence Record** is optional grounding — not a replacement for `episode_id`.
 
@@ -232,21 +257,23 @@ DecisionTrace is a **reference target** for Evidence Records — not a replaceme
 #### Buddy may
 
 - Ask reasoning questions before or after a move (CB-004 PP-3, PP-4)
-- Record **`buddy_prompted`** DecisionTrace with **`buddy_prompt_ref`** separating prompt from learner answer
-- Reference engine lines as **reference** with `engine_ref` — framed as reference, not decree (PP-7)
+- Prompt and record DecisionTrace with **`trace_source: buddy_prompted`** and **`buddy_prompt_ref`** — **learner response remains separate** from Buddy prompt text
+- Reference engine lines as **reference** with `engine_ref` and **`trace_source: engine_assisted`** when applicable — framed as reference, not decree (PP-7)
 - Suggest candidate moves for **consideration** without selecting for the learner in live friendly mode (CB-004 teaching prohibitions)
 - Surface derived pedagogical views over DecisionTrace history as **non-authoritative** read models (ADR-002)
 
 #### Buddy must not
 
-- Impersonate learner reasoning — Buddy inference is not `source_actor: learner`
+- Impersonate learner reasoning — Buddy inference is not `trace_source: learner_direct` or `source_actor: learner`
+- Store Buddy-authored summaries as **`trace_source: learner_direct`** unless learner verification is recorded
+- Mark Buddy-authored paraphrase as **`learner_direct`** — use **`trace_source: buddy_prompted`**, **`steward_recorded`**, or **`tool_assisted`** as appropriate
 - Issue C4 verdict or LOE-011 (ADR-004 D8)
 - Say integration/transformation/mastery achieved from DecisionTrace alone
 - Persist sovereign learner aggregates (Learning Frontier, learner state) from DecisionTrace synthesis (ADR-002 D3–D4)
 - Export DecisionTrace or reasoning metadata to federation (D9)
 - Treat engine CP as learner `rationale_statement` without `engine_ref` separation
 
-Buddy remains **domain mentor**, not steward of record by default (ADR-004 D8).
+Buddy remains **domain mentor**, not **steward of record** by default (ADR-004 D8).
 
 ### D9 — Federation boundary
 
@@ -254,7 +281,7 @@ Must **not** cross federation export (reaffirm ADR-001, ADR-002, ADR-003, ADR-00
 
 - DecisionTrace records and `decision_trace_id`
 - Per-ply reasoning text, candidate sets, rationale, reflection
-- `buddy_prompt_ref`, `engine_ref`, `corpus_ref` on DecisionTrace
+- `capture_timing`, `trace_source`, `buddy_prompt_ref`, `engine_ref`, `corpus_ref` on DecisionTrace
 - Uncertainty, assumptions, decision_frame metadata
 - Links from Evidence Records to DecisionTrace (`decision_trace_id`)
 - Any reasoning-derived learner state or Learning Frontier projection
@@ -273,8 +300,8 @@ Explicitly forbidden:
 | DecisionTrace as Claim | Claim requires stewardship on hypothesis vs lineage (ADR-004) |
 | Engine eval as `rationale_statement` without `engine_ref` | CB-004 PP-7; CB-000 PI-5 |
 | Numeric confidence / Elo as DecisionTrace truth | ADR-003 D5; CB-002 R-2 |
-| Reconstructed reasoning labeled `pre_move` | D3 timing integrity |
-| Buddy prompt text stored as learner `rationale_statement` | D3 buddy_prompted rules |
+| Reconstructed reasoning stored as `capture_timing: pre_move` | D3 capture_timing integrity |
+| Buddy prompt or Buddy-authored inference stored as `trace_source: learner_direct` | D3 trace_source boundary; D8 |
 | DecisionTrace without `episode_id` | ADR-001 custody |
 | Federation export of reasoning metadata | FEDERATION.md |
 | DecisionTrace persisting Learning Frontier | ADR-002 D4 derived view only |
@@ -288,7 +315,7 @@ Explicitly forbidden:
 | **Evidence, not claim** | DecisionTrace is evidence context — not a governed påstand |
 | **Lineage input** | LOE/DOE citing DecisionTrace may enter **`evidence_refs[]`** for Integration or Transformation Claims |
 | **No shortcut** | Rich DecisionTrace does **not** bypass C0–C4 or C4 **`accepted`** for formal claims |
-| **Weight by timing** | Stewardship may weigh `pre_move` traces higher than `reconstructed` — via `limitations`, not scores |
+| **Weight by timing** | Stewardship may weigh **`capture_timing: pre_move`** traces higher than **`capture_timing: reconstructed`** — via `limitations`, not scores |
 | **LOE-009 path** | Explanation evidence (LOE-009) grounded on DecisionTrace supports integration **assessment** — not integration proof |
 | **Contradiction** | Later DecisionTrace or Evidence Record may contradict earlier reasoning — triggers re-review (ADR-004 D11 spirit) |
 
@@ -341,7 +368,7 @@ Federation: MoveRecord slice only — no DecisionTrace
 
 1. DecisionTrace definition and per-ply reasoning (D1).
 2. MoveRecord / DecisionTrace / EvidenceRecord / Claim distinction (D2).
-3. Timing/source classification (D3).
+3. Capture timing and trace source classification (D3).
 4. Governance-level field model (D4).
 5. Candidate moves and alternatives (D5).
 6. Pre-move / post-move / post-game separation (D6).
@@ -412,7 +439,7 @@ Federation: MoveRecord slice only — no DecisionTrace
 
 **Pros:** Faster capture when learner is silent.  
 **Cons:** Violates source boundary; Buddy is mentor not learner.  
-**Rejected** — `source_actor` and `buddy_prompt_ref` required (D3, D8).
+**Rejected** — `trace_source: buddy_prompted`, `buddy_prompt_ref`, and source separation required (D3, D8).
 
 ### Alt-7 — DecisionTrace directly triggers Integration Claim
 
@@ -425,6 +452,12 @@ Federation: MoveRecord slice only — no DecisionTrace
 **Pros:** One object per ply.  
 **Cons:** Move stream is factual game history; reasoning is optional, timing-variable, and may be reconstructed.  
 **Rejected** — D2 separation.
+
+### Alt-9 — Single combined `timing_source` field
+
+**Pros:** One enum; simpler capture UI.  
+**Cons:** Conflates when reasoning was captured with how or from whom it came (e.g. `buddy_prompted` vs `post_game_review`).  
+**Rejected** — separate **`capture_timing`** and **`trace_source`** axes (D3).
 
 ---
 
@@ -439,7 +472,7 @@ Federation: MoveRecord slice only — no DecisionTrace
 
 ### Negative / risks
 
-- Timing/source taxonomy adds capture burden — intentional for evidential honesty.
+- Two-axis `capture_timing` / `trace_source` taxonomy adds capture burden — intentional for evidential honesty.
 - LLD DecisionTrace aggregate (seal lifecycle, Evaluation VO) may diverge until implementation ADR maps LLD → governance.
 - Runtime gap persists (LEF-2C).
 - Reconstructed reasoning may be over-weighted by users unless `limitations` enforced in product (ADR-006).
@@ -451,7 +484,7 @@ Federation: MoveRecord slice only — no DecisionTrace
 | ADR-006 Buddy pedagogy | D8 boundaries; DecisionTrace surfacing |
 | Evidence Record `decision_trace_id` field | D7 reference extension |
 | Implementation schema ADR | ADR-005 Accepted |
-| LOE-009 capture design | D3 timing + D7 linkage |
+| LOE-009 capture design | D3 capture_timing / trace_source + D7 linkage |
 
 ---
 
@@ -460,15 +493,16 @@ Federation: MoveRecord slice only — no DecisionTrace
 | ID | Question | Disposition |
 |----|----------|-------------|
 | **OQ-005-1** | Add `decision_trace_id` to ADR-003 reference target table formally? | **Open** — proposed in ADR-005 D7; ADR-003 amendment or cross-ref TBD |
-| **OQ-005-2** | One DecisionTrace per ply vs multiple traces per ply (phases)? | **Open** — D6 allows multiple; product convention TBD |
+| **OQ-005-2** | One DecisionTrace per ply vs multiple traces per ply (phases / capture_timing)? | **Open** — D6 allows multiple; product convention TBD; each trace must declare its own `capture_timing` and `trace_source` |
 | **OQ-005-3** | Minimum candidate_moves[] count for “considered alternatives” evidence? | **Open** — zero allowed with limitations (D5) |
 | **OQ-005-4** | Seal/freeze lifecycle (LLD `candidates_frozen → chosen_sealed`)? | **Deferred** — implementation ADR |
 | **OQ-005-5** | Illegal move attempt as separate DecisionTrace or candidate entry? | **Open** — D5 permits candidate logging |
-| **OQ-005-6** | Steward may author `source_actor: steward` paraphrase — same trace or separate LOE? | **Open** — CG-FLL-1E steward-recorded paraphrase |
+| **OQ-005-6** | Steward paraphrase — same DecisionTrace or separate LOE? | **Open** — use **`trace_source: steward_recorded`**; CG-FLL-1E steward-recorded paraphrase |
 | **OQ-005-7** | Link DecisionTrace to CB-005 `ChessReasoning` field group? | **Open** — semantic alignment; no schema in this ADR |
 | **OQ-005-8** | Simulation / what-if branches reference DecisionTrace? | **Deferred** — LLD SimulationContext non-canonical |
 | **OQ-005-9** | First implementation artifact after ADR-005/006? | **Deferred** |
-| **OQ-005-10** | Map timing_source to CG-FLL-1E chain stages? | **Open** — LOE-009 at Understanding; pre-move may precede |
+| **OQ-005-10** | Map `capture_timing` to CG-FLL-1E chain stages? | **Open** — LOE-009 at Understanding; `capture_timing: pre_move` may precede |
+| **OQ-005-11** | Should `capture_timing` and `trace_source` be mandatory separate fields in future schema? | **Open** — lean **yes**: both mandatory for any DecisionTrace (D3, D4) |
 
 ---
 
@@ -481,6 +515,7 @@ Federation: MoveRecord slice only — no DecisionTrace
 | Evidence Records / LOE-009 | ADR-003 Accepted; CG-FLL-1E | ADR + Doctrine | [DOCTRINE] |
 | Claim ≠ evidence | ADR-004 Accepted | ADR | [DOCTRINE] |
 | DecisionTrace definition | ADR-005 D1 | ADR | [DRAFT] |
+| capture_timing / trace_source two-axis | ADR-005 D3, D4 | ADR | [DRAFT] |
 | Move vs reasoning separation | ADR-005 D2; ADR-001 events | ADR | [DRAFT] |
 | LOE-009 Explanation | CG-FLL-1E LOE-009 row | Doctrine | [DOCTRINE] |
 | Learning = integration | CG-FLL-002 | Doctrine | [DOCTRINE] |
