@@ -49,7 +49,9 @@ ChessGuide must maintain an explicit **System Chess Competence** lane so it can 
 
 **Core question (ADR-007):** How can ChessGuide know enough chess to teach, use Stockfish as objective reference, support Buddy, and preserve learner autonomy and evidence boundaries?
 
-**HLD answer:** Eleven typed boundaries with explicit read/write rules, immutable engine snapshots, append-only learner records, and lossy federation projection — traceable to future LLD/OOP/UML.
+**Educator principle:** ChessGuide must **not** behave like a calculator that prints Stockfish lines or centipawns. Stockfish is the **referee / reference / validation lane**; ChessGuide's **system chess competence** and **pedagogical policy layer** translate understanding into learner-appropriate explanations.
+
+**HLD answer:** Twelve typed boundaries (including **Pedagogical Policy Layer**) with explicit read/write rules, immutable engine snapshots, append-only learner records, and lossy federation projection — traceable to future LLD/OOP/UML.
 
 ---
 
@@ -95,6 +97,9 @@ ChessGuide must maintain an explicit **System Chess Competence** lane so it can 
 | **P8** | Federation export is intentionally lossy |
 | **P9** | Creator serves continuity without flattening custody |
 | **P10** | HLD traceable to future LLD/OOP/UML (ADR-007 D7–D8) |
+| **P11** | Pedagogical Policy Layer translates measurement into teaching — engine output is not pedagogy by itself |
+| **P12** | Engine reveal often delayed until after learner self-explanation in training/review mode |
+| **P13** | No "digital twin" learner model in accepted architecture without future custody ADR |
 
 ---
 
@@ -241,6 +246,23 @@ ChessGuide must maintain an explicit **System Chess Competence** lane so it can 
 
 **Repository gap:** Operational Creator serving spec **not present** in ChessGuide repo.
 
+### 12. Pedagogical Policy Layer
+
+| Aspect | Detail |
+|--------|--------|
+| **Responsibility** | Translate system chess competence, corpus references, optional engine snapshots, learner context projections, and puzzle/motif information into learner-appropriate prompts and explanations |
+| **Inputs** | `PositionConceptMap`, `CandidateMoveAssessment`, `EngineAnalysisSnapshot`, `corpus_ref[]`, DecisionTrace context, learner level/mode as **derived context**, puzzle/motif tags |
+| **Outputs** | `BuddyExplanationDraft`, `LearningFocusCandidate`, `TeachingOpportunity`, `HintSequence`, `PuzzleSelectionCandidate` |
+| **May read** | System Competence outputs, Engine Reference snapshots, Corpus, Buddy policy config, `LearnerContextProjection` (derived) |
+| **Must not write** | Claims; mastery; learner reasoning; sovereign learner state; federation export |
+| **Must not** | Treat engine-best as learning-best |
+| **Future LLD** | Pedagogical policy orchestration above `BuddyExplanationService` |
+| **ADRs** | ADR-006, ADR-007 D4, F11 (SCCR) |
+
+**Design rule — engine reveal timing:** In training/review mode, engine output should **often be delayed** until after learner self-explanation. This preserves learner reasoning, supports DecisionTrace capture, and prevents Stockfish from becoming the teacher (ADR-006 D2; P12).
+
+**Design rule — no digital twin:** Do **not** call a learner model a **"digital twin"** in accepted architecture until a future custody ADR defines: what is stored, who owns it, how it is revoked, how it is audited, how it differs from derived views, and how it avoids federation export.
+
 ---
 
 ## Component interaction diagram
@@ -255,6 +277,9 @@ Episode / MoveRecord ───────────────────�
     │              │                         │                     │
     │              │                         ▼                     │
     │              └──────────────► System Chess Competence          │
+    │                                    │                         │
+    │                                    ▼                         │
+    │                         Pedagogical Policy Layer             │
     │                                    │                         │
     │                                    ▼                         │
     │                              Buddy Pedagogy                  │
@@ -284,6 +309,8 @@ Rules on diagram:
   • Federation does NOT export engine / Buddy / DecisionTrace / evidence / claims.
   • Creator does NOT flatten custody boundaries.
   • System Chess Competence does NOT write learner state.
+  • Pedagogical Policy Layer does NOT equate engine-best with learning-best.
+  • LearnerContextProjection is derived — NOT sovereign learner state.
 ```
 
 ---
@@ -311,15 +338,16 @@ Rules on diagram:
 | Claim / mastery | ADR-004 |
 | Federation export | FEDERATION.md |
 
-**"Right move" semantics (ADR-007 D4)** — HLD preserves five roles:
+**"Right move" semantics (ADR-007 D4; SCCR F12)** — HLD preserves **six** classification roles:
 
 1. Engine-best move
 2. Human-understandable move
-3. Learning-best move
-4. Pedagogically best explanation
-5. Claim-relevant evidence
+3. **Low-complexity safe move** (complexity-aware)
+4. Learning-best move
+5. Pedagogically best explanation
+6. Claim-relevant evidence
 
-`PedagogicalMoveClassifier` must emit separate fields — never a single collapsed "correct" flag.
+`PedagogicalMoveClassifier` and `LearningBestMovePolicy` must emit separate fields — never a single collapsed "correct" flag. Engine-best → learning-best requires explicit policy, not default.
 
 ---
 
@@ -351,15 +379,21 @@ Rules on diagram:
 - Episode context
 - `PositionConceptMap` / `PedagogicalMoveClassification`
 - `corpus_ref[]`
-- Optional `EngineAnalysisSnapshot` (via `engine_ref`)
+- Optional `EngineAnalysisSnapshot` (via `engine_ref`) — **often delayed** in training/review (P12)
 - Optional DecisionTrace context
+- Optional `LearnerContextProjection` (derived — not sovereign state)
+- Optional `TeachingOpportunity` / `MisconceptionPattern` from Pedagogical Policy Layer
 
 **Buddy outputs:**
 
 - Prompts (intervention ladder L0–L7, ADR-006 D3)
+- **Pre-engine self-explanation** invites (F14)
+- Progressive hints, "look again" prompts, candidate comparison
 - `BuddyExplanationDraft` (`source_refs[]`, `limitations`, `forbidden_claims[]`)
+- Misconception diagnosis and reflective correction frames
 - Reflection invites
 - Evidence **candidates** (not auto-EvidenceRecords)
+- DecisionTrace capture support (`trace_source` discipline)
 
 **Buddy must not:**
 
@@ -431,6 +465,20 @@ Creator/server continuity must preserve:
 | 100-year | Semantic boundary preserved — not only bytes |
 
 **Repository gap:** FGI-001 documents Creator OAT/CTP as **planned** — ChessGuide HLD defines required semantics; operational integration is external.
+
+---
+
+## Future adaptive training lane (reserved — not MVP)
+
+**SCCR F15 / F16:** Spaced repetition, puzzle corpus, and self-play/RL are **future** lanes — not implemented in this HLD task.
+
+| Reserved component | Role |
+|--------------------|------|
+| `AdaptiveTrainingSelector` | Future adaptive training orchestration |
+| `PuzzleCorpusBoundary` | Puzzle content under corpus + evidence boundaries |
+| `SpacedReviewPolicy` | Schedule review candidates — does not prove learning |
+| `MotifWeaknessProjection` | Derived motif focus — not learner state |
+| Self-play / RL skill-band models | **Research lane only** — must not contaminate custody or become opaque authority |
 
 ---
 
@@ -524,6 +572,69 @@ Design targets only — **not implemented**.
 | **Role** | Enforce federation withholding |
 | **Must not** | Allow engine/Buddy/trace leakage |
 
+### `TeachingOpportunity`
+
+| Aspect | Detail |
+|--------|--------|
+| **Role** | Derived pedagogical opportunity — not evidence or claim |
+| **Key fields** | `opportunity_id`, `position_ref`, `trigger_type`, `learner_move_ref?`, `engine_snapshot_ref?`, `concept_refs[]`, `motif_tags[]`, `complexity_delta?`, `suggested_prompt`, `limitations` |
+| **Boundary** | Pedagogical Policy Layer |
+| **Must not** | Become EvidenceRecord or Claim by itself |
+
+### `LearnerContextProjection`
+
+| Aspect | Detail |
+|--------|--------|
+| **Role** | Derived pedagogical view — **not** sovereign learner state unless future ADR defines custody |
+| **Key fields** | `projection_id`, `source_refs[]`, `skill_band?`, `recent_motif_errors?`, `calculation_depth_hint?`, `uncertainty_notes`, `custody_boundary`, `limitations` |
+| **Boundary** | Pedagogical Policy Layer |
+| **Must not** | Persist as digital twin; export to federation |
+
+### `SkillBandMoveModel`
+
+| Aspect | Detail |
+|--------|--------|
+| **Role** | Optional future model for likely human moves at skill bands |
+| **Key fields** | `model_id`, `skill_band`, `training_source`, `version`, `supported_contexts[]`, `limitations` |
+| **Boundary** | System Competence / research lane |
+| **Must not** | Become learner evidence or identity |
+
+### `PedagogicalFitModel`
+
+| **Role** | Optional fit between position complexity and learner band (derived) |
+| **Must not** | Write learner state |
+
+### `BlindSpotCandidate`
+
+| **Role** | Derived candidate motif/line the learner may overlook |
+| **Must not** | Auto-create EvidenceRecord |
+
+### `MisconceptionPattern`
+
+| Aspect | Detail |
+|--------|--------|
+| **Role** | Supports Buddy error-pruning prompts |
+| **Key fields** | `pattern_id`, `motif_ref?`, `typical_move`, `hidden_resource`, `explanation_frame`, `recommended_prompt`, `limitations` |
+| **Boundary** | Pedagogical Policy Layer |
+| **Must not** | Impersonate learner reasoning |
+
+### `PuzzleCorpusSelector`
+
+| **Methods** | `selectPuzzles(motif_refs[], learner_context_projection?, spacing_policy?, difficulty_band?) -> PuzzleSelectionCandidate[]` |
+| **Role** | Future adaptive training — F15 |
+| **Must not** | Bypass evidence/custody boundaries |
+
+### `SpacedReviewPolicy`
+
+| **Methods** | `scheduleReview(motif_ref, evidence_history?, learner_context_projection?) -> ReviewScheduleCandidate` |
+| **Role** | Future spaced repetition — does not prove learning |
+| **Must not** | Create mastery labels |
+
+### `HintSequence`
+
+| **Role** | Ordered progressive hints from Pedagogical Policy Layer |
+| **Must not** | Collapse to engine PV dump |
+
 ---
 
 ## Immutable state transition model
@@ -533,14 +644,20 @@ Design targets only — **not implemented**.
 | 1 | **PositionObserved** | Board state available | Episode | Derived | MoveRecorded, EngineAnalysisSnapshotCreated |
 | 2 | **MoveRecorded** | Learner/bot move applied | Episode | Append | PositionObserved, EngineAnalysisSnapshotCreated |
 | 3 | **EngineAnalysisSnapshotCreated** | Engine analysis completes | Engine Reference | **Immutable** | PositionConceptMapped |
-| 4 | **PositionConceptMapped** | System competence maps position | System Competence | **Immutable** versioned | BuddyExplanationDrafted |
+| 4 | **PositionConceptMapped** | System competence maps position | System Competence | **Immutable** versioned | TeachingOpportunityIdentified, BuddyExplanationDrafted |
+| 4a | **TeachingOpportunityIdentified** | Policy layer identifies teachable moment | Pedagogical Policy | Derived | LearnerSelfExplanationPrompted |
+| 4b | **LearnerSelfExplanationPrompted** | Buddy asks before engine reveal | Buddy Pedagogy | Event | LearnerSelfExplanationCaptured |
+| 4c | **LearnerSelfExplanationCaptured** | Learner states reasoning | Learner | Append-only | LearnerDecisionTraceCaptured, MisconceptionPatternMatched |
+| 4d | **MisconceptionPatternMatched** | Policy matches error pattern | Pedagogical Policy | Derived | BuddyExplanationDrafted |
 | 5 | **BuddyExplanationDrafted** | Buddy generates explanation | Buddy Pedagogy | Draft (not evidence) | LearnerDecisionTraceCaptured |
 | 6 | **LearnerDecisionTraceCaptured** | Learner reasoning recorded | Learner | Append-only | EvidenceCandidateIdentified |
 | 7 | **EvidenceCandidateIdentified** | Observation/demonstration noted | Learner/Steward | Derived | EvidenceRecordAppended |
 | 8 | **EvidenceRecordAppended** | LOE/DOE recorded | Learner | Append-only | ClaimProposed |
 | 9 | **ClaimProposed** | Integration hypothesis submitted | Steward path | Append | StewardshipVerdictAppended |
 | 10 | **StewardshipVerdictAppended** | C0–C4 complete | Steward | Append-only | ContinuityRecordServed |
-| 11 | **ContinuityRecordServed** | Creator/long-horizon serve | Creator | Immutable serve | — |
+| 11 | **ContinuityRecordServed** | Creator/long-horizon serve | Creator | Immutable serve | PuzzleSelectionCandidateGenerated, SpacedReviewCandidateGenerated |
+| 11a | **PuzzleSelectionCandidateGenerated** | Adaptive puzzle candidate (future) | Pedagogical Policy | Derived | — |
+| 11b | **SpacedReviewCandidateGenerated** | Spaced review schedule candidate (future) | Pedagogical Policy | Derived | — |
 | 12 | **FederationObservationExported** | Terminal game complete | Federation | Lossy projection | — |
 
 ### Forbidden transitions
@@ -553,6 +670,11 @@ Design targets only — **not implemented**.
 | EngineAnalysisSnapshot → FederationObservationExported | ADR-007 D14 |
 | ClaimProposed → StewardshipVerdict without C0–C4 | ADR-004 |
 | Derived view → sovereign evidence | Custody flattening prohibited |
+| TeachingOpportunityIdentified → EvidenceRecord without learner/steward observation | ADR-003 |
+| LearnerContextProjection → sovereign learner state without future ADR | ADR-002; P13 |
+| SkillBandMoveModel → learner identity | F13 |
+| Puzzle solved → mastery claim without ADR-004 stewardship | ADR-004 |
+| Engine best move → learning-best move without PedagogicalMoveClassifier / LearningBestMovePolicy | F12; P11 |
 
 ---
 
@@ -562,7 +684,7 @@ Future LLD **must** produce (artifacts not created in this task):
 
 | Diagram | Scope |
 |---------|-------|
-| **Component diagram** | All 11 HLD boundaries + Corpus Registry |
+| **Component diagram** | All **12** HLD boundaries + Corpus Registry + reserved adaptive training lane |
 | **Class diagram** | EngineReferenceProfile, EngineAnalysisSnapshot, PositionConceptMap, PedagogicalMoveClassification, BuddyExplanationDraft, DecisionTrace, EvidenceRecord, Claim |
 | **Sequence diagram** | Real-time move → optional engine → Buddy → learner trace → evidence → claim |
 | **State transition diagram** | States 1–12 above |
@@ -583,6 +705,29 @@ Future LLD **must** produce (artifacts not created in this task):
 - [ ] Avoids federation widening
 - [ ] Preserves Creator continuity semantics (as target)
 - [ ] Every future LLD class traceable to ADR/HLD boundary
+- [ ] Pedagogical Policy Layer separates teaching from engine measurement
+- [ ] No digital twin learner model without future custody ADR
+
+---
+
+## Pedagogical evidence inputs (not runtime doctrine)
+
+Learning-science themes **inform** design. They do **not** create EvidenceRecords, Claims, mastery, or learner state by themselves.
+
+| Theme | HLD relevance | Status |
+|-------|---------------|--------|
+| Practice testing / repeated problem solving | `PuzzleCorpusSelector`, F15 | [INSPIRATION — UNVERIFIED] |
+| Distributed practice / spaced repetition | `SpacedReviewPolicy` | [INSPIRATION — UNVERIFIED] |
+| Self-explanation | Pre-engine prompts, DecisionTrace (P12, F14) | [DOCTRINE-ALIGNED via ADR-006] |
+| Interleaving / varied practice | Puzzle/motif selection diversity | [INSPIRATION — UNVERIFIED] |
+| Error pruning through dialogue | `MisconceptionPattern`, Buddy correction | [INSPIRATION — UNVERIFIED] |
+| Einstellung-style bias | Comfortable-but-suboptimal move framing | [INSPIRATION — UNVERIFIED] |
+
+**Source-handling rule:** Do not cite unverified external references as factual claims. Admit through review/ADR process (SCCR-OQ-17 / HLD-OQ-17).
+
+### External references provided for future verification
+
+**Status:** [UNVERIFIED EXTERNAL INPUT] — not repository evidence.
 
 ---
 
@@ -590,13 +735,15 @@ Future LLD **must** produce (artifacts not created in this task):
 
 Future implementation order — **not implemented in this task**.
 
-### MVP-1 — Measurement + competence + Buddy draft
+### MVP-1 — Measurement + competence + pedagogical policy + Buddy draft
 
 - `EngineReferenceProfile`
 - `EngineAnalysisSnapshot`
 - `PositionConceptMap`
-- `PedagogicalMoveClassification`
+- `PedagogicalMoveClassification` (complexity-aware)
+- `TeachingOpportunity`
 - `BuddyExplanationDraft`
+- `LearnerContextProjection` (ephemeral/derived only in MVP)
 
 **Replaces:** ephemeral `helper.ts` CP/PV as governance-aligned snapshots.
 
@@ -611,6 +758,13 @@ Future implementation order — **not implemented in this task**.
 - Creator continuity serving integration (external)
 - HLD-to-LLD UML package
 - Runtime integration under `ExportSovereigntyPolicy`
+
+### MVP-4 — Adaptive training (future — not this task)
+
+- `PuzzleCorpusSelector`
+- `SpacedReviewPolicy`
+- `AdaptiveTrainingSelector`
+- Self-play / RL research evaluation only (F16)
 
 ---
 
@@ -628,6 +782,13 @@ Future implementation order — **not implemented in this task**.
 | **HLD-OQ-8** | State transitions needing formal tests first? | **Open** — forbidden transitions + export sovereignty |
 | **HLD-OQ-9** | HLD → LLD without scope creep? | **Open** — one service per boundary; no merged aggregates |
 | **HLD-OQ-10** | `SystemChessCompetenceProfile` v1 contents? | **Open** — CCCR MVP patterns + opening wrap refs |
+| **HLD-OQ-11** | Should ChessGuide later support skill-band human move models? | **Open** — `SkillBandMoveModel`; derived only (SCCR-OQ-11) |
+| **HLD-OQ-12** | Can self-play / RL models be system competence without opaque authority? | **Open** — F16 research lane (SCCR-OQ-12) |
+| **HLD-OQ-13** | How measure complexity delta without unverified platform metrics? | **Open** — `PedagogicalMoveClassifier`; verification required |
+| **HLD-OQ-14** | Governance boundary for adaptive puzzle selection? | **Open** — F15; evidence/custody preserved |
+| **HLD-OQ-15** | When hide, delay, or reveal engine output? | **Open** — P12; training/review vs friendly |
+| **HLD-OQ-16** | Represent Einstellung / comfortable suboptimal moves pedagogically? | **Open** — `MisconceptionPattern` |
+| **HLD-OQ-17** | Admit external learning science into doctrine — what review process? | **Open** — paired with SCCR-OQ-17 |
 
 ---
 

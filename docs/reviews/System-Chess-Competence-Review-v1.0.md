@@ -35,7 +35,9 @@ Companion HLD: [System Chess Competence HLD v1.0](../architecture/System-Chess-C
 
 ## Executive summary
 
-ChessGuide must **teach chess**. Teaching requires a distinct **system chess competence lane** — the system's governed ability to understand positions, map concepts, classify moves pedagogically, and support Buddy explanations — **without** conflating that lane with learner evidence, engine measurement, claims, or federation export.
+ChessGuide must **teach chess** — not behave like a **calculator** that prints Stockfish lines or centipawn values. Stockfish remains a high-precision **referee / reference / validation lane**; ChessGuide's own **system chess competence** and **pedagogical policy layer** translate chess understanding into learner-appropriate explanations, concepts, and prompts.
+
+Teaching requires a distinct **system chess competence lane** — the system's governed ability to understand positions, map concepts, classify moves pedagogically, and support Buddy explanations — **without** conflating that lane with learner evidence, engine measurement, claims, or federation export.
 
 **Accepted governance (ADR-005–007)** now defines:
 
@@ -58,6 +60,10 @@ ChessGuide must **teach chess**. Teaching requires a distinct **system chess com
 | Accepted ADR-001–007 governance | Operational Creator continuity serving spec |
 | LLD candidate ([ChessGuide-LLD-v1.0](../architecture/ChessGuide-LLD-v1.0.md)) | LLD/OOP implementation, UML diagrams |
 | Buddy persona doctrine (CB-004) | Buddy runtime orchestration boundary |
+| Educator-not-calculator principle (ADR-006/007) | Pedagogical Policy Layer (F11) |
+| — | Complexity-aware learning-best classification (F12) |
+| — | Derived skill-band / learner context projections (F13) |
+| — | Adaptive puzzle / spaced-review lane (F15, future) |
 
 **Recommendation:** Adopt [System-Chess-Competence-HLD-v1.0.md](../architecture/System-Chess-Competence-HLD-v1.0.md) as the first HLD bridge from accepted ADR-007 to future LLD/OOP/UML and runtime.
 
@@ -111,7 +117,7 @@ Runtime files are **evidence only** — not governance truth. Doctrine beats run
 | **Current capability** | `Helper.help[]` (square hints from PV), `Helper.cp` (centipawns, side-adjusted) |
 | **Governance interpretation** | **Measured lane** only (CB-000 PI-5; ADR-007 D3) — reference, not pedagogy |
 | **Limitation** | No `EngineReferenceProfile`, no immutable snapshot, no depth/nodes/version metadata, ephemeral MobX state, resets on each move |
-| **Future HLD implication** | `Engine Reference Boundary` — must become `EngineAnalysisSnapshot` with profile pin |
+| **Future HLD implication** | `Engine Reference Boundary` — must become `EngineAnalysisSnapshot` with profile pin; raw CP/PV is input to Pedagogical Policy Layer, not teaching output |
 
 ### `src/components/CP.tsx`
 
@@ -121,7 +127,7 @@ Runtime files are **evidence only** — not governance truth. Doctrine beats run
 | **Current capability** | Visual CP magnitude and side lead |
 | **Governance interpretation** | **Measurement display** — not learning feedback, not mastery (FEDERATION.md forbids CP export) |
 | **Limitation** | No `engine_ref` linkage, no source disclosure copy, no separation from pedagogical messaging |
-| **Future HLD implication** | UI must not collapse engine-best with learning-best (ADR-007 D4); display tied to snapshot + profile |
+| **Future HLD implication** | UI must not collapse engine-best with learning-best (ADR-007 D4); must translate CP into pedagogy via Pedagogical Policy Layer (F11) — not calculator display |
 
 ### `src/data/openings.ts` + `openingdata.ts`
 
@@ -186,6 +192,11 @@ Runtime files are **evidence only** — not governance truth. Doctrine beats run
 | UML diagrams | ADR-007 D8 | Deferred |
 | Creator continuity serving operational spec | ADR-007 D10; FGI-001 | External / planned |
 | Buddy runtime orchestration | ADR-006 | Deferred |
+| Pedagogical Policy Layer | F11; SCC-HLD-001 | High |
+| `LearnerContextProjection` / skill-band models (derived only) | F13 | Medium / future |
+| `TeachingOpportunity`, `MisconceptionPattern` | F14 | Medium |
+| Adaptive training / puzzle corpus lane | F15 | Deferred |
+| Self-play / RL research lane | F16 | Research only |
 
 ---
 
@@ -203,6 +214,12 @@ Runtime files are **evidence only** — not governance truth. Doctrine beats run
 | **F8** | Standalone HLD was absent — **ADR-007 provided bridge**; this review + companion HLD fills gap | LLD/runtime must not proceed without HLD traceability |
 | **F9** | Creator continuity exists as dependency/grounding (FGI-001, CG-DEP-001), **not** operational serving spec | `Creator Continuity Serving Boundary` in HLD; OQ remains open |
 | **F10** | ADR-007 Accepted provides governing bridge for HLD lanes, LLD targets, immutable transitions | This review and HLD instantiate ADR-007 D6–D10 |
+| **F11** | ChessGuide needs a **Pedagogical Policy Layer**, not only Engine Reference and System Chess Competence — raw CP/PV/best move is insufficient for teaching | HLD must include Pedagogical Policy Layer / BuddyExplanation boundary that transforms system competence + optional engine reference into human-understandable prompts **without** converting engine output into learner evidence |
+| **F12** | **Learning-best** requires **complexity-aware** move classification — engine-best may differ from learning-best, human-understandable move, and low-complexity safe move | HLD must define or reserve `LearningBestMovePolicy` and complexity-aware `PedagogicalMoveClassifier` |
+| **F13** | Skill-level modeling is useful but **must not** become sovereign learner state by default (ADR-002) | Use derived terms: `LearnerContextProjection`, `SkillBandMoveModel`, `PedagogicalFitModel`, `MisconceptionPattern`, `BlindSpotCandidate` — not a permanent "digital twin" without future custody ADR |
+| **F14** | Self-explanation and error-pruning are important Buddy design principles (ADR-006 D2) | Buddy should prompt self-explanation before engine reveal; support progressive hints, misconception diagnosis, reflective correction, DecisionTrace capture — must not impersonate learner reasoning |
+| **F15** | Spaced repetition / puzzle corpus should be a **future adaptive training lane** | Reserve `AdaptiveTrainingSelector`, `PuzzleCorpusBoundary`, `SpacedReviewPolicy`, `MotifWeaknessProjection` — must not bypass evidence/custody boundaries |
+| **F16** | Self-play / RL / AlphaZero-like models are **future research lanes**, not MVP assumptions | Open question: can system competence include skill-band policy models without contaminating custody, corpus truth, evidence, claims, or federation export? |
 
 ---
 
@@ -218,8 +235,12 @@ Runtime files are **evidence only** — not governance truth. Doctrine beats run
 | HLD skipped — runtime implemented directly | ADR-007 D16 checklist; this HLD package |
 | Federation boundary accidentally widened | `export_v1.py` forbidden keys; HLD Export Boundary |
 | Creator flattening continuity | ADR-007 D10; immutable custody fields on `ContinuityRecord` |
-| "Right move" collapsed into engine-best | ADR-007 D4 five-way semantics |
+| "Right move" collapsed into engine-best | ADR-007 D4 five-way semantics + F12 complexity-aware classification |
 | Hidden mutable global learner model | `Helper`/`Game` MobX state is ephemeral — must not become learner aggregate |
+| Calculator UX — CP/PV dump without translation | F11 Pedagogical Policy Layer; educator not oracle |
+| Skill-band model persisted as learner identity | F13 — derived projection only until custody ADR |
+| Puzzle solved treated as mastery | ADR-004 stewardship gate; F15 adaptive lane boundaries |
+| Einstellung / comfortable suboptimal move unaddressed | F14 misconception patterns; pedagogical framing in Buddy layer |
 
 ---
 
@@ -237,6 +258,12 @@ Runtime files are **evidence only** — not governance truth. Doctrine beats run
 | F8 | This HLD document as architecture target |
 | F9 | **Creator Continuity Serving** boundary — semantic preservation |
 | F10 | Full lane model per ADR-007 D6 |
+| F11 | **Pedagogical Policy Layer** — translate measurement into teaching |
+| F12 | `LearningBestMovePolicy` + complexity-aware `PedagogicalMoveClassifier` |
+| F13 | `LearnerContextProjection` — derived only, no digital twin |
+| F14 | Self-explanation-first Buddy interaction model |
+| F15 | Future `PuzzleCorpusBoundary` / `SpacedReviewPolicy` (reserved) |
+| F16 | Research lane for self-play/RL — not MVP |
 
 Additional HLD must specify:
 
@@ -309,8 +336,44 @@ Additional HLD must specify:
 | **SCCR-OQ-8** | Which LLD/OOP classes should be first? | **Open** — `EngineReferenceProfile`, `EngineAnalysisSnapshot`, `PositionConceptMap` |
 | **SCCR-OQ-9** | How should Buddy use engine analysis without becoming oracle? | **Open** — ADR-006 L0–L7 + source disclosure |
 | **SCCR-OQ-10** | What must remain non-exportable forever? | **Open** — ADR-007 D14 list + FEDERATION.md |
+| **SCCR-OQ-11** | Should ChessGuide later support skill-band human move models? | **Open** — paired with HLD-OQ-11; F13 derived projection only |
+| **SCCR-OQ-12** | Can self-play / RL models be used as system competence without becoming opaque authority? | **Open** — F16 research lane |
+| **SCCR-OQ-13** | How should complexity delta be measured without importing unverified platform-specific metrics? | **Open** — F12; verification required |
+| **SCCR-OQ-14** | What is the governance boundary for adaptive puzzle selection? | **Open** — F15; evidence/custody preserved |
+| **SCCR-OQ-15** | When should engine output be hidden, delayed, or revealed? | **Open** — training/review vs friendly; ADR-006 ladder |
+| **SCCR-OQ-16** | How should Einstellung effect or comfortable-but-suboptimal moves be represented pedagogically? | **Open** — `MisconceptionPattern`; learning-science input |
+| **SCCR-OQ-17** | What external learning science sources should be admitted into repository doctrine, and through what review process? | **Open** — see External learning-science section |
 
 ---
+
+## External learning-science / research inspiration — verification required
+
+The following pedagogical ideas **inform** Buddy and training design. They are **not** repository doctrine and **do not** by themselves create EvidenceRecords, Claims, mastery, or learner state.
+
+| Theme | Design relevance | Status |
+|-------|------------------|--------|
+| Practice testing / repeated problem solving | Puzzle corpus, adaptive training lane (F15) | [INSPIRATION — UNVERIFIED] |
+| Distributed practice / spaced repetition | `SpacedReviewPolicy` (future) | [INSPIRATION — UNVERIFIED] |
+| Self-explanation | Buddy pre-engine prompts, DecisionTrace (F14; ADR-006 D2) | [DOCTRINE-ALIGNED via ADR-006] |
+| Interleaving / varied practice | Puzzle/motif selection diversity | [INSPIRATION — UNVERIFIED] |
+| Error pruning through verbalization / dialogue | Buddy misconception diagnosis (F14) | [INSPIRATION — UNVERIFIED] |
+| Einstellung-style bias | Familiar good-looking moves may blind better moves — pedagogical framing | [INSPIRATION — UNVERIFIED] |
+
+**Rule:** These inputs guide architecture targets only until admitted through a committed review or ADR process (SCCR-OQ-17).
+
+---
+
+## External references provided for future verification
+
+**Status:** [UNVERIFIED EXTERNAL INPUT]
+
+No external 2026 references were independently verified for this review. Any future citations (learning-science papers, platform metrics, RL chess research) must be:
+
+1. Verified against primary sources
+2. Classified as [DOCTRINE], [PROPOSAL], or [INSPIRATION]
+3. Admitted through repository review process — not embedded as factual claims in SCCR/HLD without verification
+
+**Do not use this section as repository evidence.**
 
 ## Related documents
 
