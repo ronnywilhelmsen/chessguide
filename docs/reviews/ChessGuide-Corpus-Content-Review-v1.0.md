@@ -292,7 +292,7 @@ Map from runtime where possible:
 
 ## 5. MVP Corpus v1 [PROPOSAL]
 
-Curated set for **first LOE/DOE/DecisionTrace capture pilot** — ~55 refs.
+Curated set for **first LOE/DOE/DecisionTrace capture pilot** — **49 base refs**, with possible expansion to **~55** when opening sub-lines are counted (OQ-CCR-3).
 
 ### Tactics (12)
 
@@ -425,7 +425,7 @@ Semantic fields for future registry (Markdown/YAML governance file — not JSON 
 
 | Question | Recommendation |
 |----------|----------------|
-| Hand-curated initially? | **Yes** — MVP 55 entries hand-authored in governance Markdown/YAML |
+| Hand-curated initially? | **Yes** — MVP **49 base entries** hand-authored in governance Markdown/YAML |
 | Normalize `openings.ts`? | **Wrap, not migrate** — add `corpus_ref` map from tree paths to `opening:*` |
 | Cite public chess sources? | **Yes** — `source_boundary: public_source_cited` where definitions derive from textbooks/sites |
 | Engine-derived patterns? | **Assist only** — `engine_assisted_review`; engine does not define corpus truth |
@@ -439,6 +439,28 @@ Semantic fields for future registry (Markdown/YAML governance file — not JSON 
 
 ---
 
+## System Chess Competence and Stockfish Reference Boundary
+
+This Corpus Review defines **ChessGuide domain corpus** — not the system's full **chess competence model**.
+
+ChessGuide also needs a separate **system competence lane**: how the system evaluates positions, candidate moves, tactical correctness, levels, and explanations.
+
+| Distinction | Rule |
+|-------------|------|
+| **Stockfish** | Reference / **measurement lane** — not pedagogical authority by itself (CB-000 PI-5; CB-004 PP-7) |
+| **Engine-best move** | Measured optimum — distinct from human-understandable move |
+| **Human-understandable move** | Pedagogically legible alternative — may differ from engine-best |
+| **Learning-best move** | Move that best serves integration under learner conditions — steward/Buddy judgment |
+| **Pedagogically best explanation** | Bounded explanation for learner level — not engine PV dump |
+
+**Rules:**
+
+- Engine output may **assist corpus review** and **position evaluation**, but does **not** become learner evidence, corpus truth, claim, mastery, or federation export by itself.
+- `engine_ref` on DecisionTrace (ADR-005 draft) and measured CP in runtime (`helper.ts`, `CP.tsx`) remain **separated** from `corpus_ref` and learner `rationale_statement`.
+- **Recommend:** future **Stockfish Reference and System Chess Competence Boundary** review or ADR — after ADR-005/006 sequencing is clarified.
+
+---
+
 ## 11. Strategic recommendations
 
 | Step | Action | Priority |
@@ -449,6 +471,7 @@ Semantic fields for future registry (Markdown/YAML governance file — not JSON 
 | 4 | Draft **ADR-006** Buddy Pedagogy — corpus surfacing rules | High |
 | 5 | Future ADR: **Corpus Reference Registry v1** — taxonomy + `corpus_ref` format + MVP file location | High |
 | 6 | **Only then:** minimal corpus governance file (Markdown/YAML) + LOE capture pilot | After ADR-005/006 |
+| 7 | Run **Stockfish Reference / System Chess Competence Review** or draft ADR — after ADR-005/006 sequencing is clarified | Medium |
 
 **Do not:** implement graph DB, mastery ladder UI, or LARIS corpus in this phase.
 
@@ -468,6 +491,8 @@ Semantic fields for future registry (Markdown/YAML governance file — not JSON 
 | **OQ-CCR-8** | Avoid corpus bloat? | **Open** — MVP cap + steward review for new refs |
 | **OQ-CCR-9** | Required categories before first LOE capture? | **Open** — lean **tactics (5) + principles (3) + decision_frames (5)** minimum |
 | **OQ-CCR-10** | Corpus versioning in ADR-006 or separate? | **Open** — lean **separate Corpus Registry ADR** |
+| **OQ-CCR-11** | How should Stockfish reference evaluation relate to `corpus_ref`, DecisionTrace, EvidenceRecord, and Buddy explanation? | **Open** — lean measured lane via `engine_ref`; never corpus truth or learner evidence alone |
+| **OQ-CCR-12** | What is ChessGuide's own system chess competence model, distinct from human learner state? | **Open** — recommend dedicated review/ADR after ADR-005/006 |
 
 ---
 
