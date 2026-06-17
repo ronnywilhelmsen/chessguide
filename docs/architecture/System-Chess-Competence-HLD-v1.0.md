@@ -81,6 +81,29 @@ ChessGuide must maintain an explicit **System Chess Competence** lane so it can 
 | ADR-006 | Buddy Pedagogy |
 | ADR-007 | System Chess Competence + Engine Reference; three competence loops |
 
+### SCCR finding cross-reference (F1–F16)
+
+HLD components and rules trace to [SCCR-001](System-Chess-Competence-Review-v1.0.md) boundary findings:
+
+| SCCR | HLD mapping |
+|------|-------------|
+| F1 | Engine Reference Boundary (§8) |
+| F2 | System Chess Competence Boundary (§7) |
+| F3 | Domain Corpus Boundary (§6) |
+| F4 | Buddy Pedagogy Boundary (§9) |
+| F5 | DecisionTrace Boundary (§3) |
+| F6 | EvidenceRecord / Claim boundaries (§4–5) |
+| F7 | Federation Export Boundary (§10) |
+| F8 | This HLD document |
+| F9 | Creator Continuity Serving Boundary (§11) |
+| F10 | Full component model (§12 boundaries) |
+| F11 | Pedagogical Policy Layer (§12) |
+| F12 | `PedagogicalMoveClassifier`, `LearningBestMovePolicy`; P11 |
+| F13 | `LearnerContextProjection`, `SkillBandMoveModel`; P13 |
+| F14 | Buddy self-explanation / error-pruning (§9) |
+| F15 | Reserved adaptive training lane (§ future) |
+| F16 | Self-play / RL research lane — not MVP |
+
 ---
 
 ## HLD principles
@@ -97,9 +120,9 @@ ChessGuide must maintain an explicit **System Chess Competence** lane so it can 
 | **P8** | Federation export is intentionally lossy |
 | **P9** | Creator serves continuity without flattening custody |
 | **P10** | HLD traceable to future LLD/OOP/UML (ADR-007 D7–D8) |
-| **P11** | Pedagogical Policy Layer translates measurement into teaching — engine output is not pedagogy by itself |
-| **P12** | Engine reveal often delayed until after learner self-explanation in training/review mode |
-| **P13** | No "digital twin" learner model in accepted architecture without future custody ADR |
+| **P11** | Complexity-aware pedagogy separates engine-best from learning-best |
+| **P12** | Engine reveal timing is a pedagogical policy decision and should often be delayed until after learner self-explanation in training/review mode |
+| **P13** | Learner-context projections are derived views, not sovereign learner state |
 
 ---
 
@@ -257,11 +280,11 @@ ChessGuide must maintain an explicit **System Chess Competence** lane so it can 
 | **Must not write** | Claims; mastery; learner reasoning; sovereign learner state; federation export |
 | **Must not** | Treat engine-best as learning-best |
 | **Future LLD** | Pedagogical policy orchestration above `BuddyExplanationService` |
-| **ADRs** | ADR-006, ADR-007 D4, F11 (SCCR) |
+| **ADRs** | ADR-006, ADR-007 D4, SCCR F11 |
 
-**Design rule — engine reveal timing:** In training/review mode, engine output should **often be delayed** until after learner self-explanation. This preserves learner reasoning, supports DecisionTrace capture, and prevents Stockfish from becoming the teacher (ADR-006 D2; P12).
+**Design rule — engine reveal timing (P12; SCCR F14):** In training/review mode, engine output should **often be delayed** until after learner self-explanation. This preserves learner reasoning, supports DecisionTrace capture, and prevents Stockfish from becoming the teacher (ADR-006 D2).
 
-**Design rule — no digital twin:** Do **not** call a learner model a **"digital twin"** in accepted architecture until a future custody ADR defines: what is stored, who owns it, how it is revoked, how it is audited, how it differs from derived views, and how it avoids federation export.
+**Design rule — no digital twin (P13; SCCR F13):** Do **not** call a learner model a **"digital twin"** in accepted architecture until a future custody ADR defines: what is stored, who owns it, how it is revoked, how it is audited, how it differs from derived views, and how it avoids federation export.
 
 ---
 
@@ -387,7 +410,7 @@ Rules on diagram:
 **Buddy outputs:**
 
 - Prompts (intervention ladder L0–L7, ADR-006 D3)
-- **Pre-engine self-explanation** invites (F14)
+- **Pre-engine self-explanation** invites (SCCR F14; P12)
 - Progressive hints, "look again" prompts, candidate comparison
 - `BuddyExplanationDraft` (`source_refs[]`, `limitations`, `forbidden_claims[]`)
 - Misconception diagnosis and reflective correction frames
@@ -621,7 +644,7 @@ Design targets only — **not implemented**.
 ### `PuzzleCorpusSelector`
 
 | **Methods** | `selectPuzzles(motif_refs[], learner_context_projection?, spacing_policy?, difficulty_band?) -> PuzzleSelectionCandidate[]` |
-| **Role** | Future adaptive training — F15 |
+| **Role** | Future adaptive training — SCCR F15 |
 | **Must not** | Bypass evidence/custody boundaries |
 
 ### `SpacedReviewPolicy`
@@ -671,10 +694,10 @@ Design targets only — **not implemented**.
 | ClaimProposed → StewardshipVerdict without C0–C4 | ADR-004 |
 | Derived view → sovereign evidence | Custody flattening prohibited |
 | TeachingOpportunityIdentified → EvidenceRecord without learner/steward observation | ADR-003 |
-| LearnerContextProjection → sovereign learner state without future ADR | ADR-002; P13 |
-| SkillBandMoveModel → learner identity | F13 |
-| Puzzle solved → mastery claim without ADR-004 stewardship | ADR-004 |
-| Engine best move → learning-best move without PedagogicalMoveClassifier / LearningBestMovePolicy | F12; P11 |
+| LearnerContextProjection → sovereign learner state without future ADR | ADR-002; P13; SCCR F13 |
+| SkillBandMoveModel → learner identity | SCCR F13 |
+| Puzzle solved → mastery claim without ADR-004 stewardship | ADR-004; SCCR F15 |
+| Engine best move → learning-best move without PedagogicalMoveClassifier / LearningBestMovePolicy | SCCR F12; P11 |
 
 ---
 
@@ -705,8 +728,9 @@ Future LLD **must** produce (artifacts not created in this task):
 - [ ] Avoids federation widening
 - [ ] Preserves Creator continuity semantics (as target)
 - [ ] Every future LLD class traceable to ADR/HLD boundary
-- [ ] Pedagogical Policy Layer separates teaching from engine measurement
-- [ ] No digital twin learner model without future custody ADR
+- [ ] Pedagogical Policy Layer separates teaching from engine measurement (P11; SCCR F11)
+- [ ] No digital twin learner model without future custody ADR (P13; SCCR F13)
+- [ ] All SCCR F1–F16 references in this document resolve to defined findings
 
 ---
 
@@ -716,9 +740,9 @@ Learning-science themes **inform** design. They do **not** create EvidenceRecord
 
 | Theme | HLD relevance | Status |
 |-------|---------------|--------|
-| Practice testing / repeated problem solving | `PuzzleCorpusSelector`, F15 | [INSPIRATION — UNVERIFIED] |
+| Practice testing / repeated problem solving | `PuzzleCorpusSelector`, SCCR F15 | [INSPIRATION — UNVERIFIED] |
 | Distributed practice / spaced repetition | `SpacedReviewPolicy` | [INSPIRATION — UNVERIFIED] |
-| Self-explanation | Pre-engine prompts, DecisionTrace (P12, F14) | [DOCTRINE-ALIGNED via ADR-006] |
+| Self-explanation | Pre-engine prompts, DecisionTrace (P12, SCCR F14) | [DOCTRINE-ALIGNED via ADR-006] |
 | Interleaving / varied practice | Puzzle/motif selection diversity | [INSPIRATION — UNVERIFIED] |
 | Error pruning through dialogue | `MisconceptionPattern`, Buddy correction | [INSPIRATION — UNVERIFIED] |
 | Einstellung-style bias | Comfortable-but-suboptimal move framing | [INSPIRATION — UNVERIFIED] |
@@ -764,7 +788,7 @@ Future implementation order — **not implemented in this task**.
 - `PuzzleCorpusSelector`
 - `SpacedReviewPolicy`
 - `AdaptiveTrainingSelector`
-- Self-play / RL research evaluation only (F16)
+- Self-play / RL research evaluation only (SCCR F16)
 
 ---
 
@@ -782,12 +806,12 @@ Future implementation order — **not implemented in this task**.
 | **HLD-OQ-8** | State transitions needing formal tests first? | **Open** — forbidden transitions + export sovereignty |
 | **HLD-OQ-9** | HLD → LLD without scope creep? | **Open** — one service per boundary; no merged aggregates |
 | **HLD-OQ-10** | `SystemChessCompetenceProfile` v1 contents? | **Open** — CCCR MVP patterns + opening wrap refs |
-| **HLD-OQ-11** | Should ChessGuide later support skill-band human move models? | **Open** — `SkillBandMoveModel`; derived only (SCCR-OQ-11) |
-| **HLD-OQ-12** | Can self-play / RL models be system competence without opaque authority? | **Open** — F16 research lane (SCCR-OQ-12) |
-| **HLD-OQ-13** | How measure complexity delta without unverified platform metrics? | **Open** — `PedagogicalMoveClassifier`; verification required |
-| **HLD-OQ-14** | Governance boundary for adaptive puzzle selection? | **Open** — F15; evidence/custody preserved |
-| **HLD-OQ-15** | When hide, delay, or reveal engine output? | **Open** — P12; training/review vs friendly |
-| **HLD-OQ-16** | Represent Einstellung / comfortable suboptimal moves pedagogically? | **Open** — `MisconceptionPattern` |
+| **HLD-OQ-11** | Should ChessGuide later support skill-band human move models? | **Open** — `SkillBandMoveModel`; SCCR F13 / SCCR-OQ-11 |
+| **HLD-OQ-12** | Can self-play / RL models be system competence without opaque authority? | **Open** — SCCR F16 research lane (SCCR-OQ-12) |
+| **HLD-OQ-13** | How measure complexity delta without unverified platform metrics? | **Open** — SCCR F12; verification required (SCCR-OQ-13) |
+| **HLD-OQ-14** | Governance boundary for adaptive puzzle selection? | **Open** — SCCR F15; evidence/custody preserved (SCCR-OQ-14) |
+| **HLD-OQ-15** | When hide, delay, or reveal engine output? | **Open** — P12; SCCR F14/F15 context (SCCR-OQ-15) |
+| **HLD-OQ-16** | Represent Einstellung / comfortable suboptimal moves pedagogically? | **Open** — `MisconceptionPattern`; SCCR F14 (SCCR-OQ-16) |
 | **HLD-OQ-17** | Admit external learning science into doctrine — what review process? | **Open** — paired with SCCR-OQ-17 |
 
 ---

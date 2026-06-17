@@ -275,6 +275,24 @@ Additional HLD must specify:
 
 ---
 
+## HLD cross-reference (SCCR F1–F16 → SCC-HLD-001)
+
+Companion HLD [System-Chess-Competence-HLD-v1.0.md](../architecture/System-Chess-Competence-HLD-v1.0.md) instantiates findings as follows:
+
+| Finding | HLD section / component |
+|---------|-------------------------|
+| F1–F10 | HLD components §1–11; interaction diagram |
+| F11 | Pedagogical Policy Layer (HLD §12) |
+| F12 | `PedagogicalMoveClassifier`, `LearningBestMovePolicy`; HLD P11 |
+| F13 | `LearnerContextProjection`, `SkillBandMoveModel`; HLD P13 |
+| F14 | Buddy Pedagogy — self-explanation-first; HLD P12 |
+| F15 | Reserved adaptive training lane; `PuzzleCorpusSelector` |
+| F16 | Self-play / RL research lane — MVP-4 future only |
+
+HLD principles **P1–P13** are defined in SCC-HLD-001 § HLD principles. SCCR does not define P-numbers; HLD references to P11–P13 are valid only in the companion HLD.
+
+---
+
 ## Recommendation
 
 1. **Accept** [System-Chess-Competence-HLD-v1.0.md](../architecture/System-Chess-Competence-HLD-v1.0.md) as companion architecture target after review.
@@ -311,6 +329,10 @@ Additional HLD must specify:
 | `openingdata.ts` | Opening lines content | [RUNTIME] | Registry migration input |
 | `export_v1.py` | Forbidden export keys | [RUNTIME] | Export sovereignty |
 | System-Chess-Competence-HLD-v1.0.md | HLD target (this branch) | [HLD DRAFT] | Architecture package output |
+| SCCR F11–F16 | Addendum findings | [REVIEW] | Pedagogical Policy Layer, complexity, projections, adaptive/RL lanes |
+| SCCR-OQ-11–17 | Paired HLD-OQ-11–17 | [REVIEW] | Cross-doc open questions |
+
+**Cross-reference integrity (post micro-pass):** SCCR defines findings **F1–F16** and open questions **SCCR-OQ-1–17**. HLD defines principles **P1–P13** and maps each F-finding in § SCCR finding cross-reference.
 
 **Repository gaps explicitly recorded:**
 
@@ -348,7 +370,9 @@ Additional HLD must specify:
 
 ## External learning-science / research inspiration — verification required
 
-The following pedagogical ideas **inform** Buddy and training design. They are **not** repository doctrine and **do not** by themselves create EvidenceRecords, Claims, mastery, or learner state.
+The following pedagogical ideas **inform** Buddy and training design. They are **not** repository doctrine.
+
+**Core rule:** Practice testing, distributed practice, self-explanation, interleaving, and error-pruning are **pedagogical inspirations** only. User-provided 2026 references remain **[UNVERIFIED EXTERNAL INPUT]** unless later independently verified. These inputs do **not** create EvidenceRecords, Claims, mastery, learner state, or federation export.
 
 | Theme | Design relevance | Status |
 |-------|------------------|--------|
