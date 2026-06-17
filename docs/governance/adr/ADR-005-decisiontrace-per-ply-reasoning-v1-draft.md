@@ -5,7 +5,7 @@
 | **Document ID** | ADR-005 |
 | **Title** | DecisionTrace / Per-Ply Reasoning v1 |
 | **Version** | 0.1 |
-| **Status** | Draft |
+| **Status** | Accepted |
 | **Date** | 2026-06-06 |
 | **Scope** | Governance / semantic model only — DecisionTrace and per-ply reasoning under learner custody |
 | **Prerequisites** | [ADR-001](ADR-001-learningtrace-episode-schema-v1.md), [ADR-002](ADR-002-sovereign-reference-model-v1.md), [ADR-003](ADR-003-loe-doe-evidence-record-schema-v1.md), [ADR-004](ADR-004-stewardship-and-transformation-claim-gate-v1.md), [CG-FLL-002](../chessguide/CG-FLL-002-learning-semantics.md), [CG-FLL-1E](../chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md), [CB-004](../chessbuddy/CB-004-buddy-persona-and-product-principles.md), [CB-005](../chessbuddy/CB-005-learningtrace-product-schema.md), [CFA v1.0](../federation/CFA-v1.0.md), [FEDERATION.md](../../FEDERATION.md) |
@@ -16,9 +16,9 @@
 
 ## Status
 
-**Draft** — governance-only Architecture Decision Record defining **DecisionTrace** and **per-ply reasoning** as learner-custody evidence context for a single move decision.
+**Accepted** — repository governance decision defining **DecisionTrace** and **per-ply reasoning** as learner-custody evidence context for a single move decision.
 
-This ADR is **governance only**. Draft acceptance does **not** introduce:
+This ADR is **governance only**. Acceptance does **not** introduce:
 
 - Runtime changes
 - Tests
@@ -543,9 +543,9 @@ Federation: MoveRecord slice only — no DecisionTrace
 | Reference model / corpus_ref | ADR-002 Accepted | ADR | [DOCTRINE] |
 | Evidence Records / LOE-009 | ADR-003 Accepted; CG-FLL-1E | ADR + Doctrine | [DOCTRINE] |
 | Claim ≠ evidence | ADR-004 Accepted | ADR | [DOCTRINE] |
-| DecisionTrace definition | ADR-005 D1 | ADR | [DRAFT] |
-| capture_timing / trace_source two-axis | ADR-005 D3, D4 | ADR | [DRAFT] |
-| Move vs reasoning separation | ADR-005 D2; ADR-001 events | ADR | [DRAFT] |
+| DecisionTrace definition | ADR-005 D1 | ADR | [DOCTRINE] |
+| capture_timing / trace_source two-axis | ADR-005 D3, D4 | ADR | [DOCTRINE] |
+| Move vs reasoning separation | ADR-005 D2; ADR-001 events | ADR | [DOCTRINE] |
 | LOE-009 Explanation | CG-FLL-1E LOE-009 row | Doctrine | [DOCTRINE] |
 | Learning = integration | CG-FLL-002 | Doctrine | [DOCTRINE] |
 | Activity is not learning | CG-FLL-001 I-3 | Doctrine | [DOCTRINE] |
