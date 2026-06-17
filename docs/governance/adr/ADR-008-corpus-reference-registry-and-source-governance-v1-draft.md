@@ -5,7 +5,7 @@
 | **Document ID** | ADR-008 |
 | **Title** | Corpus Reference Registry and Source Governance v1 |
 | **Version** | 0.1 |
-| **Status** | Draft |
+| **Status** | Accepted |
 | **Date** | 2026-06-17 |
 | **Scope** | Governance / semantic model / source governance only — Corpus Reference Registry, source pillars, `corpus_ref` taxonomy, and license/provenance boundaries |
 | **Prerequisites** | [ADR-001](ADR-001-learningtrace-episode-schema-v1.md), [ADR-002](ADR-002-sovereign-reference-model-v1.md), [ADR-003](ADR-003-loe-doe-evidence-record-schema-v1.md), [ADR-004](ADR-004-stewardship-and-transformation-claim-gate-v1.md), [ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md), [ADR-006](ADR-006-buddy-pedagogy-and-reference-use-v1-draft.md), [ADR-007](ADR-007-stockfish-reference-and-system-chess-competence-boundary-v1-draft.md), [CCCR v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md), [SCCR-001](../../reviews/System-Chess-Competence-Review-v1.0.md), [SCC-HLD-001](../../architecture/System-Chess-Competence-HLD-v1.0.md), [FEDERATION.md](../../FEDERATION.md) |
@@ -16,9 +16,9 @@
 
 ## Status
 
-**Draft** — governance-only Architecture Decision Record defining **Corpus Reference Registry and Source Governance v1**: how ChessGuide governs domain corpus references, external source pillars, license/provenance status, and `corpus_ref` registry semantics.
+**Accepted** — governance-only Architecture Decision Record defining **Corpus Reference Registry and Source Governance v1**: how ChessGuide governs domain corpus references, external source pillars, license/provenance status, and `corpus_ref` registry semantics.
 
-This ADR is **governance / semantic model / source governance only**. Draft acceptance does **not** introduce:
+This ADR is **governance / semantic model / source governance only**. Acceptance does **not** introduce:
 
 - Runtime changes
 - Tests
@@ -38,6 +38,49 @@ This ADR does **not**:
 - Activate **LARIS** (CG-002; FDP-002)
 - Ingest Lichess puzzle data, tablebases, PGN collections, or other external datasets
 - Mark external sources as license-verified without separate verification work
+
+---
+
+## Acceptance note
+
+ADR-008 is **accepted** as governance doctrine for **Corpus Reference Registry and Source Governance v1**.
+
+Acceptance is based on:
+
+- [CRR-001](../../reviews/Corpus-Reference-Registry-Review-v1.0.md) — Corpus Reference Registry Review v1.0
+- [CSV-001](../../reviews/Corpus-Source-Verification-Review-v1.0.md) — Corpus Source Verification Review v1.0
+- [MCRM-001](../corpus/MVP-Corpus-Registry-Manifest-v0.1-draft.md) — MVP Corpus Registry Manifest v0.1 Draft (remains **Draft Manifest**)
+- [CCCR v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md)
+- [SCCR-001](../../reviews/System-Chess-Competence-Review-v1.0.md) / [SCC-HLD-001](../../architecture/System-Chess-Competence-HLD-v1.0.md)
+- Existing federation withholding rules ([FEDERATION.md](../../FEDERATION.md))
+
+**Acceptance preserves boundaries.** Acceptance does **not**:
+
+- Create runtime registry files
+- Create machine-readable registry JSON/YAML
+- Create JSON Schema
+- Ingest datasets
+- Download sources
+- Admit `source:twic` or `source:caissabase` as manifest sources
+- Host Syzygy binaries
+- Implement Tactical Safety Scanner
+- Implement Buddy or System Chess Competence runtime
+- Widen federation export
+- Activate **LARIS**
+
+---
+
+## Accepted follow-up work
+
+| Work | Notes |
+|------|-------|
+| Opening tree wrapping plan | Map `openings.ts` / `openingdata.ts` paths to `opening:*` / `eco:*` refs |
+| Lichess puzzle theme cross-walk governance doc | Map Lichess themes to ChessGuide `tactic:*` — not doctrine IDs |
+| Tactical Safety Scanner / System Chess Competence LLD | P0–P5 scanner; manifest metadata only until LLD |
+| UML package | Corpus + Safety Scanner + Creator continuity (CRR-001) |
+| YAML/JSON registry conversion decision | MCRM-OQ-1 |
+| CorpusRegistryVersion publish workflow | ADR-008 D11; pin `corpus-registry/mvp-0.1-draft` when published |
+| Manual legal/provenance follow-up | `source:twic`, `source:caissabase` (CSV-001) |
 
 ---
 
@@ -494,16 +537,17 @@ Future manifest file location: **deferred** (OQ-008-4) — lean `docs/governance
 
 | Work | Depends on |
 |------|------------|
-| Corpus Reference Registry Review v1.0 | ADR-008 acceptance |
-| MVP corpus registry manifest file | ADR-008 + OQ-008-4 |
-| Opening tree wrapping plan | OQ-008-3; runtime `openings.ts` |
-| Lichess puzzle source verification | Pillar 1; OQ-008-2 |
-| Tablebase reference profile | Pillar 3; OQ-008-6 |
-| Master game source verification | Pillar 4; OQ-008-7 |
+| Corpus Reference Registry Review v1.0 | **Complete** — CRR-001 on main |
+| MVP corpus registry manifest file | **Complete** — MCRM-001 Draft Manifest on main |
+| Corpus Source Verification Review | **Complete** — CSV-001 on main |
+| Opening tree wrapping plan | See Accepted follow-up work |
+| Lichess puzzle theme cross-walk | See Accepted follow-up work |
+| Tablebase reference profile | MCRM-001 reference profiles; no binaries |
+| Master game source verification | CSV-001 candidate_only; deferred past MVP |
 | DecisionTrace storage ADR | ADR-005 |
 | EngineReferenceProfile / EngineAnalysisSnapshot LLD | ADR-007; SCC-HLD-001 |
 | Pedagogical Policy Layer LLD | SCC-HLD-001 |
-| ADR-008 acceptance decision | Separate governance task |
+| ADR-008 acceptance decision | **Complete** — this ADR Accepted |
 
 ---
 
