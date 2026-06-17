@@ -5,10 +5,10 @@
 | **Document ID** | LTCW-001 |
 | **Title** | Lichess Puzzle Theme Cross-Walk v0.1 Draft |
 | **Version** | 0.1 |
-| **Status** | Draft Governance Cross-Walk |
+| **Status** | Draft Cross-Walk |
 | **Date** | 2026-06-17 |
-| **Scope** | Governance / taxonomy / cross-walk planning only |
-| **Depends on** | [ADR-002](../adr/ADR-002-sovereign-reference-model-v1.md), [ADR-003](../adr/ADR-003-loe-doe-evidence-record-schema-v1.md), [ADR-004](../adr/ADR-004-stewardship-and-transformation-claim-gate-v1.md), [ADR-005](../adr/ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md), [ADR-006](../adr/ADR-006-buddy-pedagogy-and-reference-use-v1-draft.md), [ADR-007](../adr/ADR-007-stockfish-reference-and-system-chess-competence-boundary-v1-draft.md), [ADR-008](../adr/ADR-008-corpus-reference-registry-and-source-governance-v1-draft.md), [CCCR v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md), [SCCR-001](../../reviews/System-Chess-Competence-Review-v1.0.md), [CRR-001](../../reviews/Corpus-Reference-Registry-Review-v1.0.md), [CSV-001](../../reviews/Corpus-Source-Verification-Review-v1.0.md), [MCRM-001](MVP-Corpus-Registry-Manifest-v0.1-draft.md), [OTWP-001](Opening-Tree-Wrapping-Plan-v0.1-draft.md), [FEDERATION.md](../../../FEDERATION.md) |
+| **Scope** | Governance / corpus cross-walk only |
+| **Depends on** | [ADR-002](../adr/ADR-002-sovereign-reference-model-v1.md), [ADR-003](../adr/ADR-003-loe-doe-evidence-record-schema-v1.md), [ADR-004](../adr/ADR-004-stewardship-and-transformation-claim-gate-v1.md), [ADR-005](../adr/ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md), [ADR-006](../adr/ADR-006-buddy-pedagogy-and-reference-use-v1-draft.md), [ADR-007](../adr/ADR-007-stockfish-reference-and-system-chess-competence-boundary-v1-draft.md), [ADR-008](../adr/ADR-008-corpus-reference-registry-and-source-governance-v1-draft.md), [CRR-001](../../reviews/Corpus-Reference-Registry-Review-v1.0.md), [CSV-001](../../reviews/Corpus-Source-Verification-Review-v1.0.md), [MCRM-001](MVP-Corpus-Registry-Manifest-v0.1-draft.md), [OTWP-001](Opening-Tree-Wrapping-Plan-v0.1-draft.md), [CCCR v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md), [SCCR-001](../../reviews/System-Chess-Competence-Review-v1.0.md), [SCC-HLD-001](../../architecture/System-Chess-Competence-HLD-v1.0.md), [FEDERATION.md](../../../FEDERATION.md) |
 | **Supersedes** | — |
 | **Superseded by** | — |
 
@@ -16,53 +16,50 @@
 
 ## Status
 
-**Draft Governance Cross-Walk only.**
+**Draft Cross-Walk / governance-only.**
 
 This document:
 
-- Does **not** alter runtime.
-- Does **not** create a machine-readable registry.
-- Does **not** create JSON / YAML / schema.
 - Does **not** ingest or download Lichess puzzle data.
-- Does **not** create a puzzle index.
-- Does **not** activate **LARIS**.
-
-It plans a **future semantic cross-walk layer** only.
+- Does **not** create a puzzle registry.
+- Does **not** create runtime code.
+- Does **not** create machine-readable JSON/YAML.
+- Does **not** create schema, LLD, UML, or activate **LARIS**.
+- Does **not** make Lichess theme strings doctrine IDs.
+- Does **not** make puzzle solve activity evidence or mastery.
 
 ---
 
 ## Executive summary
 
-- `source:lichess-puzzles` is **license_verified** (CC0) / **provenance_verified** in CSV-001.
-- Lichess themes may be useful for future **puzzle curation** and **practice selection**.
-- Lichess theme strings are **external source vocabulary**, not ChessGuide doctrine IDs.
-- ChessGuide target refs remain **governed refs** such as `tactic:*`, `decision_frame:*`, `principle:*`, `endgame:*`.
-- Puzzle **solve activity is not learning, not mastery, and not claim evidence**.
-- This document creates a **human-readable cross-walk plan only**.
+- Lichess Puzzle DB is a **verified CC0 source** in CSV-001.
+- ChessGuide may use it later for **theme alignment** and **puzzle candidate selection**.
+- Lichess theme strings must be treated as **external labels**, not ChessGuide doctrine.
+- ChessGuide target vocabulary remains `tactic:*`, `decision_frame:*`, and possibly future `motif:*`.
+- This document defines a **cross-walk model, not ingest**.
+- The cross-walk preserves source refs, curation status, boundary flags, federation withholding, and Creator continuity.
 
 ---
 
 ## Governance baseline
 
-| Document | Role |
-|----------|------|
-| **ADR-002** | `corpus_ref` semantic pointer — not evidence / federation export |
-| **ADR-003** | Evidence may cite `corpus_ref` — citation ≠ integration |
-| **ADR-004** | Claims require stewardship; puzzle familiarity ≠ mastery |
-| **ADR-005** | DecisionTrace may cite `corpus_ref` / `decision_frame[]` |
-| **ADR-006** | Buddy may surface refs pedagogically — not oracle |
-| **ADR-007** | System competence may map positions to `corpus_ref`; engine ≠ corpus truth |
-| **ADR-008** | **Accepted** — Corpus Reference Registry and Source Governance v1 |
-| **CRR-001** | Tactic/decision_frame seeds, P0–P5, Creator continuity |
-| **CSV-001** | `source:lichess-puzzles` verified CC0; theme cross-walk required before admission |
-| **MCRM-001** | Draft Manifest — 13 `tactic:*` + 12 `decision_frame:*` seeds |
-| **OTWP-001** | Opening tree wrap plan — opening labels are references, not understanding |
+| Document | Summary |
+|----------|---------|
+| **ADR-002** | `corpus_ref` is a semantic pointer, not evidence or export |
+| **ADR-003** | EvidenceRecord may cite `corpus_ref`, but citation is not integration |
+| **ADR-004** | Claims require stewardship |
+| **ADR-005** | DecisionTrace may cite `decision_frame` / `corpus_ref`, but learner rationale is separate |
+| **ADR-006** | Buddy may surface corpus refs pedagogically, not as oracle/mastery |
+| **ADR-007** | System Chess Competence can map concepts; engine and learner reasoning remain separate |
+| **ADR-008** | Corpus Reference Registry and Source Governance is **Accepted doctrine** |
+| **CRR-001** | 12 `decision_frame` seeds, 13 `tactic` seeds, P0–P5 priority |
+| **CSV-001** | Lichess puzzles are `license_verified` CC0; no bulk ingest; theme cross-walk required |
+| **MCRM-001** | Draft manifest contains tactic and decision_frame seeds |
+| **FEDERATION.md** | No `corpus_ref` / `source_ref` / teaching metadata in ObservationRecord |
 
 ---
 
 ## Source posture
-
-Per CSV-001 / MCRM-001:
 
 **`source:lichess-puzzles`**
 
@@ -73,130 +70,116 @@ Per CSV-001 / MCRM-001:
 | license | CC0 |
 | provenance_status | `provenance_verified` |
 | disposition | `optional_verified_source_ref_after_theme_crosswalk` |
-| allowed_uses | `corpus_curation`, `pedagogical_reference`, `future_puzzle_index` |
-| restrictions | `no_bulk_ingest`, `theme_crosswalk_required`, `puzzle_solve_not_mastery`, `not_for_claim`, `not_federation_export` |
+| allowed_uses | `corpus_curation`, `pedagogical_reference`, `future_puzzle_index`, `theme_alignment` |
+| restrictions | `no_bulk_ingest`, `no_puzzle_row_import_in_this_task`, `theme_crosswalk_required`, `puzzle_solve_not_mastery`, `not_for_claim`, `not_federation_export` |
 
-**Important:**
-
-- No Lichess puzzle data is downloaded or ingested.
-- No raw `PuzzleId` rows.
-- No `FEN` / `Moves` / `Rating` / `Theme` rows copied.
-- This cross-walk only maps **vocabulary**.
+**No external puzzle data is fetched or downloaded in this task.**
 
 ---
 
 ## Problem statement
 
-ChessGuide needs to interpret external Lichess puzzle themes **without** letting external labels become doctrine, learner evidence, mastery, claims, or federation export. The system needs a **governed semantic bridge** from Lichess theme labels to ChessGuide corpus references.
+ChessGuide needs to relate external Lichess puzzle themes to **governed internal chess-learning concepts** without copying external labels as doctrine, importing puzzle data, or collapsing puzzle activity into learning evidence or mastery.
 
 ---
 
 ## Design goals
 
-- Preserve ChessGuide registry namespaces.
-- Avoid copying external theme names as doctrine IDs.
-- Allow a future puzzle selector to use mapped themes.
-- Keep puzzle solve separate from learning evidence.
-- Keep Buddy explanations grounded in ChessGuide refs.
-- Keep federation export clean.
-- Keep Creator continuity by versioning cross-walk mappings.
-- Support later Tactical Safety Scanner / SCC LLD.
+- Preserve ChessGuide-owned terminology.
+- Preserve source provenance.
+- Keep Lichess theme strings external.
+- Map only to curated internal target refs.
+- Support future Tactical Safety Scanner and `PuzzleCorpusSelector`.
+- Keep puzzle solving separate from evidence / claim / mastery.
+- Preserve P0–P5 safety-first pedagogical priority.
+- Preserve federation withholding.
+- Preserve Creator continuity through versioned cross-walk rows.
 
 ---
 
 ## Non-goals
 
-- No runtime code change
-- No puzzle import
-- No Lichess data download
-- No dataset ingestion
-- No source mirror
-- No JSON/YAML registry
-- No schema
+- No Lichess puzzle CSV download
+- No puzzle row import
+- No puzzle ID registry
+- No runtime code
 - No tests
-- No LLD
-- No UML
+- No schema
+- No JSON/YAML registry
+- No source download
+- No engine integration
+- No Tactical Safety Scanner implementation
+- No `PuzzleCorpusSelector` implementation
+- No EvidenceRecord creation
+- No mastery / claim logic
+- No federation export change
+- No LLD / UML
 - No LARIS
-- No mastery model
-- No EvidenceRecord generation
-- No Claim generation
-- No federation export widening
-- No ADR status change
 
 ---
 
 ## Cross-walk principles
 
-1. Lichess theme label is **source vocabulary**, not doctrine.
-2. ChessGuide target ref is **governed corpus vocabulary**.
-3. One Lichess theme may map to **multiple** ChessGuide refs.
-4. One ChessGuide ref may receive **several** Lichess theme aliases.
-5. Cross-walk mapping is **not** puzzle ingestion.
-6. Cross-walk mapping is **not** evidence.
-7. Puzzle solve is **activity**, not integration.
-8. Buddy may cite ChessGuide refs, **not** raw external labels as doctrine.
-9. External labels must remain **versioned and source-scoped**.
-10. Ambiguous themes must remain **uncurated** until steward review.
+1. External theme ≠ internal doctrine.
+2. Internal `tactic:*` / `decision_frame:*` refs are ChessGuide-owned.
+3. A Lichess theme can map to **zero, one, or many** internal refs.
+4. A ChessGuide ref can map to **many** external themes.
+5. Ambiguous themes require **steward review**.
+6. Meta-themes and difficulty/phase tags should **not** be forced into `tactic:*`.
+7. Puzzle solving remains **activity**, not learning evidence.
+8. Cross-walk rows require **versioning** and **curation status**.
 
 ---
 
-## Lichess theme role
+## Lichess theme handling rule
 
-Lichess themes are:
-
-- candidate source labels
-- useful for future puzzle grouping
-- useful for future practice selection
-- **not** sufficient as doctrine
-- **not** sufficient as mastery
-- **not** sufficient as claim evidence
-- **not** exported
+- Preserve the original Lichess theme string only as `external_theme`.
+- Do **not** rename ChessGuide refs to match Lichess.
+- Do **not** treat Lichess themes as `corpus_ref`.
+- Do **not** claim exhaustive coverage unless externally verified.
+- Mark all example external themes as `candidate_external_theme` unless already verified from repository docs.
+- Cross-walk entries are **curation proposals** until `steward_reviewed`.
 
 ---
 
 ## ChessGuide target namespaces
 
-Target families:
+**Required:**
 
 - `tactic:*`
 - `decision_frame:*`
-- `principle:*`
-- `endgame:*`
-- `tablebase:*`
-- `opening:*`
-- `plan:*`
-- optional future `motif:*`
 
-**Rules:**
+**Optional future:**
 
-- `tactic:*` is preferred for **tactical motifs**.
-- `decision_frame:*` is used for **calculation / scanning behavior**.
-- `principle:*` is used for **general teaching principles**.
-- `endgame:*` / `tablebase:*` are used for **endgame concepts**.
-- Raw Lichess theme strings **must not** become a primary `corpus_ref`.
+- `motif:*`
+- `theme:*` (if later approved)
+
+No new namespace doctrine is created in this task.
 
 ---
 
 ## Cross-walk record shape
 
-Human-readable conceptual record — **not** JSON Schema.
+Human-readable record — **not** JSON Schema.
 
 | Field | Purpose |
 |-------|---------|
 | `crosswalk_id` | Stable ID for the cross-walk row |
-| `source_id` | `source:lichess-puzzles` |
-| `source_theme` | External theme string (e.g. `fork`) |
-| `source_theme_family` | tactic / mate / endgame / opening / phase / meta |
-| `source_theme_description` | Short external description (paraphrased, not copied verbatim) |
-| `target_corpus_refs[]` | All proposed ChessGuide refs |
-| `primary_target_ref` | Preferred governed ref |
-| `secondary_target_refs[]` | Additional governed refs |
-| `target_family` | Namespace of primary target |
-| `mapping_type` | exact / close / broader / narrower / composite / ambiguous / rejected |
-| `curation_status` | draft_mapping / steward_reviewed / source_aligned / deprecated / rejected |
+| `external_source_id` | `source:lichess-puzzles` |
+| `external_theme` | Original Lichess theme string (preserved verbatim) |
+| `external_theme_status` | `candidate_external_theme` \| `verified_external_theme` |
+| `target_refs[]` | All proposed internal refs |
+| `primary_target_ref` | Preferred internal ref |
+| `target_family` | `tactic` \| `decision_frame` \| (future) `motif` |
+| `mapping_kind` | direct_tactic / broader_motif / decision_frame / meta_theme / difficulty_or_phase / ambiguous / reject_for_now |
 | `confidence` | high / medium / low |
-| `source_license_status` | `license_verified` (CC0) |
-| `source_provenance_status` | `provenance_verified` |
+| `curation_status` | draft_mapping / steward_reviewed / source_aligned / deprecated / superseded / rejected |
+| `license_status` | `license_verified` (CC0) |
+| `provenance_status` | `provenance_verified` |
+| `pedagogical_priority` | P0–P5 (where applicable) |
+| `scan_phase` | pre_move / candidate_generation / calculation / post_candidate_sanity / post_game_review |
+| `safety_relevance` | none / low / medium / high / critical |
+| `allowed_uses[]` | e.g. corpus_curation, pedagogical_reference, future_puzzle_index, theme_alignment |
 | `limitations[]` | e.g. not_doctrine, label_not_understanding, future_ref_candidate |
 | `boundary_flags` | See below |
 | `version` | CorpusRegistryVersion membership |
@@ -204,15 +187,15 @@ Human-readable conceptual record — **not** JSON Schema.
 | `superseded_by` | Replacement if deprecated |
 | `notes` | Curation notes |
 
-**`mapping_type` values:** `exact`, `close`, `broader`, `narrower`, `composite`, `ambiguous`, `rejected`.
+**`mapping_kind` values:** `direct_tactic`, `broader_motif`, `decision_frame`, `meta_theme`, `difficulty_or_phase`, `ambiguous`, `reject_for_now`.
 
-**`curation_status` values:** `draft_mapping`, `steward_reviewed`, `source_aligned`, `deprecated`, `rejected`.
+**`curation_status` values:** `draft_mapping`, `steward_reviewed`, `source_aligned`, `deprecated`, `superseded`, `rejected`.
 
 ---
 
 ## Boundary flags
 
-All cross-walk rows inherit:
+Every cross-walk row defaults:
 
 ```yaml
 boundary_flags:
@@ -228,206 +211,165 @@ boundary_flags:
 
 ---
 
-## MVP theme cross-walk table
+## Seed target refs
 
-Human-readable mapping only. `source_theme` strings are **external labels**; targets are **governed ChessGuide refs**. `curation_status: draft_mapping` for all rows. Refs not present in MCRM-001 are marked **future candidate** (not accepted doctrine, not created in any registry file).
+**13 MCRM-001 / CRR-001 `tactic:*` refs:**
 
-### Tactical motifs
+- `tactic:fork`
+- `tactic:pin`
+- `tactic:skewer`
+- `tactic:back_rank_mate`
+- `tactic:discovered_attack`
+- `tactic:overloaded_piece`
+- `tactic:deflection`
+- `tactic:decoy`
+- `tactic:clearance`
+- `tactic:interference`
+- `tactic:zwischenzug`
+- `tactic:double_attack`
+- `tactic:smothered_mate`
 
-| source_theme | primary_target_ref | secondary_target_refs | mapping_type | confidence | limitations |
-|--------------|--------------------|-----------------------|--------------|------------|-------------|
-| `fork` | `tactic:fork` | `tactic:double_attack` | exact | high | label_not_understanding |
-| `pin` | `tactic:pin` | — | exact | high | — |
-| `skewer` | `tactic:skewer` | — | exact | high | — |
-| `discoveredAttack` | `tactic:discovered_attack` | — | exact | high | — |
-| `doubleAttack` | `tactic:double_attack` | `tactic:fork` | exact | high | — |
-| `deflection` | `tactic:deflection` | — | exact | high | — |
-| `decoy` | `tactic:decoy` | — | exact | high | — |
-| `clearance` | `tactic:clearance` | — | exact | high | — |
-| `interference` | `tactic:interference` | — | exact | high | — |
-| `attraction` | `tactic:decoy` | `motif:attraction` (future) | close | medium | future_ref_candidate |
-| `sacrifice` | `decision_frame:calculation_tree` | `motif:sacrifice` (future) | broader | low | ambiguous; future_ref_candidate |
-| `trappedPiece` | `tactic:trapped_piece` (future) | `principle:piece_activity` | narrower | medium | future_ref_candidate |
-| `hangingPiece` | `decision_frame:loose_pieces_drop_off` | — | close | high | not_tactic_mastery |
-| `quietMove` | `decision_frame:calculation_tree` | `decision_frame:candidate_moves` | broader | medium | — |
-| `zwischenzug` | `tactic:zwischenzug` | — | exact | high | — |
-| `overload` | `tactic:overloaded_piece` | — | exact | high | — |
+**12 MCRM-001 / CRR-001 `decision_frame:*` refs:**
 
-### Mate patterns
+- `decision_frame:safety_check`
+- `decision_frame:king_safety_first`
+- `decision_frame:cct_scan`
+- `decision_frame:checks_captures_threats`
+- `decision_frame:loose_pieces_drop_off`
+- `decision_frame:mate_threat_scan`
+- `decision_frame:forcing_moves_first`
+- `decision_frame:candidate_moves`
+- `decision_frame:calculation_tree`
+- `decision_frame:sanity_check`
+- `decision_frame:defensive_scan_before_attack`
+- `decision_frame:offensive_scan_after_safety`
 
-| source_theme | primary_target_ref | secondary_target_refs | mapping_type | confidence | limitations |
-|--------------|--------------------|-----------------------|--------------|------------|-------------|
-| `mate` | `decision_frame:mate_threat_scan` | — | broader | high | not_mastery |
-| `mateIn1` | `decision_frame:mate_threat_scan` | — | close | high | — |
-| `mateIn2` | `decision_frame:mate_threat_scan` | `decision_frame:calculation_tree` | composite | high | — |
-| `mateIn3` | `decision_frame:mate_threat_scan` | `decision_frame:calculation_tree` | composite | high | — |
-| `backRankMate` | `tactic:back_rank_mate` | `decision_frame:mate_threat_scan` | exact | high | — |
-| `smotheredMate` | `tactic:smothered_mate` | `decision_frame:mate_threat_scan` | exact | high | — |
-| `hookMate` | `tactic:hook_mate` (future) | `decision_frame:mate_threat_scan` | narrower | medium | future_ref_candidate |
-| `anastasiaMate` | `tactic:anastasia_mate` (future) | `decision_frame:mate_threat_scan` | narrower | medium | future_ref_candidate |
-| `arabianMate` | `tactic:arabian_mate` (future) | `decision_frame:mate_threat_scan` | narrower | medium | future_ref_candidate |
-| `bodenMate` | `tactic:boden_mate` (future) | `decision_frame:mate_threat_scan` | narrower | medium | future_ref_candidate |
-| `dovetailMate` | `tactic:dovetail_mate` (future) | `decision_frame:mate_threat_scan` | narrower | medium | future_ref_candidate |
-
-### Endgame / pawn / promotion
-
-| source_theme | primary_target_ref | secondary_target_refs | mapping_type | confidence | limitations |
-|--------------|--------------------|-----------------------|--------------|------------|-------------|
-| `endgame` | `endgame:*` (future taxonomy) | — | broader | low | ambiguous; future_ref_candidate |
-| `pawnEndgame` | `endgame:king_pawn_vs_king` | `endgame:pawn_endgame` (future) | close | medium | not_always_KPK |
-| `rookEndgame` | `endgame:rook_endgame` (future) | `endgame:rook_pawn_basic` | narrower | medium | future_ref_candidate |
-| `queenEndgame` | `endgame:queen_endgame` (future) | — | narrower | low | future_ref_candidate |
-| `bishopEndgame` | `endgame:bishop_endgame` (future) | — | narrower | low | future_ref_candidate |
-| `knightEndgame` | `endgame:knight_endgame` (future) | — | narrower | low | future_ref_candidate |
-| `promotion` | `tactic:promotion` (future) | — | close | medium | future_ref_candidate |
-| `underPromotion` | `tactic:underpromotion` (future) | — | narrower | medium | future_ref_candidate |
-
-### Opening / structure / strategic
-
-| source_theme | primary_target_ref | secondary_target_refs | mapping_type | confidence | limitations |
-|--------------|--------------------|-----------------------|--------------|------------|-------------|
-| `opening` | `opening:*` (context only) | — | broader | low | OTWP-001; label_not_understanding |
-| `middlegame` | `phase:middlegame` (future) | review_only | broader | low | ambiguous; future_ref_candidate |
-| `advantage` | review_only | — | ambiguous | low | metadata_only |
-| `equality` | review_only | — | ambiguous | low | metadata_only |
-| `defensiveMove` | `decision_frame:defensive_scan_before_attack` | — | close | medium | — |
-| `attackingF2F7` | `tactic:attack_f2_f7` (future) | `principle:king_safety` | narrower | medium | future_ref_candidate |
-| `kingsideAttack` | `plan:kingside_attack` (future) | — | narrower | medium | future_ref_candidate |
-| `queensideAttack` | `plan:queenside_attack` (future) | — | narrower | medium | future_ref_candidate |
-| `advancedPawn` | `principle:advanced_pawn` (future) | `endgame:pawn_structure` (future) | narrower | low | future_ref_candidate |
-| `exposedKing` | `principle:king_safety` | `decision_frame:king_safety_first` | close | medium | — |
-
-**Important:** Future refs above are **candidates only** — not created in any registry file and not accepted doctrine. Ambiguous items are kept explicit.
+These are the **only** internal target refs LTCW-001 maps to. No new doctrine refs are added.
 
 ---
 
-## Decision-frame mappings
+## Candidate cross-walk table
 
-Source themes that map to **decision frames** (how the learner should *think*, not what they have learned):
+**Non-exhaustive, curation-draft.** All `external_theme` values are `candidate_external_theme` (exact spelling not yet verified from a pinned Lichess snapshot — LTCW-OQ-1/OQ-2). All rows `curation_status: draft_mapping`.
 
-- `hangingPiece` → `decision_frame:loose_pieces_drop_off` (LPDO)
-- `mate` / `mateInN` → `decision_frame:mate_threat_scan` + `decision_frame:calculation_tree`
-- `defensiveMove` → `decision_frame:defensive_scan_before_attack`
-- `quietMove` → `decision_frame:calculation_tree` / `decision_frame:candidate_moves`
-- `opening` → context only, **after safety**
-
-Decision-frame mappings describe **thinking procedure**, not learned state.
-
----
-
-## Tactical motif mappings
-
-These source themes map cleanly to existing MCRM-001 `tactic:*` refs:
-
-`fork`, `pin`, `skewer`, `discoveredAttack`, `doubleAttack`, `deflection`, `decoy`, `clearance`, `interference`, `zwischenzug`, `overload`.
-
-- They **can** support future puzzle selection.
-- They **cannot** create mastery.
-
----
-
-## Mate-pattern mappings
-
-- Some mate themes map to **existing** refs:
-  - `backRankMate` → `tactic:back_rank_mate`
-  - `smotheredMate` → `tactic:smothered_mate`
-- Many named mate patterns become **future candidate** refs:
-  - `hookMate`, `anastasiaMate`, `arabianMate`, `bodenMate`, `dovetailMate`
-- **All** mate patterns also relate to `decision_frame:mate_threat_scan`.
+| external_theme | primary_target_ref | mapping_kind | confidence | limitations |
+|----------------|--------------------|--------------|------------|-------------|
+| `fork` | `tactic:fork` | direct_tactic | high | label_not_understanding |
+| `pin` | `tactic:pin` | direct_tactic | high | — |
+| `skewer` | `tactic:skewer` | direct_tactic | high | — |
+| `backRankMate` | `tactic:back_rank_mate` | direct_tactic | high | — |
+| `discoveredAttack` | `tactic:discovered_attack` | direct_tactic | high | — |
+| `deflection` | `tactic:deflection` | direct_tactic | high | — |
+| `attraction` | `tactic:decoy` | broader_motif | medium | future `motif:attraction` candidate |
+| `decoy` | `tactic:decoy` | direct_tactic | high | — |
+| `clearance` | `tactic:clearance` | direct_tactic | high | — |
+| `interference` | `tactic:interference` | direct_tactic | high | — |
+| `zwischenzug` | `tactic:zwischenzug` | direct_tactic | high | — |
+| `doubleAttack` | `tactic:double_attack` | direct_tactic | high | — |
+| `smotheredMate` | `tactic:smothered_mate` | direct_tactic | high | — |
+| `mateIn1` | `decision_frame:mate_threat_scan` | decision_frame | medium | tactic:* only after curation |
+| `mateIn2` | `decision_frame:mate_threat_scan` | decision_frame | medium | + `decision_frame:calculation_tree`; tactic:* only after curation |
+| `hangingPiece` | `decision_frame:loose_pieces_drop_off` | decision_frame | high | not_tactic_mastery |
+| `opening` | — | reject_for_now / meta_theme | low | not a tactic; see OTWP-001 |
+| `endgame` | — | meta_theme | low | not a tactic |
+| `middlegame` | — | meta_theme | low | not a tactic; phase tag |
+| `advantage` | — | meta_theme | low | outcome tag, not tactic |
+| `equality` | — | meta_theme | low | outcome tag, not tactic |
 
 ---
 
-## Endgame / promotion / pawn mappings
+## Decision-frame cross-walk table
 
-- Endgame themes require a **separate endgame taxonomy expansion** (future).
-- Syzygy / tablebase remains a **reference lane**, not learner evidence.
-- `promotion` / `underPromotion` are candidate `tactic:*` refs but **not in MVP**.
-- Pawn endgames may relate to `endgame:king_pawn_vs_king` but **not always**.
+Safety / process themes mapped conceptually. All `draft_mapping` unless exact spelling is verified from source docs.
+
+| external_theme | target_refs | mapping_kind | confidence | limitations |
+|----------------|-------------|--------------|------------|-------------|
+| `hangingPiece` | `decision_frame:loose_pieces_drop_off` | decision_frame | high | not_tactic_mastery |
+| `mateIn1` / `mateIn2` / `mateIn3` / `mateInN` | `decision_frame:mate_threat_scan`, `decision_frame:calculation_tree` | decision_frame | medium | mateInN representation open (LTCW-OQ-5) |
+| `oneMove` / `short` / `long` | — | difficulty_or_phase | low | not evidence/mastery; metadata only |
+| `quietMove` | `decision_frame:candidate_moves`, `decision_frame:calculation_tree` | decision_frame | low | only if `steward_reviewed` |
+| `defensiveMove` | `decision_frame:defensive_scan_before_attack`, `decision_frame:safety_check` | decision_frame | medium | — |
+| `attack` / `kingsideAttack` | `decision_frame:offensive_scan_after_safety` | decision_frame | medium | only after P1 safety |
+| `exposedKing` | `decision_frame:king_safety_first` | decision_frame | medium | — |
 
 ---
 
-## Opening / structure mappings
+## Non-tactic / meta-theme handling
 
-- `opening` theme is **contextual**; not a direct proof of opening knowledge.
-- Opening labels must respect **OTWP-001** and the future opening wrap.
-- Structural / strategic themes should map to `principle:*` or `plan:*` **only after curation**.
+- `opening`, `endgame`, `middlegame`, `advantage`, `equality`, `veryLong`, `short`, `oneMove`, etc. are **not tactics** by default.
+- They may support **filtering or selection** but not tactic doctrine.
+- They should map to `mapping_kind: meta_theme` or `difficulty_or_phase`.
+- They must **not** create `tactic:*` rows without curation.
 
 ---
 
-## Ambiguous or rejected mappings
+## Puzzle ID and row handling
 
-The following are **review_only / metadata_only** — not pedagogical doctrine, not mastery, not evidence:
-
-| source_theme | disposition |
-|--------------|-------------|
-| `advantage` | review_only / ambiguous |
-| `equality` | review_only / ambiguous |
-| `crushing` | review_only / metadata_only |
-| `master` | metadata_only (player-level tag) |
-| `masterVsMaster` | metadata_only |
-| `veryLong` | metadata_only (length tag) |
-| `long` | metadata_only |
-| `short` | metadata_only |
-| `oneMove` | metadata_only |
-| `exposedKing` (if not tactically specific) | ambiguous → principle:king_safety only after curation |
-| `middlegame` (as phase label only) | metadata_only / phase tag |
+- **No puzzle IDs** in this document.
+- **No** FEN, moves, ratings, popularity, or row fields.
+- **No** puzzle solve records.
+- **No** future learner evidence from solve alone.
+- A future `PuzzleCorpusSelector` can use the curated cross-walk **only after LLD**.
 
 ---
 
 ## Curation workflow
 
-1. Identify source theme.
-2. Classify `source_theme_family`.
-3. Propose target refs.
-4. Check against MCRM-001 existing refs.
-5. Mark **future refs** if absent.
-6. Assign `mapping_type` and `confidence`.
+1. Identify external theme string.
+2. Preserve original theme spelling.
+3. Propose internal target ref(s).
+4. Assign `mapping_kind`.
+5. Assign pedagogical priority / scan phase / safety relevance.
+6. Assign limitations.
 7. Steward review.
 8. Publish in a future **CorpusRegistryVersion**.
-9. Preserve old mappings through `supersedes` / `superseded_by`.
+9. Preserve `supersedes` / `superseded_by` if changed.
 
 ---
 
 ## Versioning and immutability
 
-- Cross-walk belongs to a future **CorpusRegistryVersion**.
-- Published mappings are **immutable**.
+- Published cross-walk versions are **immutable**.
 - Corrections create a **new version**.
-- Source theme aliases remain **resolvable**.
-- Creator continuity must preserve the **cross-walk version**.
+- Deprecated mappings remain **resolvable**.
+- Creator continuity must preserve `external_theme`, `target_refs`, `version`, `source_id`, and `curation_status`.
 
 ---
 
-## Relationship to System Chess Competence
+## Relationship to MCRM-001
 
-| May | Must not |
-|-----|----------|
-| Use the cross-walk to classify future puzzle candidates | Write learner state |
-| Map source themes to governed refs | Issue mastery |
-| Support `PositionConceptMap` / `TeachingOpportunity` in future LLD | Export source themes |
-| | Treat external labels as doctrine |
+- MCRM-001 **owns** the internal seed refs.
+- LTCW maps **external themes** to those refs.
+- LTCW does **not** add new doctrine refs unless later approved.
+- LTCW does **not** promote MCRM-001 beyond **Draft Manifest**.
+
+---
+
+## Relationship to Tactical Safety Scanner
+
+- LTCW can **inform** future scanner vocabulary.
+- It does **not** implement the scanner.
+- Safety priority **P1/P2** remains governed by CRR-001 / MCRM-001.
+- Puzzle themes **cannot override** safety checks.
 
 ---
 
 ## Relationship to Buddy Pedagogy
 
-| May | Must not |
-|-----|----------|
-| Cite ChessGuide target refs | Say a learner has "mastered" a theme from solving puzzles |
-| Explain motif vocabulary | Claim mastery from theme recognition |
-| Ask learner to self-explain theme recognition | Impersonate learner rationale |
-| Use puzzle theme as hint **only after** proper pedagogical gating | Cite raw external labels as doctrine |
-| | Present puzzle solve as evidence or claim |
-| | Praise tactical play that fails P1/P2 safety |
+- Buddy may later use **cross-walked refs** for explanation / prompting.
+- Buddy must **not** cite external theme strings as doctrine.
+- Buddy must ask for **self-explanation** before engine reveal.
+- Buddy must **not** treat puzzle completion as mastery.
 
 ---
 
 ## Relationship to DecisionTrace / EvidenceRecord / Claim
 
-- DecisionTrace may include `corpus_ref[]` / `decision_frame[]` derived from mapped themes.
-- EvidenceRecord may cite a `corpus_ref` — citation is **not** proof of integration (ADR-003).
-- Claim still requires **ADR-004 stewardship**.
-- Cross-walk citation and puzzle solve are **not evidence** by themselves.
+- DecisionTrace may cite internal `tactic:*` or `decision_frame:*`.
+- It should **not** cite raw external theme as learned state.
+- EvidenceRecord may cite corpus refs, but **solve alone is insufficient**.
+- Claim requires **ADR-004 stewardship**.
+- A cross-walk row is **not evidence**.
 
 ---
 
@@ -435,19 +377,20 @@ The following are **review_only / metadata_only** — not pedagogical doctrine, 
 
 Per [FEDERATION.md](../../../FEDERATION.md) and `export_v1.py`:
 
-- No cross-walk metadata in federation export.
-- No `source_theme`.
-- No `corpus_ref` / `source_refs`.
-- No puzzle theme labels.
+- No `external_theme`.
+- No `source_id`.
+- No `source_refs`.
+- No `corpus_ref`.
+- No puzzle metadata.
+- No cross-walk metadata.
 - ObservationRecord remains a **terminal game slice only**.
 
 ---
 
 ## Relationship to Creator continuity
 
-- Creator continuity needs **versioned** cross-walk mappings.
-- Historical theme aliases must resolve even if mappings change.
-- Preserve `source_theme`, `primary_target_ref`, cross-walk version, `source_license_status`, `curation_status`.
+- Creator must be able to interpret **historical cross-walk versions**.
+- Preserve `external_theme` spelling, `source_id`, `target_refs`, `curation_status`, `version`.
 - Do **not** flatten to free text.
 
 ---
@@ -456,12 +399,12 @@ Per [FEDERATION.md](../../../FEDERATION.md) and `export_v1.py`:
 
 | Phase | State |
 |-------|-------|
-| **Phase 0 — Current state** | Lichess themes exist externally; no cross-walk; no puzzle index |
-| **Phase 1 — Governance cross-walk plan** | this document |
-| **Phase 2 — Draft cross-walk mapping artifact** | governance markdown table; no ingestion |
-| **Phase 3 — Registry version publication** | machine-readable format decision after MCRM-OQ-1 |
-| **Phase 4 — Puzzle selector / SCC LLD** | future only |
-| **Phase 5 — Tests and migration** | future only |
+| **Phase 0 — Current** | No cross-walk on main unless this doc lands; MCRM seeds exist; no ingest |
+| **Phase 1 — LTCW governance doc** | this document |
+| **Phase 2 — Steward-reviewed cross-walk table** | future markdown or YAML decision |
+| **Phase 3 — CorpusRegistryVersion publication** | future |
+| **Phase 4 — Tactical Safety Scanner / PuzzleCorpusSelector LLD** | future only |
+| **Phase 5 — Runtime integration and tests** | future only |
 
 ---
 
@@ -469,15 +412,14 @@ Per [FEDERATION.md](../../../FEDERATION.md) and `export_v1.py`:
 
 | Risk / anti-pattern | Mitigation |
 |---------------------|------------|
-| Treating Lichess theme as doctrine | Theme = source vocabulary; governed ref is doctrine |
-| Copying theme strings as `corpus_ref` IDs | Raw themes never become primary refs |
-| Puzzle solve → mastery | `puzzle_solve_not_mastery`; ADR-004 |
-| Bulk ingesting puzzle data | `no_bulk_ingest`; this is vocabulary-only |
-| Exporting theme metadata to federation | `not_federation_export` |
-| Treating named mate patterns as accepted refs | Marked future candidate, not doctrine |
-| Collapsing source → corpus_ref → evidence → claim | ADR-002–004; boundary flags |
-| Breaking Creator continuity on alias rename | Immutable versions; resolvable aliases |
-| Ambiguous themes silently curated | Kept `review_only` until steward review |
+| Copying Lichess theme names as doctrine | Themes kept as `external_theme`; governed refs are doctrine |
+| Treating puzzle solve as mastery | `puzzle_solve_not_mastery`; ADR-004 |
+| Importing puzzle rows too early | `no_puzzle_row_import_in_this_task` |
+| Exposing themes / source refs in federation | `not_federation_export` |
+| Mapping ambiguous themes to one tactic without review | `ambiguous` / steward review required |
+| Using puzzle themes as claims | Boundary flags; ADR-004 |
+| Bypassing P1 safety with tactic excitement | P1/P2 governed by CRR/MCRM; themes cannot override |
+| Flattening Creator continuity to text labels | Versioned, typed cross-walk rows |
 
 ---
 
@@ -485,27 +427,27 @@ Per [FEDERATION.md](../../../FEDERATION.md) and `export_v1.py`:
 
 | ID | Question |
 |----|----------|
-| **LTCW-OQ-1** | Should the cross-walk later become YAML or stay markdown first? |
-| **LTCW-OQ-2** | Where should the future cross-walk mapping artifact live? |
-| **LTCW-OQ-3** | Which Lichess theme version/snapshot should be pinned? |
-| **LTCW-OQ-4** | Should named mate patterns (hook/anastasia/arabian/boden/dovetail) become `tactic:*` or `motif:*`? |
-| **LTCW-OQ-5** | How should endgame taxonomy expand (rook/queen/bishop/knight endgames)? |
-| **LTCW-OQ-6** | Should `motif:*` be a distinct family from `tactic:*`? |
-| **LTCW-OQ-7** | How should meta/length/player themes be stored (metadata_only)? |
-| **LTCW-OQ-8** | What minimum cross-walk is needed before a puzzle selector LLD? |
-| **LTCW-OQ-9** | How should ambiguous themes (advantage/equality/crushing) be handled in practice? |
-| **LTCW-OQ-10** | How should Creator serve historical theme alias mappings? |
+| **LTCW-OQ-1** | Which Lichess theme spelling list is canonical? |
+| **LTCW-OQ-2** | Should the exact external theme list be pinned by retrieval date? |
+| **LTCW-OQ-3** | Should the cross-walk become YAML later? |
+| **LTCW-OQ-4** | How many `target_refs` may one external theme map to? |
+| **LTCW-OQ-5** | How to represent `mateInN` themes? |
+| **LTCW-OQ-6** | How to treat difficulty / phase themes? |
+| **LTCW-OQ-7** | How to handle future Lichess theme changes? |
+| **LTCW-OQ-8** | What minimum cross-walk is needed before a Tactical Safety Scanner LLD? |
+| **LTCW-OQ-9** | How should Creator serve deprecated cross-walk mappings? |
+| **LTCW-OQ-10** | Should puzzle rating / difficulty ever enter governance metadata? |
 
 ---
 
 ## Recommendation
 
-1. PR for this cross-walk plan.
-2. Draft cross-walk mapping artifact (governance markdown, no ingestion).
-3. Endgame taxonomy expansion governance doc.
-4. `motif:*` vs `tactic:*` family decision.
-5. Tactical Safety Scanner / System Chess Competence LLD.
-6. UML package.
+1. PR for LTCW-001 after this full-spec pass.
+2. If not yet done, complete exact source theme spelling verification later using official Lichess documentation or pinned snapshot metadata.
+3. Draft opening tree wrap mapping artifact.
+4. Tactical Safety Scanner / System Chess Competence LLD.
+5. UML package.
+6. Future `PuzzleCorpusSelector` design only after LLD.
 
 ---
 
@@ -514,17 +456,17 @@ Per [FEDERATION.md](../../../FEDERATION.md) and `export_v1.py`:
 | Work | Depends on |
 |------|------------|
 | PR for LTCW-001 | This draft |
-| Draft cross-walk mapping artifact | Phase 2; LTCW-OQ-2 |
-| Endgame taxonomy expansion | LTCW-OQ-5 |
-| `motif:*` family decision | LTCW-OQ-6 |
-| Puzzle selector / SCC LLD | CRR-001, MCRM-001 |
+| External theme spelling verification | Pinned Lichess snapshot; LTCW-OQ-1/OQ-2 |
+| Steward-reviewed cross-walk table | Phase 2 |
+| Tactical Safety Scanner / SCC LLD | CRR-001, MCRM-001 |
 | UML package | CRR-001 |
+| PuzzleCorpusSelector design | Future LLD |
 | Registry format decision | MCRM-OQ-1 |
 
 ---
 
 ## Governance boundary statement
 
-**LTCW-001 does not modify** runtime, tests, federation export, schemas, implementation files, **accepted ADRs**, ingest datasets, download Lichess puzzles/games/PGNs, create puzzle import or source ingestion files, create corpus registry JSON/YAML, create JSON Schema, create a runtime registry, create LLD or UML artifacts, or **activate LARIS**.
+**LTCW-001 does not modify** runtime, tests, federation export, schemas, implementation files, **accepted ADRs**, ingest datasets, download sources, create corpus registry JSON/YAML, create JSON Schema, create LLD or UML artifacts, import puzzle rows, create EvidenceRecords or Claims, or **activate LARIS**.
 
-It is a **human-readable governance cross-walk plan** mapping Lichess puzzle theme vocabulary to ChessGuide Corpus Reference Registry vocabulary.
+It is a **human-readable governance cross-walk draft** for future corpus curation.
