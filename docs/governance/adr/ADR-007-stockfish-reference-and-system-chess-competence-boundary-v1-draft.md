@@ -5,7 +5,7 @@
 | **Document ID** | ADR-007 |
 | **Title** | Stockfish Reference and System Chess Competence Boundary v1 |
 | **Version** | 0.1 |
-| **Status** | Draft |
+| **Status** | Accepted |
 | **Date** | 2026-06-17 |
 | **Scope** | Governance / HLD bridge / semantic architecture only — Stockfish reference, system chess competence, and continuity boundary |
 | **Prerequisites** | [ADR-001](ADR-001-learningtrace-episode-schema-v1.md), [ADR-002](ADR-002-sovereign-reference-model-v1.md), [ADR-003](ADR-003-loe-doe-evidence-record-schema-v1.md), [ADR-004](ADR-004-stewardship-and-transformation-claim-gate-v1.md), [ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md), [ADR-006](ADR-006-buddy-pedagogy-and-reference-use-v1-draft.md), [CCCR v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md), [CB-004](../chessbuddy/CB-004-buddy-persona-and-product-principles.md), [CB-005](../chessbuddy/CB-005-learningtrace-product-schema.md), [CG-FLL-002](../chessguide/CG-FLL-002-learning-semantics.md), [CG-FLL-1E](../chessguide/CG-FLL-1E-first-domain-learning-pilot-execution-plan.md), [FEDERATION.md](../../FEDERATION.md) |
@@ -16,9 +16,9 @@
 
 ## Status
 
-**Draft** — governance / HLD bridge Architecture Decision Record defining **Stockfish Reference and System Chess Competence Boundary v1**: how ChessGuide separates system chess competence, engine reference/measurement, Buddy pedagogy, learner evidence, and long-horizon continuity.
+**Accepted** — repository governance / HLD bridge decision defining **Stockfish Reference and System Chess Competence Boundary v1**: how ChessGuide separates system chess competence, engine reference/measurement, Buddy pedagogy, learner evidence, and long-horizon continuity.
 
-This ADR is **governance / HLD bridge only**. Draft acceptance does **not** introduce:
+This ADR is **governance / HLD bridge only**. Acceptance does **not** introduce:
 
 - Runtime changes
 - Tests
@@ -36,8 +36,6 @@ This ADR is **governance / HLD bridge only**. Draft acceptance does **not** intr
 
 This ADR does **not**:
 
-- Mark [ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md) **Accepted**
-- Mark [ADR-006](ADR-006-buddy-pedagogy-and-reference-use-v1-draft.md) **Accepted**
 - Activate **LARIS** (CG-002; FDP-002)
 
 ---
@@ -54,9 +52,9 @@ This ADR does **not**:
 
 [ADR-004](ADR-004-stewardship-and-transformation-claim-gate-v1.md) (Accepted) defines **Claim** as governed **hypothesis / påstand** evaluated against evidence lineage. Formal claims require stewardship.
 
-[ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md) (Draft) defines **DecisionTrace** as learner-custody reasoning context per ply. **`capture_timing`** and **`trace_source`** are independent axes. **`engine_ref`** is separated from learner `rationale_statement`.
+[ADR-005](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md) (Accepted) defines **DecisionTrace** as learner-custody reasoning context per ply. **`capture_timing`** and **`trace_source`** are independent axes. **`engine_ref`** is separated from learner `rationale_statement`.
 
-[ADR-006](ADR-006-buddy-pedagogy-and-reference-use-v1-draft.md) (Draft) defines **Buddy** as pedagogical domain mentor — not steward, not engine oracle. Buddy may use engine as measurement lane but must preserve source/custody boundaries.
+[ADR-006](ADR-006-buddy-pedagogy-and-reference-use-v1-draft.md) (Accepted) defines **Buddy** as pedagogical domain mentor — not steward, not engine oracle. Buddy may use engine as measurement lane but must preserve source/custody boundaries.
 
 [CCCR v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md) proposes Chess Corpus taxonomy and **`corpus_ref`** candidates. It explicitly identifies a **system competence gap**: ChessGuide needs a separate lane for how the system evaluates positions, candidate moves, tactical correctness, levels, and explanations — distinct from corpus content and distinct from learner state.
 
@@ -666,17 +664,15 @@ Runtime enforcement: `export_v1.py` `_FORBIDDEN_EXPORT_ROOT_KEYS` includes `cp`,
 
 | # | Work item | Depends on |
 |---|-----------|------------|
-| 1 | ADR-005 / ADR-006 acceptance decision | Separate governance tasks |
-| 2 | ADR-007 acceptance decision | This ADR review |
-| 3 | System Chess Competence Review v1.0 or HLD document | ADR-007 |
-| 4 | Corpus Reference Registry ADR | ADR-002, CCCR, D13 |
-| 5 | DecisionTrace schema/storage ADR | ADR-005 acceptance |
-| 6 | EngineReferenceService LLD | D7, ADR-007 acceptance |
-| 7 | BuddyExplanationService LLD | D7, ADR-006 acceptance |
-| 8 | UML package diagrams | D8 |
-| 9 | Immutable state transition specification | D9 |
-| 10 | Runtime implementation phase | Above ADRs + LLD |
-| 11 | Creator continuity serving integration | D10; Creator OAT/CTP (external) |
+| 1 | DecisionTrace schema/storage ADR | ADR-005 (Accepted) |
+| 2 | System Chess Competence Review v1.0 or HLD document | ADR-007 (Accepted) |
+| 3 | Corpus Reference Registry ADR | ADR-002, CCCR, D13 |
+| 4 | EngineReferenceService LLD | D7, ADR-007 (Accepted) |
+| 5 | BuddyExplanationService LLD | D7, ADR-006 (Accepted) |
+| 6 | UML package diagrams | D8 |
+| 7 | Immutable state transition specification | D9 |
+| 8 | Runtime implementation phase | Above ADRs + LLD |
+| 9 | Creator continuity serving integration | D10; Creator OAT/CTP (external) |
 
 ---
 
@@ -715,8 +711,6 @@ Runtime enforcement: `export_v1.py` `_FORBIDDEN_EXPORT_ROOT_KEYS` includes `cp`,
 - Actual class files in `src/`
 - Stockfish deployment/config
 - Corpus registry implementation
-- Accepting ADR-005
-- Accepting ADR-006
 - Activating LARIS
 - Federation export changes
 
@@ -796,7 +790,7 @@ Runtime enforcement: `export_v1.py` `_FORBIDDEN_EXPORT_ROOT_KEYS` includes `cp`,
 - Prevents engine contamination of learner evidence.
 - Supports long-horizon continuity and Creator serving model.
 - Clarifies future ADR/implementation roadmap (D17).
-- Resolves CCCR OQ-CCR-11 and OQ-CCR-12 at governance level (draft).
+- Resolves CCCR OQ-CCR-11 and OQ-CCR-12 at accepted governance level.
 
 ### Negative / risks
 
@@ -839,8 +833,8 @@ Runtime enforcement: `export_v1.py` `_FORBIDDEN_EXPORT_ROOT_KEYS` includes `cp`,
 | `corpus_ref` / derived views | ADR-002 Accepted | ADR | [DOCTRINE] |
 | LOE/DOE evidence | ADR-003 Accepted | ADR | [DOCTRINE] |
 | Claim / stewardship gate | ADR-004 Accepted | ADR | [DOCTRINE] |
-| DecisionTrace / `capture_timing` / `trace_source` / `engine_ref` | ADR-005 Draft | ADR | [DRAFT] |
-| Buddy pedagogy / engine lane | ADR-006 Draft | ADR | [DRAFT] |
+| DecisionTrace / `capture_timing` / `trace_source` / `engine_ref` | ADR-005 Accepted | ADR | [DOCTRINE] |
+| Buddy pedagogy / engine lane | ADR-006 Accepted | ADR | [DOCTRINE] |
 | Corpus / Stockfish / system competence gap | CCCR v1.0 § System Chess Competence | Review | [PROPOSAL] |
 | Buddy reference over decree | CB-004 PP-7 | Doctrine | [DOCTRINE] |
 | LearningTrace product schema | CB-005 | Doctrine | [DOCTRINE] |
@@ -856,7 +850,7 @@ Runtime enforcement: `export_v1.py` `_FORBIDDEN_EXPORT_ROOT_KEYS` includes `cp`,
 | Standalone HLD document | **Absent** | — | **GAP** |
 | Creator continuity serving | FGI-001-creator.md | Grounding study | [EXTERNAL / PLANNED] |
 | Creator federation dependency | CG-DEP-001 | Doctrine | [DOCTRINE] |
-| System/engine boundary definition | ADR-007 D1–D17 | ADR | [DRAFT] |
+| System/engine boundary definition | ADR-007 D1–D17 | ADR | [DOCTRINE] |
 
 ---
 
@@ -899,7 +893,7 @@ Real-time → 100-year continuity (D10)
 
 ## Governance boundary statement
 
-**ADR-007 does not modify** runtime, tests, federation export, schemas, implementation files, **accepted ADRs**, **ADR-005 status** (remains Draft v0.1), **ADR-006 status** (remains Draft v0.1), or **LARIS activation**.
+**ADR-007 does not modify** runtime, tests, federation export, schemas, implementation files, or **LARIS activation**.
 
 ---
 
@@ -909,8 +903,8 @@ Real-time → 100-year continuity (D10)
 - [ADR-002 — Sovereign Reference Model v1](ADR-002-sovereign-reference-model-v1.md)
 - [ADR-003 — LOE/DOE Evidence Record Schema v1](ADR-003-loe-doe-evidence-record-schema-v1.md)
 - [ADR-004 — Stewardship and Transformation Claim Gate v1](ADR-004-stewardship-and-transformation-claim-gate-v1.md)
-- [ADR-005 — DecisionTrace / Per-Ply Reasoning v1 (Draft)](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md)
-- [ADR-006 — Buddy Pedagogy and Reference Use v1 (Draft)](ADR-006-buddy-pedagogy-and-reference-use-v1-draft.md)
+- [ADR-005 — DecisionTrace / Per-Ply Reasoning v1](ADR-005-decisiontrace-per-ply-reasoning-v1-draft.md)
+- [ADR-006 — Buddy Pedagogy and Reference Use v1](ADR-006-buddy-pedagogy-and-reference-use-v1-draft.md)
 - [ChessGuide Corpus Content Review v1.0](../../reviews/ChessGuide-Corpus-Content-Review-v1.0.md)
 - [ChessGuide LLD v1.0](../../architecture/ChessGuide-LLD-v1.0.md)
 - [CB-004 — Buddy Persona & Product Principles](../chessbuddy/CB-004-buddy-persona-and-product-principles.md)
