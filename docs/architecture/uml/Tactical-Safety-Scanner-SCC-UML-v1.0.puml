@@ -1,0 +1,264 @@
+@startuml Tactical-Safety-Scanner-SCC-UML-v1.0
+title Tactical Safety Scanner / System Chess Competence LLD v1.0 (Draft LLD — design only, not runtime)
+
+skinparam linetype ortho
+skinparam packageStyle rectangle
+
+' ============================================================
+' Design-only UML. No runtime code or generated source files.
+' Models classes, interfaces, and main relationships per
+' TSS-SCC-LLD-001. Method signatures shown as design intent.
+' ============================================================
+
+package "Input" {
+  class SafetyScanInput {
+    +positionRef : PositionRef
+    +sideToMove : SideToMove
+    +learnerContextRef : LearnerContextRef [0..1]
+    +evidenceContextRef : EvidenceContextRef [0..1]
+    +engineSnapshot : EngineReferenceSnapshot [0..1]
+  }
+  class PositionRef {
+    +positionId : PositionId
+    +boardHash : BoardHash
+  }
+  class SideToMove {
+    +color : String
+  }
+  class LearnerContextRef {
+    +learnerId : LearnerId
+    note: read-only
+  }
+  class EvidenceContextRef {
+    +evidenceRefs : EvidenceRef[]
+    note: read-only
+  }
+  class SafetyScanPolicy {
+    +policyVersion : PolicyVersion
+    +priorityOrder : ScanPriority[]
+  }
+}
+
+package "Scanner Interfaces" {
+  interface IPositionAnalyzer {
+    +analyze(input : SafetyScanInput) : PositionFeatures
+  }
+  interface ILegalMoveProvider {
+    +legalMoves(input : SafetyScanInput) : LegalMoveSet
+  }
+  interface IKingSafetyScanner {
+    +scan(input : SafetyScanInput) : CheckStatus
+  }
+  interface IMateThreatScanner {
+    +scan(input : SafetyScanInput) : MateThreat[]
+  }
+  interface IHangingPieceScanner {
+    +scan(input : SafetyScanInput) : HangingPieceSignal[]
+  }
+  interface ICCTScanner {
+    +scan(input : SafetyScanInput) : CCTSignal[]
+  }
+  interface ICandidateMoveScanner {
+    +generate(input : SafetyScanInput, context : SafetyScanResult) : CandidateMoveSet
+  }
+  interface IEngineReferenceReader {
+    +read(snapshot : EngineReferenceSnapshot) : EngineReadModel
+  }
+  interface IKnowledgeGraphRefResolver {
+    +resolve(ref : String, version : GraphVersion) : KnowledgeGraphConceptRef
+  }
+  interface IExplanationDraftBuilder {
+    +build(result : SafetyScanResult) : ExplanationDraft
+  }
+  interface IFederationWithholdingGuard {
+    +assertWithheld(result : SafetyScanResult) : FederationWithholdingDecision
+  }
+  interface ICreatorReplayAnnotator {
+    +annotate(result : SafetyScanResult) : CreatorReplayMetadata
+  }
+}
+
+package "Scanner Implementations" {
+  class TacticalSafetyScanner {
+    +scan(input : SafetyScanInput) : SafetyScanResult
+    -policy : SafetyScanPolicy
+    -trace : ScanTrace
+  }
+}
+
+package "Results" {
+  class SafetyScanResult {
+    +checkStatus : CheckStatus
+    +mateThreats : MateThreat[]
+    +hangingSignals : HangingPieceSignal[]
+    +cctSignals : CCTSignal[]
+    +candidateSet : CandidateMoveSet
+    +warnings : TacticalWarning[]
+    +explanationDraft : ExplanationDraft
+    +replayMetadata : CreatorReplayMetadata
+  }
+  class CheckStatus {
+    +inCheck : Boolean
+    +parrySet : CheckParrySet [0..1]
+  }
+  class CheckParrySet {
+    +moves : MoveUci[]
+  }
+  class MateThreat {
+    +threatMove : MoveUci
+    +plyToMate : PlyIndex
+    +severity : Severity
+  }
+  class HangingPieceSignal {
+    +square : String
+    +side : String
+    +severity : Severity
+  }
+  class CCTSignal {
+    +move : MoveUci
+    +kind : String
+  }
+  class CandidateMove {
+    +move : MoveUci
+    +priority : PriorityCode
+    +classification : CandidateMoveClassification [0..1]
+  }
+  class CandidateMoveSet {
+    +candidates : CandidateMove[]
+  }
+  class CandidateMoveClassification {
+    +learningBest : Boolean
+    +engineBest : Boolean
+    +pedagogicalValue : String
+    +uncertainty : ConfidenceBand
+  }
+  class TacticalWarning {
+    +warningCode : WarningCode
+    +severity : Severity
+    +priority : PriorityCode
+  }
+  class TacticalOpportunity {
+    +move : MoveUci
+    +conceptRefs : KnowledgeGraphConceptRef[]
+  }
+  class ScanTrace {
+    +steps : ScanTraceStep[]
+  }
+  class ScanTraceStep {
+    +phase : String
+    +priority : PriorityCode
+    +event : String
+  }
+}
+
+package "Boundaries" {
+  class EngineReferenceSnapshot {
+    +snapshotId : EngineSnapshotId
+    +eval : String
+    +bestLine : MoveUci[]
+    +source : String
+    +time : String
+    note: optional input, not authority
+  }
+  class KnowledgeGraphConceptRef {
+    +conceptRef : String
+    +graphVersion : GraphVersion
+    note: KG ref is not evidence
+  }
+  class ExplanationDraft {
+    +summary : ExplanationText
+    +priority : PriorityCode
+    +warnings : TacticalWarning[]
+    +legalConstraints : String
+    +candidateExplanations : String[]
+    +conceptRefs : KnowledgeGraphConceptRef[]
+    +uncertainty : ConfidenceBand
+    +whatNotToInfer : String
+    +buddyAllowedText : String
+    +buddyForbiddenClaims : String
+    +creatorReplayMetadata : CreatorReplayMetadata
+  }
+}
+
+package "Replay / Withholding" {
+  class CreatorReplayMetadata {
+    +scannerVersion : String
+    +policyVersion : PolicyVersion
+    +kgVersion : GraphVersion
+    +engineSnapshotId : EngineSnapshotId [0..1]
+    +derivationContext : String
+  }
+  class FederationWithholdingDecision {
+    +withheld : Boolean
+    +withheldFields : String[]
+  }
+}
+
+' ===================== Relationships =====================
+
+' Scanner uses scanner interfaces
+TacticalSafetyScanner ..> IPositionAnalyzer : uses
+TacticalSafetyScanner ..> ILegalMoveProvider : uses
+TacticalSafetyScanner ..> IKingSafetyScanner : uses
+TacticalSafetyScanner ..> IMateThreatScanner : uses
+TacticalSafetyScanner ..> IHangingPieceScanner : uses
+TacticalSafetyScanner ..> ICCTScanner : uses
+TacticalSafetyScanner ..> ICandidateMoveScanner : uses
+TacticalSafetyScanner ..> IEngineReferenceReader : uses
+TacticalSafetyScanner ..> IKnowledgeGraphRefResolver : uses
+TacticalSafetyScanner ..> IExplanationDraftBuilder : uses
+TacticalSafetyScanner ..> IFederationWithholdingGuard : uses
+TacticalSafetyScanner ..> ICreatorReplayAnnotator : uses
+TacticalSafetyScanner --> SafetyScanPolicy
+TacticalSafetyScanner --> ScanTrace
+TacticalSafetyScanner ..> SafetyScanInput : reads
+TacticalSafetyScanner --> SafetyScanResult : produces
+
+' SafetyScanInput composition
+SafetyScanInput *-- PositionRef
+SafetyScanInput *-- SideToMove
+SafetyScanInput o-- LearnerContextRef
+SafetyScanInput o-- EvidenceContextRef
+SafetyScanInput o-- EngineReferenceSnapshot
+
+' SafetyScanResult composition
+SafetyScanResult *-- CheckStatus
+SafetyScanResult *-- MateThreat
+SafetyScanResult *-- HangingPieceSignal
+SafetyScanResult *-- CCTSignal
+SafetyScanResult *-- CandidateMoveSet
+SafetyScanResult *-- TacticalWarning
+SafetyScanResult *-- ExplanationDraft
+SafetyScanResult *-- CreatorReplayMetadata
+CheckStatus o-- CheckParrySet
+CandidateMoveSet *-- CandidateMove
+CandidateMove o-- CandidateMoveClassification
+ScanTrace *-- ScanTraceStep
+
+' Explanation depends on result and KG ref
+ExplanationDraft ..> SafetyScanResult : derived from
+ExplanationDraft ..> KnowledgeGraphConceptRef : cites
+TacticalOpportunity ..> KnowledgeGraphConceptRef : cites
+
+' Withholding guard checks result
+IFederationWithholdingGuard ..> SafetyScanResult : checks
+IFederationWithholdingGuard --> FederationWithholdingDecision : returns
+
+' Replay annotator attaches metadata
+ICreatorReplayAnnotator ..> SafetyScanResult : reads
+ICreatorReplayAnnotator --> CreatorReplayMetadata : attaches
+
+' Engine reference reader boundary
+IEngineReferenceReader ..> EngineReferenceSnapshot : reads
+
+note as N1
+  Boundaries (invariants):
+  - P0 before P1..P5
+  - in-check -> legal parries only
+  - engine-best != learning-best
+  - TSS result is not learner state / not mastery
+  - TSS result is not federation export
+  - Buddy draft is not a claim
+end note
+
+@enduml
