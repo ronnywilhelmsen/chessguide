@@ -1,10 +1,11 @@
 # ChessGuide Web Dashboard (Modern Target App)
 
-**PR #39 — Modern Web Dashboard Shell / Next.js Target App v1.0**
+**PR #41 — Web Dashboard Scenario Explorer / Payload Fixture Runtime v1.0**
 
 A clean, modern web target app for ChessGuide's future **dashboard / display /
 review** surface. Built with Next.js (App Router), TypeScript (strict), and
-Tailwind CSS. It renders a **static governed fixture only**.
+Tailwind CSS. It is a **governed fixture scenario explorer** — it renders
+**static frontend fixtures only**.
 
 > This is the web dashboard app. **Do not open this from Android Studio.**
 
@@ -66,18 +67,57 @@ powershell -ExecutionPolicy Bypass -File tools/verify-web-dashboard.ps1
 > **no webcam and no live CV** here. Browser CV (Web Workers + Wasm) may be a
 > later optional sandbox; see the repository roadmap.
 
-## Implemented
+## What the scenario explorer is
 
-- Dashboard-first layout with a "ChessGuide Surface Dashboard" title and a
-  "Static governed fixture only" status.
-- Active mode selector: COMPETITION, LEARNING, REVIEW, BROADCAST_DISPLAY
-  (default **COMPETITION**).
+The dashboard is a small **scenario explorer**: pick one governed fixture
+scenario and the dashboard renders mode-aware, fixture-only placeholders for
+it. It is purely for demonstrating governed mode-gated display behaviour — it
+is **fixture-only**: there is no backend, no payload runtime, no live CV, and
+no engine/Buddy/LARIS behind it.
+
+### Scenarios
+
+- **competition-live-basic** (COMPETITION) — live competition display,
+  no-advice banner, all advisory output suppressed. *(default)*
+- **broadcast-display-basic** (BROADCAST_DISPLAY) — spectator-safe display,
+  no-advice banner, same advisory suppression as competition.
+- **learning-placeholder** (LEARNING) — learning runtime unavailable
+  placeholder; no advice, candidate moves, or best move.
+- **review-placeholder** (REVIEW) — review runtime unavailable placeholder;
+  no analysis, no engine line.
+- **ambiguity-detected-placeholder** (LEARNING) — shows an ambiguity category
+  only, certifies no truth, and states **"Human resolution required later"**.
+- **federation-withheld-placeholder** (REVIEW) — shows the federation
+  withholding reference and withheld categories only; no export action.
+
+### Implemented
+
+- Dashboard-first layout titled "ChessGuide Surface Dashboard" with the
+  subtitle "Governed fixture scenario explorer".
+- Scenario selector to switch between the scenarios above.
+- Mode-aware active-mode banner.
 - No-advice banner in COMPETITION and BROADCAST_DISPLAY.
 - LEARNING / REVIEW show "runtime not active yet" placeholders (no advice,
   no analysis).
-- Dashboard cards: board state, move list, clock, game status, displayed
-  fields, suppressed output classes (categories only), Creator replay
-  continuity placeholder, federation withholding placeholder.
+- Dashboard cards: board / game state, scenario summary, move list, clock,
+  displayed fields, suppressed output classes (categories only), ambiguity
+  placeholder (when relevant), Creator replay continuity placeholder, and
+  federation withholding placeholder.
+
+### Why it is fixture-only
+
+All scenarios are static TypeScript fixtures. The objects only *resemble* a
+governed payload; they are not the accepted production schema and carry no
+production guarantees. There is no network, no schema validation, and no
+runtime here.
+
+### Next planned dashboard steps
+
+- Payload contract mapping (align fixtures to the surface payload contract).
+- Review / replay timeline view.
+- Optional charts later (no charting library is added yet).
+- Browser CV only much later, if ever needed, and only after the Android
+  capture lane and governance boundaries are executable.
 
 ## Intentionally NOT implemented
 
