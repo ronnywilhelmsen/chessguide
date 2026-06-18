@@ -1,0 +1,412 @@
+' CV + Mode-Gated Surfaces UML v1.0
+' Document ID: CV-MODE-LLD-001 (UML companion)
+' Status: Draft LLD
+' Date: 2026-06-18
+' Design artifact only. No runtime, no executable code, no schemas.
+' Related internal project: ronnywilhelmsen/thewilhelmsen.com (not modified).
+
+' =====================================================================
+' Diagram 1: Class diagram
+' interfaces, classes, value objects, enums, inheritance/implementation,
+' composition relationships
+' =====================================================================
+@startuml CV_Mode_Gated_Surfaces_Class_Diagram
+title CV + Mode-Gated Surfaces - Class Diagram (Draft LLD)
+
+' ---- Interfaces ----
+interface CVCaptureSurface {
+  +captureFrame(request: CaptureRequest): CaptureEvent
+  +getSurfaceId(): SurfaceId
+  +getSupportedInputTypes(): Set<InputType>
+}
+interface PositionDetector {
+  +detectPosition(frame: CaptureFrame, context: DetectionContext): CVDerivedPositionDraft
+}
+interface ConfidenceScorer {
+  +score(draft: CVDerivedPositionDraft, frame: CaptureFrame): CVConfidenceEnvelope
+}
+interface ModeGuard {
+  +evaluate(request: ModeGateRequest): ModeGuardDecision
+}
+interface SurfaceAdapter {
+  +render(payload: SurfaceDisplayPayload, modeDecision: ModeGateDecision): SurfaceRenderResult
+}
+interface PositionValidator {
+  +validatePosition(draft: CVDerivedPositionDraft, request: ValidationRequest): PositionValidationResult
+}
+interface SemanticAdapter {
+  +derive(request: SemanticDerivationRequest): SemanticDerivationResult
+}
+interface ReplayRecorder {
+  +record(envelope: CreatorReplayEnvelope): ReplayRecordRef
+}
+interface FederationGuard {
+  +evaluateExport(request: FederationExportRequest): FederationWithholdingDecision
+}
+
+' ---- Enums ----
+enum SurfaceType {
+  ANDROID
+  WEB_CHESSGUIDE
+  WEB_THEWILHELMSEN
+  CHROME_EXTENSION
+  ADMIN_DEMO
+}
+enum SurfaceMode {
+  COMPETITION
+  LEARNING
+  REVIEW
+  BROADCAST_DISPLAY
+}
+enum InputType {
+  BOARD_IMAGE
+  PIECE_POSITIONS
+  CLOCK_IMAGE
+  MOVE_LIST
+  PGN
+  FEN
+  PLAYER_CONTEXT
+  LEARNER_REFLECTION
+  EXTERNAL_GAME_CONTEXT
+}
+enum ValidationState {
+  DRAFT
+  VALIDATED
+  INVALID
+  AMBIGUOUS
+}
+enum AdviceClass {
+  DISPLAY_ONLY
+  REVIEW_ONLY
+  LEARNING_ALLOWED
+  SUPPRESSED
+  FORBIDDEN
+}
+enum ActivationState {
+  INACTIVE
+  READ_ONLY
+  ACTIVE
+}
+enum WithholdingReason {
+  COMPETITION_MODE
+  BROADCAST_MODE
+  LOW_CONFIDENCE
+  INVALID_POSITION
+  BUDDY_INACTIVE
+  LARIS_INACTIVE
+  FEDERATION_BOUNDARY
+  BIOMETRIC_BOUNDARY
+  ACTIVE_GAME_UNCERTAIN
+}
+
+' ---- Value objects ----
+class SurfaceId <<value>>
+class SessionId <<value>>
+class ActorId <<value>>
+class GameId <<value>>
+class CaptureFrameRef <<value>>
+class CVConfidenceScore <<value>>
+class ReplayRecordRef <<value>>
+class FederationEligibility <<value>>
+
+' ---- Capture ----
+class CaptureRequest
+class CaptureFrame
+class CaptureEvent
+class CVCaptureCoordinator {
+  +capture(request: CaptureRequest): CaptureEvent
+}
+class CVCaptureEventFactory {
+  +create(surfaceId: SurfaceId, actorId: ActorId, frameRef: CaptureFrameRef, inputType: InputType, consentState: ConsentState): CaptureEvent
+}
+class AndroidCVCaptureSurface {
+  +captureFrame(request: CaptureRequest): CaptureEvent
+}
+class AndroidBoardCameraSession
+class AndroidClockCaptureSession
+class AndroidContextCaptureSession
+class AndroidLocalDraftStore
+
+' ---- Detection ----
+class BoardDetector {
+  +detectBoard(frame: CaptureFrame, context: DetectionContext): BoardDetectionResult
+}
+class SquareGridDetector
+class BoardOrientationResolver
+class PieceDetector {
+  +detectPieces(frame: CaptureFrame, grid: SquareGridResult): PieceDetectionResult
+}
+class ClockDetector
+class PlayerContextDetector
+class BiometricBoundaryGuard
+
+' ---- Confidence ----
+class CVDerivedPositionDraft
+class CVConfidenceEnvelope
+class ConfidenceThresholdPolicy
+class AmbiguousPositionPolicy
+
+' ---- Mode gate + policies + guards ----
+class ModeGate {
+  +evaluate(request: ModeGateRequest): ModeGateDecision
+}
+class ModeGateRequest
+class ModeGateDecision
+class SurfaceModePolicy
+class CompetitionModePolicy
+class LearningModePolicy
+class ReviewModePolicy
+class BroadcastDisplayModePolicy
+class CompetitionModeGuard
+class LearningModeGuard
+class ReviewModeGuard
+class BroadcastDisplayGuard
+class ActiveGameGuard
+class NoAdviceGuard
+
+' ---- Validation ----
+class DeterministicPositionValidator {
+  +validateFen(request: FenValidationRequest): PositionValidationResult
+  +validateMove(position: FenString, move: MoveNotation): LegalMoveValidationResult
+}
+
+' ---- Semantic adapters ----
+class TssSccReviewAdapter
+class EngineReferenceAdapter
+class PedagogicalModelAdapter
+class BuddyOutputAdapter
+class BuddyActivationGate
+class LearnerGraphReadAdapter
+class LearningFrontierReadAdapter
+class LearnerStateMutationGuard
+class KgConceptReadAdapter
+class ForbiddenClaimGuard
+class EvidencePromotionGate
+
+' ---- Surfaces ----
+class WebLiveDisplaySurface {
+  +render(payload: SurfaceDisplayPayload, decision: ModeGateDecision): SurfaceRenderResult
+}
+class ModeSelectorView
+class TheWilhelmsenSurfaceAdapter
+class TheWilhelmsenGovernanceBoundary
+class ChromeReviewImportAdapter
+class ChromeNoAdviceGuard
+
+' ---- Creator + federation ----
+class CreatorReplayEnvelope {
+  +fromModeDecision(decision: ModeGateDecision, event: CaptureEvent): CreatorReplayEnvelope
+}
+class FederationWithholdingGuard {
+  +evaluate(request: FederationExportRequest): FederationWithholdingDecision
+}
+
+' ---- Implementation relationships ----
+AndroidCVCaptureSurface ..|> CVCaptureSurface
+BoardDetector ..|> PositionDetector
+PieceDetector ..|> PositionDetector
+WebLiveDisplaySurface ..|> SurfaceAdapter
+TheWilhelmsenSurfaceAdapter ..|> SurfaceAdapter
+ChromeReviewImportAdapter ..|> SurfaceAdapter
+CompetitionModeGuard ..|> ModeGuard
+LearningModeGuard ..|> ModeGuard
+ReviewModeGuard ..|> ModeGuard
+BroadcastDisplayGuard ..|> ModeGuard
+ActiveGameGuard ..|> ModeGuard
+NoAdviceGuard ..|> ModeGuard
+DeterministicPositionValidator ..|> PositionValidator
+TssSccReviewAdapter ..|> SemanticAdapter
+EngineReferenceAdapter ..|> SemanticAdapter
+FederationWithholdingGuard ..|> FederationGuard
+
+' ---- Inheritance of policies ----
+SurfaceModePolicy <|-- CompetitionModePolicy
+SurfaceModePolicy <|-- LearningModePolicy
+SurfaceModePolicy <|-- ReviewModePolicy
+SurfaceModePolicy <|-- BroadcastDisplayModePolicy
+
+' ---- Composition ----
+ModeGate *-- CompetitionModeGuard
+ModeGate *-- LearningModeGuard
+ModeGate *-- ReviewModeGuard
+ModeGate *-- BroadcastDisplayGuard
+ModeGate *-- ActiveGameGuard
+ModeGate *-- NoAdviceGuard
+ModeGate *-- SurfaceModePolicy
+WebLiveDisplaySurface *-- ModeSelectorView
+AndroidCVCaptureSurface *-- AndroidBoardCameraSession
+AndroidCVCaptureSurface *-- AndroidClockCaptureSession
+AndroidCVCaptureSurface *-- AndroidContextCaptureSession
+AndroidCVCaptureSurface *-- AndroidLocalDraftStore
+TheWilhelmsenSurfaceAdapter *-- TheWilhelmsenGovernanceBoundary
+ChromeReviewImportAdapter *-- ChromeNoAdviceGuard
+CreatorReplayEnvelope *-- ModeGateDecision
+CreatorReplayEnvelope *-- CaptureEvent
+CVCaptureCoordinator *-- CVCaptureEventFactory
+BoardDetector *-- SquareGridDetector
+BoardDetector *-- BoardOrientationResolver
+PlayerContextDetector *-- BiometricBoundaryGuard
+
+' ---- Associations / usage ----
+CVCaptureCoordinator --> CaptureEvent
+ConfidenceThresholdPolicy --> CVConfidenceEnvelope
+ModeGate --> ModeGateDecision
+ModeGate --> ModeGateRequest
+TssSccReviewAdapter --> ModeGateDecision
+EngineReferenceAdapter --> ModeGateDecision
+BuddyOutputAdapter --> BuddyActivationGate
+LearnerGraphReadAdapter --> LearnerStateMutationGuard
+ModeGateDecision --> WithholdingReason
+ModeGateDecision --> AdviceClass
+@enduml
+
+' =====================================================================
+' Diagram 2: Component diagram
+' =====================================================================
+@startuml CV_Mode_Gated_Surfaces_Component_Diagram
+title CV + Mode-Gated Surfaces - Component Diagram (Draft LLD)
+
+component "Android Surface\n(AndroidCVCaptureSurface)" as Android
+component "WebLiveDisplaySurface" as Web
+component "TheWilhelmsenSurfaceAdapter" as TW
+component "ChromeReviewImportAdapter" as Chrome
+component "ModeGate" as Gate
+component "DeterministicPositionValidator" as Validator
+component "TSS/SCC Adapter\n(TssSccReviewAdapter)" as TSS
+component "Engine Adapter\n(EngineReferenceAdapter)" as Engine
+component "Buddy Adapter\n(BuddyOutputAdapter)" as Buddy
+component "Creator Replay\n(CreatorReplayEnvelope)" as Replay
+component "Federation Withholding\n(FederationWithholdingGuard)" as Fed
+
+Android --> Validator : candidate FEN draft
+Android --> Gate : ModeGateRequest
+Chrome --> Validator : imported PGN/FEN
+Chrome --> Gate : ModeGateRequest
+Web --> Gate : display request
+TW --> Gate : hosted display request
+Gate --> TSS : gated scan request
+Gate --> Engine : gated reference request
+Gate --> Buddy : gated explanation request
+Validator --> Gate : validation state
+Gate --> Web : allowed payload
+Gate --> TW : allowed payload (governed)
+Gate --> Replay : decision + suppression
+Replay --> Fed : continuity record
+Fed ..> Fed : withhold semantic data
+
+note bottom of TW
+  thewilhelmsen.com is an internal related project
+  (ronnywilhelmsen/thewilhelmsen.com).
+  Hosted surface only; cannot bypass ModeGate.
+  Not modified in this PR.
+end note
+@enduml
+
+' =====================================================================
+' Diagram 3: Sequence diagram - Android capture in Competition Mode
+' =====================================================================
+@startuml CV_Mode_Gated_Surfaces_Sequence_Android_Competition
+title Sequence - Android Capture in Competition Mode (display/record only)
+
+actor Player
+participant "AndroidCVCaptureSurface" as A
+participant "CVCaptureCoordinator" as C
+participant "BoardDetector" as B
+participant "ConfidenceThresholdPolicy" as Conf
+participant "DeterministicPositionValidator" as V
+participant "ModeGate" as G
+participant "CompetitionModeGuard" as CG
+participant "WebLiveDisplaySurface" as W
+participant "CreatorReplayEnvelope" as R
+participant "FederationWithholdingGuard" as F
+
+Player -> A : captureFrame(request[COMPETITION])
+A -> C : capture(request)
+C -> B : detectBoard(frame, context)
+B --> C : BoardDetectionResult (draft)
+C -> Conf : evaluate(envelope, BOARD_IMAGE)
+Conf --> C : ConfidenceDecision
+C -> V : validateFen(request)
+V --> C : PositionValidationResult
+C -> G : evaluate(ModeGateRequest)
+G -> CG : evaluate(request)
+CG --> G : suppress advice (DISPLAY_ONLY)
+G --> W : allowedOutputs {board, clock, moves, status}
+W --> Player : live display (no advice)
+G -> R : fromModeDecision(decision, event)
+R -> F : evaluate(FederationExportRequest)
+F --> R : withhold semantic data
+note right of CG
+  Suppressed: engine, TSS/CCT, Buddy,
+  model output, Learning Frontier
+end note
+@enduml
+
+' =====================================================================
+' Diagram 4: Sequence diagram - Learning/Review flow
+' =====================================================================
+@startuml CV_Mode_Gated_Surfaces_Sequence_Learning_Review
+title Sequence - Learning / Review Flow (guarded pedagogy)
+
+actor Learner
+participant "AndroidCVCaptureSurface\nor ChromeReviewImportAdapter" as Src
+participant "DeterministicPositionValidator" as V
+participant "ModeGate" as G
+participant "LearningModeGuard\nor ReviewModeGuard" as LG
+participant "TssSccReviewAdapter" as TSS
+participant "KgConceptReadAdapter" as KG
+participant "LearningFrontierReadAdapter" as LF
+participant "BuddyOutputAdapter" as B
+participant "CreatorReplayEnvelope" as R
+
+Learner -> Src : capture / import (LEARNING or REVIEW)
+Src -> V : validate position
+V --> Src : VALIDATED
+Src -> G : evaluate(ModeGateRequest)
+G -> LG : evaluate(request)
+LG --> G : LEARNING_ALLOWED / REVIEW_ONLY
+G -> TSS : requestScan(request, decision)
+TSS --> G : Optional<TssSccResultRef>
+G -> KG : readConcept(conceptRef)
+KG --> G : KgConceptView
+G -> LF : readFrontier(learnerId, decision)
+LF --> G : Optional<LearningFrontierView>
+G -> B : requestExplanation(request, activationState, decision)
+B --> G : Optional<BuddyExplanationDraft> (only if ACTIVE + gates)
+G -> R : record pedagogy + suppression
+note right of B
+  Buddy returns empty unless BLAP gates pass.
+  No mastery claims. Uncertainty preserved.
+end note
+@enduml
+
+' =====================================================================
+' Diagram 5: Sequence diagram - thewilhelmsen.com live display
+' =====================================================================
+@startuml CV_Mode_Gated_Surfaces_Sequence_TheWilhelmsen_Display
+title Sequence - thewilhelmsen.com Live Display (hosted, governed)
+
+actor Spectator
+participant "WebLiveDisplaySurface" as W
+participant "TheWilhelmsenSurfaceAdapter" as TW
+participant "TheWilhelmsenGovernanceBoundary" as GB
+participant "ModeGate" as G
+participant "BroadcastDisplayGuard" as BG
+participant "CreatorReplayEnvelope" as R
+
+Spectator -> W : open live display (BROADCAST_DISPLAY)
+W -> TW : preparePayload(payload, decision)
+TW -> GB : assertNoIndependentAdvice(payload)
+GB --> TW : BoundaryCheckResult (ok)
+TW -> G : evaluate(ModeGateRequest)
+G -> BG : evaluate(request)
+BG --> G : DISPLAY_ONLY + no-advice banner
+G --> TW : allowedOutputs {board, clock, moves, status}
+TW --> Spectator : hosted live display (no advice)
+G -> R : record display decision + suppression
+note right of GB
+  thewilhelmsen.com cannot become an
+  independent source of chess advice.
+  Not modified in this PR.
+end note
+@enduml
