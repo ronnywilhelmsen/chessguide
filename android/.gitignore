@@ -1,0 +1,19 @@
+# Gradle / Android build artifacts
+.gradle/
+build/
+*/build/
+**/build/
+
+# Local config
+local.properties
+*.keystore
+*.jks
+
+# IDE
+.idea/
+*.iml
+.cxx/
+
+# Misc
+captures/
+.DS_Store
