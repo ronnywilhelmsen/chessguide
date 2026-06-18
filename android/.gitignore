@@ -1,5 +1,6 @@
 # Gradle / Android build artifacts
 .gradle/
+.kotlin/
 build/
 */build/
 **/build/

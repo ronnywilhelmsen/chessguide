@@ -25,7 +25,7 @@ Run the JVM unit tests and assemble the debug app:
 
 ```
 cd android
-.\gradlew.bat :core:model:testDebugUnitTest :core:mode:testDebugUnitTest :app:assembleDebug
+.\gradlew.bat :core:model:testDebugUnitTest :core:mode:testDebugUnitTest :feature:scanner:testDebugUnitTest :app:assembleDebug
 ```
 
 Or use the repo script from the root:
@@ -87,12 +87,34 @@ protect build stability. They will be added behind interfaces in later PRs.
   - LEARNING: `noAdviceRequired = false`, runtime advice unavailable
   - REVIEW: `noAdviceRequired = false`, runtime analysis unavailable
 
+## Camera Sandbox (CameraX preview + ImageAnalysis)
+
+The `:feature:scanner` module contains a **Camera Sandbox** reachable from the
+home shell ("Camera Sandbox" button). It is a sandbox only:
+
+- Requests the `CAMERA` permission (with a denied state and a retry button).
+- Starts a CameraX **preview** and an **ImageAnalysis** pipeline.
+- The analyzer (`SandboxImageAnalyzer`) emits ONLY safe `FrameMetadata`: frame
+  number, width, height, rotation degrees, timestamp, and analyzer status.
+- It closes every frame immediately — **no image is captured or persisted**.
+- It states on screen: *"Camera sandbox only — no CV, no engine, no advice."*
+
+There is **no** computer vision: no board/piece/clock/player/move detection,
+no OCR, no OpenCV/ML Kit/MediaPipe/TensorFlow/LiteRT/YOLO, no engine, no
+TSS/CCT, no Buddy, no LARIS, no Creator/payload runtime, no federation export,
+and no network/API calls.
+
+JVM unit tests for the safe-metadata contract live in
+`:feature:scanner` (`CameraSandboxTest`).
+
 ## What is intentionally NOT implemented
 
-- No CameraX, OpenCV, ML Kit, MediaPipe, LiteRT/TensorFlow Lite,
-  YOLO/Ultralytics, Detectron2, Hugging Face/Timm.
+- No OpenCV, ML Kit, MediaPipe, LiteRT/TensorFlow Lite, YOLO/Ultralytics,
+  Detectron2, Hugging Face/Timm. (CameraX is used only for the preview +
+  ImageAnalysis frame-metadata sandbox; see "Camera Sandbox" above.)
 - No model files, datasets, or training scripts.
-- No camera permission request, no camera preview, no frame analyzer.
+- No image capture or persistence; the analyzer reads only frame shape/rotation
+  metadata, never image content. No board/piece/clock/player/move detection.
 - No network/API client, no payload runtime, no Creator runtime.
 - No federation export, no TSS/SCC runtime, no Buddy runtime, no LARIS runtime.
 - No engine eval, best move, candidate move, TSS warning, CCT hint, Buddy
