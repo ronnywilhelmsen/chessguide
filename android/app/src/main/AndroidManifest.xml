@@ -2,10 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
-      ChessGuide Android skeleton (PR #37).
-      No camera permission is requested here. CameraX / camera permission
-      start in a later PR (see android/README.md).
+      ChessGuide Android.
+      Camera permission is used ONLY by the Camera Sandbox (CameraX preview +
+      ImageAnalysis frame-metadata sandbox). No image is captured or persisted,
+      no CV/ML runs, and nothing is sent over the network.
     -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="false" />
 
     <application
         android:allowBackup="true"

@@ -8,9 +8,9 @@ Write-Host '== Android verify =='
 Push-Location $android
 try {
     if (Test-Path '.\gradlew.bat') {
-        .\gradlew.bat :core:model:testDebugUnitTest :core:mode:testDebugUnitTest :app:assembleDebug
+        .\gradlew.bat :core:model:testDebugUnitTest :core:mode:testDebugUnitTest :feature:scanner:testDebugUnitTest :app:assembleDebug
     } else {
-        gradle :core:model:testDebugUnitTest :core:mode:testDebugUnitTest :app:assembleDebug
+        gradle :core:model:testDebugUnitTest :core:mode:testDebugUnitTest :feature:scanner:testDebugUnitTest :app:assembleDebug
     }
     if ($LASTEXITCODE -ne 0) {
         Write-Host 'ANDROID VERIFY: FAILED' -ForegroundColor Red

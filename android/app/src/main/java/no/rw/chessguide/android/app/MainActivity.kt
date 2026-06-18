@@ -29,6 +29,7 @@ import no.rw.chessguide.android.core.model.AndroidSurfaceMode
 import no.rw.chessguide.android.feature.camerasetup.CameraSetupScreen
 import no.rw.chessguide.android.feature.competition.CompetitionPlaceholderScreen
 import no.rw.chessguide.android.feature.modeselection.ModeSelectionScreen
+import no.rw.chessguide.android.feature.scanner.CameraSandboxScreen
 import no.rw.chessguide.android.feature.scanner.ScannerPlaceholderScreen
 
 /**
@@ -51,7 +52,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class ShellDestination { HOME, MODE_SELECTION, CAMERA_SETUP, SCANNER, COMPETITION }
+private enum class ShellDestination { HOME, MODE_SELECTION, CAMERA_SETUP, CAMERA_SANDBOX, SCANNER, COMPETITION }
 
 @Composable
 private fun ChessGuideAppShell() {
@@ -94,6 +95,9 @@ private fun ChessGuideAppShell() {
                 ShellDestination.CAMERA_SETUP -> CameraSetupScreen(
                     onBack = { destination = ShellDestination.HOME },
                 )
+                ShellDestination.CAMERA_SANDBOX -> CameraSandboxScreen(
+                    onBack = { destination = ShellDestination.HOME },
+                )
                 ShellDestination.SCANNER -> ScannerPlaceholderScreen(
                     onBack = { destination = ShellDestination.HOME },
                 )
@@ -128,6 +132,9 @@ private fun HomeContent(
         }
         Button(onClick = { onNavigate(ShellDestination.CAMERA_SETUP) }) {
             Text("Camera Setup")
+        }
+        Button(onClick = { onNavigate(ShellDestination.CAMERA_SANDBOX) }) {
+            Text("Camera Sandbox")
         }
         Button(onClick = { onNavigate(ShellDestination.SCANNER) }) {
             Text("Scanner (placeholder)")
