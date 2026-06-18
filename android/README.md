@@ -13,6 +13,27 @@ that match **ANDROID-CV-LLD-OOP-UML-001**.
 This is **skeleton only**. It intentionally does **not** implement CV or any
 runtime.
 
+## Open in Android Studio
+
+Open the **`android/`** folder (this folder) as the project root in Android
+Studio. This is the **Android Studio skeleton only** — there is **no CameraX /
+CV** yet.
+
+## Verify
+
+Run the JVM unit tests and assemble the debug app:
+
+```
+cd android
+.\gradlew.bat :core:model:testDebugUnitTest :core:mode:testDebugUnitTest :app:assembleDebug
+```
+
+Or use the repo script from the root:
+
+```
+powershell -ExecutionPolicy Bypass -File tools/verify-android.ps1
+```
+
 ## Build command
 
 From the repository root:

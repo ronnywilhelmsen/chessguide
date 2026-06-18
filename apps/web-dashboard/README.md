@@ -28,7 +28,7 @@ modern Node (Node 20+/24). Rather than spend effort fighting that toolchain,
 this PR starts a clean, modern, isolated Next.js app with its own
 `package.json`. The legacy app is left untouched.
 
-## Run
+## Run locally
 
 ```
 cd apps/web-dashboard
@@ -38,12 +38,33 @@ npm run dev
 
 Then open http://localhost:3000
 
-Other scripts:
+## Verify
+
+Run lint + tests + build in one command:
+
+```
+cd apps/web-dashboard
+npm run verify
+```
+
+Individual scripts:
 
 ```
 npm run lint
+npm run test        # watch mode (Vitest)
+npm run test:run    # single run (Vitest)
 npm run build
 ```
+
+Or use the repo script from the root:
+
+```
+powershell -ExecutionPolicy Bypass -File tools/verify-web-dashboard.ps1
+```
+
+> This app is **dashboard / display-first**, not a browser CV runtime. There is
+> **no webcam and no live CV** here. Browser CV (Web Workers + Wasm) may be a
+> later optional sandbox; see the repository roadmap.
 
 ## Implemented
 
