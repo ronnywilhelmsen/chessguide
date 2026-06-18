@@ -67,10 +67,41 @@ describe('DashboardPage scenario explorer (governed display shell)', () => {
     render(<DashboardPage />);
     selectScenario(SurfaceScenarioId.FEDERATION_WITHHELD_PLACEHOLDER);
     expect(screen.getByText('Federation withholding')).toBeInTheDocument();
+    // The ref appears in the federation card and the payload contract panel.
     expect(
-      screen.getByText('placeholder-federation-withholding-ref-002')
-    ).toBeInTheDocument();
+      screen.getAllByText('placeholder-federation-withholding-ref-002').length
+    ).toBeGreaterThan(0);
     expect(screen.queryByRole('button', { name: /export/i })).toBeNull();
+  });
+
+  it('renders the payload contract mapping panel with contract metadata', () => {
+    render(<DashboardPage />);
+    expect(screen.getByText('Payload contract mapping')).toBeInTheDocument();
+    // Contract version + surface type are visible.
+    expect(
+      screen.getByText('surface-payload-contract.v1.fixture')
+    ).toBeInTheDocument();
+    expect(screen.getByText('WEB_DASHBOARD')).toBeInTheDocument();
+    // Payload id, scenario id and withholding ref are visible.
+    expect(
+      screen.getByText(`fixture-${SurfaceScenarioId.COMPETITION_LIVE_BASIC}-0001`)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(SurfaceScenarioId.COMPETITION_LIVE_BASIC)
+    ).toBeInTheDocument();
+    // The withholding ref is shown both in the federation card and here.
+    expect(
+      screen.getAllByText('placeholder-federation-withholding-ref').length
+    ).toBeGreaterThan(0);
+  });
+
+  it('payload contract panel states fixture-only / not a production runtime payload', () => {
+    render(<DashboardPage />);
+    expect(
+      screen.getByText(
+        /Mapped to a payload-like fixture contract\. Not a production runtime payload\. Not schema-validated\./
+      )
+    ).toBeInTheDocument();
   });
 
   it('shows suppressed outputs as categories only (content never shown)', () => {
