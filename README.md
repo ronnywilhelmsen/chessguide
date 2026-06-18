@@ -8,6 +8,31 @@ Demo (legacy deployment): [chess.digre.com](https://chess.digre.com/)
 
 ---
 
+## Quick verify
+
+Reliability scripts for the modern web dashboard and the Android skeleton
+(see [docs/dev/Developer-Quick-Verify-v1.0.md](docs/dev/Developer-Quick-Verify-v1.0.md)):
+
+- Web dashboard: `powershell -ExecutionPolicy Bypass -File tools/verify-web-dashboard.ps1`
+- Android: `powershell -ExecutionPolicy Bypass -File tools/verify-android.ps1`
+- All: `powershell -ExecutionPolicy Bypass -File tools/verify-all.ps1`
+
+Manual fallback:
+
+```
+# Web dashboard
+cd apps/web-dashboard
+npm install
+npm run verify
+npm run dev
+
+# Android (Windows; requires a JDK, e.g. Android Studio's bundled JBR)
+cd android
+.\gradlew.bat :core:model:testDebugUnitTest :core:mode:testDebugUnitTest :app:assembleDebug
+```
+
+---
+
 ## What is ChessGuide?
 
 ChessGuide is **not** primarily a chess application. Chess is the domain; **learning is the mission**.
