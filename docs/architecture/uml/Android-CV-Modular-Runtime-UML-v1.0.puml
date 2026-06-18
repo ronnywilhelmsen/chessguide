@@ -1,0 +1,349 @@
+' Android CV Modular Runtime UML v1.0
+' Document: ANDROID-CV-LLD-OOP-UML-001
+' CONCEPTUAL ONLY — no runtime implementation, no Android Studio code,
+' no CameraX/OpenCV/ML/YOLO implementation. Future design preview only.
+' Preserves chain: philosophy -> governance -> HLD -> LLD/OOP/UML ->
+' immutable state -> runtime -> shared reality -> Android/web/thewilhelmsen.com
+' -> Creator real-time to 100-year replay -> federation boundary.
+
+' =====================================================================
+' DIAGRAM 1 — Package / module diagram
+' =====================================================================
+@startuml Android-CV-Module-Package-Diagram
+title Android CV Modular Runtime - Package / Module Diagram (conceptual only)
+
+package ":app" as app
+
+package ":core:model" as coreModel
+package ":core:mode" as coreMode
+package ":core:cv" as coreCv
+package ":core:payload" as corePayload
+package ":core:replay" as coreReplay
+package ":core:privacy" as corePrivacy
+package ":core:validation" as coreValidation
+package ":core:designsystem" as coreDesign
+package ":core:network" as coreNetwork
+
+package ":feature:mode-selection" as fMode
+package ":feature:camera-setup" as fSetup
+package ":feature:scanner" as fScanner
+package ":feature:calibration" as fCalib
+package ":feature:competition" as fComp
+package ":feature:learning" as fLearn
+package ":feature:review" as fReview
+package ":feature:broadcast" as fBroad
+package ":feature:ambiguity" as fAmb
+package ":feature:privacy" as fPriv
+package ":feature:developer-debug" as fDev
+
+package ":data:local-drafts" as dDrafts
+package ":data:sync" as dSync
+
+package ":integration:chessguide-api" as iCg
+package ":integration:thewilhelmsen-surface" as iTw
+
+app --> fMode
+app --> fSetup
+app --> fScanner
+app --> fCalib
+app --> fComp
+app --> fLearn
+app --> fReview
+app --> fBroad
+app --> fAmb
+app --> fPriv
+app --> fDev
+app --> coreDesign
+
+fMode --> coreMode
+fScanner --> coreCv
+fScanner --> coreMode
+fCalib --> coreCv
+fAmb --> coreCv
+fComp --> corePayload
+fComp --> coreMode
+fBroad --> corePayload
+fLearn --> coreValidation
+fReview --> coreValidation
+fPriv --> corePrivacy
+
+coreMode --> coreModel
+coreCv --> coreModel
+corePayload --> coreModel
+corePayload --> coreMode
+coreReplay --> coreModel
+corePrivacy --> coreModel
+coreValidation --> coreModel
+coreNetwork --> coreModel
+
+dDrafts --> coreModel
+dSync --> coreModel
+dSync --> coreNetwork
+
+iCg --> coreModel
+iCg --> coreNetwork
+iTw --> corePayload
+
+note bottom of coreModel
+  Pure value objects + immutable events.
+  No Android runtime, no CV libs, no advice.
+end note
+note top of coreCv
+  Interfaces only. Framework adapters
+  (CameraX/OpenCV/YOLO/ML Kit/MediaPipe/LiteRT)
+  live behind these ports in later waves.
+end note
+@enduml
+
+' =====================================================================
+' DIAGRAM 2 — Class diagram
+' =====================================================================
+@startuml Android-CV-Class-Diagram
+title Android CV Modular Runtime - Class Diagram (conceptual only)
+
+' --- core:model: aggregate, state, events, reducer ---
+class AndroidCvSessionAggregate {
+  +sessionId: SessionId
+  +activeMode: AndroidSurfaceMode
+  +applyAll(events): AndroidCvSessionState
+}
+class AndroidCvSessionState {
+  +activeMode
+  +captureState
+  +calibrationState
+  +confidenceSummary
+  +ambiguityMarkers
+  +validationStatus
+  +modeGateDecisionRef
+  +creatorReplayRef
+  +federationWithholdingRef
+}
+abstract class AndroidCvEvent
+class AndroidCvStateReducer {
+  +reduce(state, event): AndroidCvSessionState
+  +canApply(event, state): Boolean
+  +rejectReason(event, state): RejectionReason?
+}
+
+AndroidCvSessionAggregate --> AndroidCvSessionState
+AndroidCvStateReducer ..> AndroidCvEvent : applies
+AndroidCvStateReducer --> AndroidCvSessionState
+AndroidCvSessionAggregate o-- "many" AndroidCvEvent
+
+' --- coordinator + controllers ---
+class AndroidCvUxCoordinator
+class AndroidModeTransitionController {
+  +requestModeChange(req): Result<ModeGateDecisionRef, ModeGateRejection>
+}
+class AndroidCaptureFlowController {
+  +onFrame(frame: FrameRef)
+}
+class AndroidCalibrationController {
+  +confirmCalibration(draft): CalibrationState
+}
+class AndroidAmbiguityController {
+  +resolve(marker, choice): PieceDetectionDraft
+}
+class AndroidValidationController {
+  +requestValidation(fen): ValidationRequestId
+}
+class AndroidNoAdviceController {
+  +enforce(mode): NoAdviceBannerState
+}
+
+AndroidCvUxCoordinator --> AndroidModeTransitionController
+AndroidCvUxCoordinator --> AndroidCaptureFlowController
+AndroidCvUxCoordinator --> AndroidCalibrationController
+AndroidCvUxCoordinator --> AndroidAmbiguityController
+AndroidCvUxCoordinator --> AndroidValidationController
+AndroidCvUxCoordinator --> AndroidNoAdviceController
+
+' --- core:cv interfaces ---
+interface CameraFrameSource {
+  +startCapture(config): Result<CaptureSessionId, CaptureError>
+  +stopCapture(id): Result<Unit, CaptureError>
+  +observeFrames(): Flow<FrameRef>
+  +release()
+}
+interface FrameSampler {
+  +sampleFrame(frame, mode): FrameRef?
+}
+interface FramePreprocessor {
+  +preprocessFrame(frame): Result<FrameRef, FrameFormatError>
+}
+interface BoardGeometryDetector {
+  +detectBoardGeometry(frame, mode): Result<BoardGeometryDraft, BoardGeometryError>
+}
+interface PieceDetector {
+  +detectPieces(frame, grid): Result<PieceDetectionDraft, PieceDetectionError>
+}
+interface ClockDetector {
+  +detectClock(frame): Result<ClockDetectionDraft, ClockDetectionError>
+}
+interface ContextDetector {
+  +detectContext(frame, consent): Result<ContextDetectionDraft, ContextDetectionError>
+}
+
+AndroidCaptureFlowController ..> CameraFrameSource
+AndroidCaptureFlowController ..> FrameSampler
+AndroidCaptureFlowController ..> FramePreprocessor
+AndroidCaptureFlowController ..> BoardGeometryDetector
+AndroidCaptureFlowController ..> PieceDetector
+AndroidCaptureFlowController ..> ClockDetector
+AndroidCaptureFlowController ..> ContextDetector
+
+' --- adapters / clients ---
+class ModeGateUxAdapter {
+  +requestModeChange(req): Result<ModeGateDecisionRef, ModeGateRejection>
+  +evaluateDisplayRequest(req): ModeGateDecisionRef
+  +suppressedOutputsFor(mode): Set<SuppressedOutputClass>
+}
+class SurfacePayloadClient {
+  +prepareDisplayPayload(session, mode): Result<SurfacePayloadRef, PayloadError>
+  +acknowledgeDisplayedPayload(ref, shown): Result<Unit, PayloadError>
+}
+class CreatorReplayClient {
+  +buildReplayIntent(event): ReplayIntent
+  +linkReplayRef(intent): CreatorReplayRef
+}
+class FederationWithholdingUxAdapter {
+  +recordWithholding(payload): FederationWithholdingRef
+}
+class PrivacyConsentController {
+  +updateConsent(action): ConsentStateSnapshot
+}
+interface LocalDraftRepository {
+  +saveDraft(draft): LocalDraftId
+  +deleteDraft(id)
+}
+class TheWilhelmsenSurfaceHandoffAdapter {
+  +handoff(ref: SurfacePayloadRef)
+}
+
+AndroidModeTransitionController --> ModeGateUxAdapter
+AndroidNoAdviceController --> ModeGateUxAdapter
+AndroidValidationController --> SurfacePayloadClient
+SurfacePayloadClient --> CreatorReplayClient
+SurfacePayloadClient --> FederationWithholdingUxAdapter
+AndroidAmbiguityController --> LocalDraftRepository
+TheWilhelmsenSurfaceHandoffAdapter ..> SurfacePayloadClient
+
+note bottom of TheWilhelmsenSurfaceHandoffAdapter
+  Governed payload refs only.
+  No raw CV frames, no local advice,
+  no mode decisions, no host coaching.
+end note
+@enduml
+
+' =====================================================================
+' DIAGRAM 3 — Capture sequence diagram
+' =====================================================================
+@startuml Android-CV-Capture-Sequence
+title Capture Flow (conceptual only)
+actor User
+participant "BoardCaptureScreenModel" as Screen
+participant "AndroidCaptureFlowController" as Ctrl
+participant "CameraFrameSource" as Cam
+participant "FrameSampler" as Samp
+participant "FramePreprocessor" as Pre
+participant "BoardGeometryDetector" as Geo
+participant "PieceDetector" as Piece
+participant "ClockDetector" as Clock
+participant "AndroidCvStateReducer" as Reducer
+participant "UI"
+
+User -> Screen : start capture
+Screen -> Ctrl : startCapture()
+Ctrl -> Cam : startCapture(config)
+Cam --> Ctrl : Flow<FrameRef> (CaptureStarted/FrameSampled)
+Ctrl -> Samp : sampleFrame(frame, mode)
+Ctrl -> Pre : preprocessFrame(frame)
+Ctrl -> Geo : detectBoardGeometry(frame, mode)
+Geo --> Ctrl : BoardGeometryDraft (BoardGeometryDrafted)
+Ctrl -> Piece : detectPieces(frame, grid)
+Piece --> Ctrl : PieceDetectionDraft (PieceDetectionDrafted)
+Ctrl -> Clock : detectClock(frame)
+Clock --> Ctrl : ClockDetectionDraft (ClockDetectionDrafted)
+Ctrl -> Reducer : reduce(state, events)
+Reducer --> UI : throttled AndroidCvUiState
+note over Cam, Piece : Drafts only. No advice. Raw frames never exported.
+@enduml
+
+' =====================================================================
+' DIAGRAM 4 — ModeGate / no-advice sequence diagram
+' =====================================================================
+@startuml Android-CV-ModeGate-NoAdvice-Sequence
+title ModeGate / No-Advice Enforcement (conceptual only)
+actor User
+participant "ModeSelectionScreenModel" as Screen
+participant "AndroidModeTransitionController" as Ctrl
+participant "ModeGateUxAdapter" as Gate
+participant "NoAdviceBannerViewModel" as Banner
+participant "SuppressedOutputPresentationModel" as Suppr
+participant "AndroidCvStateReducer" as Reducer
+participant "UI"
+
+User -> Screen : select mode (ModeSelected)
+Screen -> Ctrl : requestModeChange(req)
+Ctrl -> Gate : evaluate / requestModeChange
+Gate --> Ctrl : ModeGateDecisionRef (ModeGateDecisionApplied)
+Ctrl -> Banner : enforce(mode)
+Banner --> Reducer : NoAdviceBannerDisplayed
+Ctrl -> Suppr : suppressedOutputsFor(mode)
+Suppr --> Reducer : OutputSuppressed (classes, no content)
+Reducer --> UI : mode banner + no-advice + generic suppression notice
+note over Gate : Android requests/displays gate decisions; never decides policy.
+@enduml
+
+' =====================================================================
+' DIAGRAM 5 — Validation / replay / payload sequence diagram
+' =====================================================================
+@startuml Android-CV-Validation-Replay-Payload-Sequence
+title Validation / Payload / Replay / Federation (conceptual only)
+participant "AndroidValidationController" as Val
+participant "ChessGuideValidationApi" as Api
+participant "ModeGateUxAdapter" as Gate
+participant "SurfacePayloadClient" as Payload
+participant "CreatorReplayClient" as Replay
+participant "FederationWithholdingUxAdapter" as Fed
+participant "UI"
+
+Val -> Api : requestValidation(candidateFen) (ValidationRequested)
+Api --> Val : ValidationResultRef (ValidationResultReceived)
+Val -> Gate : evaluateDisplayRequest(...)
+Gate --> Val : ModeGateDecisionRef (ModeGateDecisionApplied)
+Val -> Payload : prepareDisplayPayload(session, mode)
+Payload --> Payload : SurfacePayloadPrepared
+Payload -> Replay : buildReplayIntent / linkReplayRef (CreatorReplayLinked)
+Payload -> Fed : recordWithholding(payload) (FederationWithholdingRecorded)
+Payload --> UI : governed AndroidCvUiState (DisplayAcknowledged)
+note over Fed : No CV/semantic/advice/learning fields exported.
+@enduml
+
+' =====================================================================
+' DIAGRAM 6 — State transition diagram
+' =====================================================================
+@startuml Android-CV-State-Transition
+title Android CV Session State Transitions (conceptual only)
+[*] --> Idle
+Idle --> PermissionPending : ModeSelected / open capture
+PermissionPending --> Ready : CameraPermissionGranted
+PermissionPending --> Error : CameraPermissionDenied
+Ready --> Capturing : CaptureStarted
+Capturing --> Calibrating : calibration requested
+Calibrating --> Capturing : BoardCalibrationConfirmed
+Capturing --> DraftAvailable : BoardGeometryDrafted / PieceDetectionDrafted
+DraftAvailable --> AmbiguityPending : AmbiguityDetected
+AmbiguityPending --> DraftAvailable : AmbiguityResolvedByUser
+DraftAvailable --> DraftSaved : LocalDraftSaved
+DraftSaved --> ValidationPending : ValidationRequested
+ValidationPending --> Validated : ValidationResultReceived (VALID)
+ValidationPending --> Error : ValidationResultReceived (INVALID)
+Validated --> PayloadReady : SurfacePayloadPrepared
+PayloadReady --> DisplayAcknowledged : DisplayAcknowledged
+DraftSaved --> Deleted : LocalDraftDeleted
+DisplayAcknowledged --> [*]
+Deleted --> [*]
+Error --> Idle : recover
+note right of Validated : ModeGate + Creator replay + federation withholding applied.
+@enduml
