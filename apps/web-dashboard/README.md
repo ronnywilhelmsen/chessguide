@@ -104,6 +104,19 @@ no engine/Buddy/LARIS behind it.
   placeholder (when relevant), Creator replay continuity placeholder, and
   federation withholding placeholder.
 
+### Payload contract mapping
+
+Each scenario fixture is mapped to a **payload-like** object aligned with the
+Surface Payload Contract vocabulary (`docs/architecture/Surface-Payload-Contract-HLD-ADR-v1.0.md`,
+`docs/contracts/surface-payload-contract.schema.v1.json`). The dashboard shows a
+"Payload contract mapping" panel with the contract version, surface type,
+payload id, scenario id, fixture-only status, and federation withholding ref.
+
+This mapping is **fixture-only**: it uses a stable, explicit contract version
+tag (`surface-payload-contract.v1.fixture`), performs **no schema validation**,
+and is **not a production runtime payload**. Forbidden semantic/advisory fields
+are never present in any mapped payload, and there is no export action.
+
 ### Why it is fixture-only
 
 All scenarios are static TypeScript fixtures. The objects only *resemble* a

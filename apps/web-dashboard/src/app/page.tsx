@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { DEFAULT_SCENARIO_ID, SurfaceScenarioId } from '@/lib/scenarios';
 import { DISPLAY_FIELD_LABELS } from '@/lib/displayFields';
 import { buildScenarioFixture } from '@/lib/surfaceFixture';
+import { mapScenarioToPayloadLike } from '@/lib/payloadContractMapping';
 import { ScenarioSelector } from '@/components/ScenarioSelector';
 import { ModeBanner } from '@/components/ModeBanner';
 import { NoAdviceBanner } from '@/components/NoAdviceBanner';
@@ -12,6 +13,7 @@ import { SuppressedOutputPanel } from '@/components/SuppressedOutputPanel';
 import { AmbiguityPanel } from '@/components/AmbiguityPanel';
 import { ReplayContinuityPanel } from '@/components/ReplayContinuityPanel';
 import { FederationBoundaryPanel } from '@/components/FederationBoundaryPanel';
+import { PayloadContractPanel } from '@/components/PayloadContractPanel';
 
 // ChessGuide Web Dashboard — scenario explorer (PR #41).
 //
@@ -22,6 +24,7 @@ import { FederationBoundaryPanel } from '@/components/FederationBoundaryPanel';
 export default function DashboardPage() {
   const [scenarioId, setScenarioId] = useState<SurfaceScenarioId>(DEFAULT_SCENARIO_ID);
   const fixture = buildScenarioFixture(scenarioId);
+  const payload = mapScenarioToPayloadLike(scenarioId);
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-8">
@@ -89,6 +92,8 @@ export default function DashboardPage() {
         <ReplayContinuityPanel replay={fixture.replay} />
 
         <FederationBoundaryPanel federation={fixture.federationWithholding} />
+
+        <PayloadContractPanel payload={payload} />
       </div>
 
       <footer className="mt-8 border-t border-slate-200 pt-4 text-xs text-slate-500">
