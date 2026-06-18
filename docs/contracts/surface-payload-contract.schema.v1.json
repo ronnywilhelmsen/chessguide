@@ -1,0 +1,524 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chessguide.dev/schemas/surface-payload-contract.schema.v1.json",
+  "title": "ChessGuide Surface Payload Contract Schema v1",
+  "description": "DRAFT SCHEMA — GOVERNANCE-ONLY. Documentation-contained JSON Schema draft (SPC-SCHEMA-DRAFT-001) lowering SPC-HLD-ADR-001 into a machine-readable contract draft for governed ChessGuide surface payloads. This schema is NOT a production validator, MUST NOT be imported by runtime, MUST NOT be used to generate API endpoints, OpenAPI, or TypeScript runtime types in this PR, and creates no runtime behavior. Forbidden semantic/advice data (engine_eval, best_move, candidate_moves, engine_line, raw_cv_frame, mastery_claim, learner_rationale, learner_graph_signal, semantic_federation_export) MUST be withheld and represented only through suppressed_outputs, never embedded. Future runtime/API may derive from this only after explicit governance acceptance.",
+  "type": "object",
+  "required": [
+    "payload_id",
+    "contract_version",
+    "payload_family",
+    "mode",
+    "surface_type",
+    "surface_id",
+    "active_game_state",
+    "creator_replay_ref",
+    "federation_withholding"
+  ],
+  "properties": {
+    "payload_id": {
+      "type": "string",
+      "description": "Unique payload identifier. Not evidence, not authority."
+    },
+    "contract_version": {
+      "type": "string",
+      "description": "Surface payload contract version. Surfaces MUST reject unknown major versions.",
+      "pattern": "^v?[0-9]+(\\.[0-9]+){0,2}$"
+    },
+    "payload_family": {
+      "$ref": "#/$defs/PayloadFamily"
+    },
+    "mode": {
+      "$ref": "#/$defs/SurfaceMode"
+    },
+    "surface_type": {
+      "$ref": "#/$defs/SurfaceType"
+    },
+    "surface_id": {
+      "type": "string",
+      "description": "Surface reference. A surface cannot imply authority."
+    },
+    "active_game_state": {
+      "$ref": "#/$defs/ActiveGameState"
+    },
+    "creator_replay_ref": {
+      "type": "string",
+      "description": "Required Creator replay reference. Creator continuity MUST survive real-time to 100-year replay. Never droppable."
+    },
+    "federation_withholding": {
+      "$ref": "#/$defs/FederationWithholdingPayload",
+      "description": "Required federation withholding metadata. A surface payload is NOT a federation export; semantic data is withheld."
+    },
+    "session_id": {
+      "type": "string",
+      "description": "Session reference. Not learner identity proof."
+    },
+    "game_id": {
+      "type": "string",
+      "description": "Game reference. Not a result claim."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Expiry timestamp. Stale payloads MUST fail closed in future runtime; a competition payload MUST NOT be reused as a learning payload."
+    },
+    "mode_gate_decision_ref": {
+      "type": "string",
+      "description": "Reference to the ModeGate decision that authorised this payload."
+    },
+    "consent_state": {
+      "$ref": "#/$defs/ConsentState"
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    },
+    "custody": {
+      "$ref": "#/$defs/Custody"
+    },
+    "display_fields": {
+      "type": "array",
+      "description": "Allowed display fields, expressed only as DisplayField enum values, never arbitrary strings or embedded forbidden data.",
+      "items": { "$ref": "#/$defs/DisplayField" }
+    },
+    "suppressed_outputs": {
+      "type": "array",
+      "description": "Suppressed output classes. Suppression is positive evidence of governance behaviour and MUST be replayed.",
+      "items": { "$ref": "#/$defs/SuppressedOutput" }
+    },
+    "no_advice_banner": {
+      "$ref": "#/$defs/NoAdviceBanner"
+    },
+    "warnings": {
+      "type": "array",
+      "description": "Non-advisory operational notes only. Never coaching.",
+      "items": { "type": "string" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": { "const": "COMPETITION" },
+          "payload_family": {
+            "enum": ["SURFACE_DISPLAY", "LIVE_GAME_DISPLAY", "BROADCAST_DISPLAY"]
+          }
+        },
+        "required": ["mode", "payload_family"]
+      },
+      "then": {
+        "required": ["no_advice_banner"],
+        "description": "Competition Mode display/live/broadcast payloads MUST carry a no-advice banner."
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": { "const": "BROADCAST_DISPLAY" },
+          "payload_family": {
+            "enum": ["SURFACE_DISPLAY", "LIVE_GAME_DISPLAY", "BROADCAST_DISPLAY"]
+          }
+        },
+        "required": ["mode", "payload_family"]
+      },
+      "then": {
+        "required": ["no_advice_banner"],
+        "description": "Broadcast/Display Mode display/live/broadcast payloads MUST carry a no-advice banner."
+      }
+    }
+  ],
+  "unevaluatedProperties": false,
+  "$defs": {
+    "PayloadFamily": {
+      "type": "string",
+      "description": "Discriminator for the governed payload family.",
+      "enum": [
+        "SURFACE_DISPLAY",
+        "MODE_GATE_DECISION",
+        "LIVE_GAME_DISPLAY",
+        "REVIEW_CONTEXT",
+        "LEARNING_CONTEXT",
+        "BROADCAST_DISPLAY",
+        "MODE_TRANSITION_REQUEST",
+        "DISPLAY_ACKNOWLEDGEMENT",
+        "CREATOR_REPLAY_LINK",
+        "FEDERATION_WITHHOLDING",
+        "PRIVACY_CONSENT"
+      ]
+    },
+    "SurfaceMode": {
+      "type": "string",
+      "description": "Operational mode. Mode is always explicit; unknown mode MUST fail closed in future runtime.",
+      "enum": [
+        "COMPETITION",
+        "LEARNING",
+        "REVIEW",
+        "BROADCAST_DISPLAY"
+      ]
+    },
+    "SurfaceType": {
+      "type": "string",
+      "description": "Surface kind. Surfaces cannot imply authority.",
+      "enum": [
+        "ANDROID",
+        "WEB_CHESSGUIDE",
+        "WEB_THEWILHELMSEN",
+        "CHROME_EXTENSION",
+        "ADMIN_DEMO"
+      ]
+    },
+    "ActiveGameState": {
+      "type": "string",
+      "description": "Active game state. UNKNOWN MUST fail closed in future runtime.",
+      "enum": [
+        "ACTIVE_GAME",
+        "POST_GAME",
+        "TRAINING_SANDBOX",
+        "REVIEW_SESSION",
+        "BROADCAST_ONLY",
+        "UNKNOWN"
+      ]
+    },
+    "DisplayField": {
+      "type": "string",
+      "description": "Declared allowed display fields. Represented as enum values only; forbidden semantic/advice data is never embedded here.",
+      "enum": [
+        "BOARD_STATE",
+        "MOVE_LIST",
+        "CURRENT_TURN",
+        "CLOCK_STATE",
+        "PLAYER_LABELS",
+        "GAME_STATUS",
+        "MODE_LABEL",
+        "NO_ADVICE_BANNER",
+        "REVIEW_AVAILABLE",
+        "LEARNING_PROMPT",
+        "TSS_SUMMARY",
+        "KG_CONCEPT_REFS",
+        "LEARNING_FRONTIER_HINT",
+        "BUDDY_EXPLANATION",
+        "ENGINE_REFERENCE"
+      ]
+    },
+    "SuppressedOutputClass": {
+      "type": "string",
+      "description": "Classes of output that may be suppressed. Suppression is recorded and replayed, not the underlying forbidden data.",
+      "enum": [
+        "ENGINE_EVAL",
+        "ENGINE_BEST_MOVE",
+        "ENGINE_LINE",
+        "CANDIDATE_MOVE",
+        "TSS_WARNING",
+        "CCT_HINT",
+        "BUDDY_EXPLANATION",
+        "MODEL_OUTPUT",
+        "LEARNING_FRONTIER",
+        "KG_TEACHING_CONTENT",
+        "LEARNER_STATE_CLAIM",
+        "MASTERY_CLAIM",
+        "BIOMETRIC_CONTEXT",
+        "RAW_CV_FRAME",
+        "FEDERATION_SEMANTIC_EXPORT"
+      ]
+    },
+    "WithholdingReason": {
+      "type": "string",
+      "description": "Reason a semantic field is withheld from federation export.",
+      "enum": [
+        "SEMANTIC_BOUNDARY",
+        "LEARNER_STATE",
+        "EVIDENCE_CUSTODY",
+        "PRIVACY",
+        "BIOMETRIC",
+        "MODE_GATE",
+        "CORPUS_SOVEREIGNTY"
+      ]
+    },
+    "ConsentState": {
+      "type": "string",
+      "description": "Consent state governing capture, labels, and visibility.",
+      "enum": [
+        "GRANTED",
+        "DENIED",
+        "PENDING",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "RetentionClass": {
+      "type": "string",
+      "description": "Retention class for any retained payload-related data.",
+      "enum": [
+        "EPHEMERAL",
+        "SESSION",
+        "REVIEW_RETAINED",
+        "CREATOR_CUSTODY"
+      ]
+    },
+    "Provenance": {
+      "type": "object",
+      "description": "Source lineage of the payload. Not a federation export.",
+      "properties": {
+        "source_event_refs": { "type": "array", "items": { "type": "string" } },
+        "capture_frame_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "References to capture frames only. Raw CV frames are never embedded."
+        },
+        "validation_refs": { "type": "array", "items": { "type": "string" } },
+        "mode_gate_refs": { "type": "array", "items": { "type": "string" } },
+        "derived_from": { "type": "array", "items": { "type": "string" } },
+        "created_by_system": { "type": "string" }
+      },
+      "unevaluatedProperties": false
+    },
+    "Custody": {
+      "type": "object",
+      "description": "Custody flags. Append-only; payloads are not mutated in place.",
+      "properties": {
+        "custody_class": { "$ref": "#/$defs/RetentionClass" },
+        "created_by_system": { "type": "string" },
+        "mutable": {
+          "type": "boolean",
+          "const": false,
+          "description": "Payloads are immutable. Corrections create new versions, not in-place mutation."
+        }
+      },
+      "required": ["mutable"],
+      "unevaluatedProperties": false
+    },
+    "SuppressedOutput": {
+      "type": "object",
+      "description": "A single suppression record. Records that an output class was withheld, never the forbidden content itself.",
+      "properties": {
+        "output_class": { "$ref": "#/$defs/SuppressedOutputClass" },
+        "reason": { "type": "string" },
+        "mode": { "$ref": "#/$defs/SurfaceMode" },
+        "required_by": { "type": "string" },
+        "replay_ref": { "type": "string" }
+      },
+      "required": ["output_class", "reason", "mode"],
+      "unevaluatedProperties": false
+    },
+    "NoAdviceBanner": {
+      "type": "object",
+      "description": "No-advice banner descriptor. Required in COMPETITION and BROADCAST_DISPLAY display/live/broadcast payloads.",
+      "properties": {
+        "banner_id": { "type": "string" },
+        "visible": { "type": "boolean" },
+        "mode": { "$ref": "#/$defs/SurfaceMode" },
+        "text_key": {
+          "type": "string",
+          "description": "Localisation key for banner text. Wording resolved by surface; no advice content."
+        },
+        "reason": { "type": "string" },
+        "creator_replay_ref": { "type": "string" }
+      },
+      "required": ["banner_id", "visible", "mode", "text_key", "creator_replay_ref"],
+      "unevaluatedProperties": false
+    },
+    "FederationWithholdingPayload": {
+      "type": "object",
+      "description": "Federation withholding metadata. A surface payload is NOT a federation export. Semantic data is withheld.",
+      "properties": {
+        "withholding_id": { "type": "string" },
+        "federation_eligible": {
+          "type": "boolean",
+          "description": "Whether any separately governed lossy ObservationRecord is eligible. The display payload itself is never an export."
+        },
+        "semantic_fields_withheld": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "withholding_reasons": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/WithholdingReason" }
+        },
+        "observation_record_ref": { "type": "string" },
+        "creator_replay_ref": { "type": "string" }
+      },
+      "required": ["withholding_id", "federation_eligible", "creator_replay_ref"],
+      "unevaluatedProperties": false
+    },
+    "CreatorReplayLink": {
+      "type": "object",
+      "description": "Creator replay link metadata. Must survive real-time to 100-year replay.",
+      "properties": {
+        "replay_ref": { "type": "string" },
+        "policy_version": { "type": "string" },
+        "contract_version": { "type": "string" },
+        "mode_gate_decision_ref": { "type": "string" },
+        "event_refs": { "type": "array", "items": { "type": "string" } },
+        "suppression_refs": { "type": "array", "items": { "type": "string" } },
+        "display_ack_refs": { "type": "array", "items": { "type": "string" } },
+        "federation_withholding_ref": { "type": "string" }
+      },
+      "required": ["replay_ref", "policy_version", "contract_version"],
+      "unevaluatedProperties": false
+    },
+    "PrivacyConsent": {
+      "type": "object",
+      "description": "Privacy/consent descriptor. Biometric capture is forbidden without separate governance.",
+      "properties": {
+        "consent_state": { "$ref": "#/$defs/ConsentState" },
+        "actor_scope": { "type": "string" },
+        "surface_scope": { "type": "string" },
+        "capture_source": { "type": "string" },
+        "player_label_allowed": { "type": "boolean" },
+        "biometric_allowed": {
+          "type": "boolean",
+          "default": false,
+          "description": "Biometric/pulse-like data is not allowed without separate governance. Defaults false."
+        },
+        "retention_class": { "$ref": "#/$defs/RetentionClass" },
+        "visibility_notice_required": { "type": "boolean" },
+        "creator_replay_ref": { "type": "string" }
+      },
+      "required": ["consent_state", "creator_replay_ref"],
+      "unevaluatedProperties": false
+    },
+    "SurfaceDisplayPayload": {
+      "type": "object",
+      "description": "Governed display payload. Display is not learning, evidence, claim, or mastery.",
+      "properties": {
+        "payload_family": { "const": "SURFACE_DISPLAY" },
+        "display_fields": { "type": "array", "items": { "$ref": "#/$defs/DisplayField" } },
+        "suppressed_outputs": { "type": "array", "items": { "$ref": "#/$defs/SuppressedOutput" } },
+        "no_advice_banner": { "$ref": "#/$defs/NoAdviceBanner" }
+      },
+      "required": ["payload_family", "display_fields", "suppressed_outputs"]
+    },
+    "ModeGateDecisionPayload": {
+      "type": "object",
+      "description": "Record of what the ModeGate allowed or suppressed. Not a learner explanation by itself.",
+      "properties": {
+        "payload_family": { "const": "MODE_GATE_DECISION" },
+        "decision_id": { "type": "string" },
+        "input_type": { "type": "string" },
+        "validation_state": { "type": "string" },
+        "requested_output_classes": { "type": "array", "items": { "$ref": "#/$defs/SuppressedOutputClass" } },
+        "allowed_output_classes": { "type": "array", "items": { "$ref": "#/$defs/DisplayField" } },
+        "suppressed_output_classes": { "type": "array", "items": { "$ref": "#/$defs/SuppressedOutputClass" } },
+        "fail_closed": { "type": "boolean" },
+        "suppression_reasons": { "type": "array", "items": { "type": "string" } },
+        "policy_version": { "type": "string" }
+      },
+      "required": ["payload_family", "decision_id", "fail_closed"]
+    },
+    "LiveGameDisplayPayload": {
+      "type": "object",
+      "description": "Live game display. Display-only; no engine, TSS/CCT, Buddy/model, Learning Frontier, mastery, or learner rationale.",
+      "properties": {
+        "payload_family": { "const": "LIVE_GAME_DISPLAY" },
+        "display_fields": { "type": "array", "items": { "$ref": "#/$defs/DisplayField" } },
+        "suppressed_outputs": { "type": "array", "items": { "$ref": "#/$defs/SuppressedOutput" } },
+        "no_advice_banner": { "$ref": "#/$defs/NoAdviceBanner" }
+      },
+      "required": ["payload_family", "display_fields", "suppressed_outputs"]
+    },
+    "ReviewContextPayload": {
+      "type": "object",
+      "description": "Post-game/self-owned review context. Review annotations are separate from original evidence; no silent evidence mutation.",
+      "properties": {
+        "payload_family": { "const": "REVIEW_CONTEXT" },
+        "review_mode": { "type": "string" },
+        "validated_position_ref": { "type": "string" },
+        "move_history_ref": { "type": "string" },
+        "tss_result_ref": { "type": "string" },
+        "kg_refs": { "type": "array", "items": { "type": "string" } },
+        "learning_frontier_view_ref": { "type": "string" },
+        "learner_reflection_ref": { "type": "string" },
+        "buddy_explanation_ref": { "type": "string" },
+        "engine_reference_ref": { "type": "string" }
+      },
+      "required": ["payload_family"]
+    },
+    "LearningContextPayload": {
+      "type": "object",
+      "description": "Learning context. Content allowed only after validation and mode gate; no live competition advice, no mastery certification.",
+      "properties": {
+        "payload_family": { "const": "LEARNING_CONTEXT" },
+        "learning_goal": { "type": "string" },
+        "safety_prompt": { "type": "string" },
+        "cct_prompt": { "type": "string" },
+        "tss_summary_ref": { "type": "string" },
+        "kg_concept_refs": { "type": "array", "items": { "type": "string" } },
+        "learning_frontier_hint_ref": { "type": "string" },
+        "buddy_explanation_ref": { "type": "string" },
+        "model_draft_ref": { "type": "string" }
+      },
+      "required": ["payload_family"]
+    },
+    "BroadcastDisplayPayload": {
+      "type": "object",
+      "description": "Live spectator display. Display-only; all advice, engine, TSS/CCT, Buddy/model, learner state, and player-specific coaching forbidden.",
+      "properties": {
+        "payload_family": { "const": "BROADCAST_DISPLAY" },
+        "display_fields": { "type": "array", "items": { "$ref": "#/$defs/DisplayField" } },
+        "suppressed_outputs": { "type": "array", "items": { "$ref": "#/$defs/SuppressedOutput" } },
+        "no_advice_banner": { "$ref": "#/$defs/NoAdviceBanner" }
+      },
+      "required": ["payload_family", "display_fields", "suppressed_outputs", "no_advice_banner"]
+    },
+    "ModeTransitionRequestPayload": {
+      "type": "object",
+      "description": "Request to change mode. A surface (incl. thewilhelmsen.com) may request but not decide; ChessGuide decides. Active competition to learning fails closed unless explicitly training/non-competitive.",
+      "properties": {
+        "payload_family": { "const": "MODE_TRANSITION_REQUEST" },
+        "request_id": { "type": "string" },
+        "actor_id": { "type": "string" },
+        "current_mode": { "$ref": "#/$defs/SurfaceMode" },
+        "requested_mode": { "$ref": "#/$defs/SurfaceMode" },
+        "reason": { "type": "string" },
+        "confirmation_state": { "type": "string" },
+        "requested_from_surface": { "$ref": "#/$defs/SurfaceType" }
+      },
+      "required": ["payload_family", "request_id", "current_mode", "requested_mode"]
+    },
+    "DisplayAcknowledgementPayload": {
+      "type": "object",
+      "description": "Surface acknowledgement of what was actually shown and suppressed. Supports Creator replay.",
+      "properties": {
+        "payload_family": { "const": "DISPLAY_ACKNOWLEDGEMENT" },
+        "acknowledgement_id": { "type": "string" },
+        "acknowledged_payload_id": { "type": "string" },
+        "displayed_at": { "type": "string", "format": "date-time" },
+        "displayed_fields": { "type": "array", "items": { "$ref": "#/$defs/DisplayField" } },
+        "suppressed_fields_confirmed": { "type": "array", "items": { "$ref": "#/$defs/SuppressedOutputClass" } },
+        "mode_label_visible": { "type": "boolean" },
+        "no_advice_banner_visible": { "type": "boolean" }
+      },
+      "required": ["payload_family", "acknowledgement_id", "acknowledged_payload_id"]
+    },
+    "CreatorReplayLinkPayload": {
+      "type": "object",
+      "description": "Creator replay link payload family. Connects events, suppression, display acks, and federation withholding for replay.",
+      "properties": {
+        "payload_family": { "const": "CREATOR_REPLAY_LINK" },
+        "replay_link": { "$ref": "#/$defs/CreatorReplayLink" }
+      },
+      "required": ["payload_family", "replay_link"]
+    },
+    "FederationWithholdingFamilyPayload": {
+      "type": "object",
+      "description": "Federation withholding payload family wrapper. The display payload is not federation export.",
+      "properties": {
+        "payload_family": { "const": "FEDERATION_WITHHOLDING" },
+        "withholding": { "$ref": "#/$defs/FederationWithholdingPayload" }
+      },
+      "required": ["payload_family", "withholding"]
+    },
+    "PrivacyConsentPayload": {
+      "type": "object",
+      "description": "Privacy/consent payload family. Biometric capture forbidden without separate governance.",
+      "properties": {
+        "payload_family": { "const": "PRIVACY_CONSENT" },
+        "privacy_consent": { "$ref": "#/$defs/PrivacyConsent" }
+      },
+      "required": ["payload_family", "privacy_consent"]
+    }
+  }
+}
