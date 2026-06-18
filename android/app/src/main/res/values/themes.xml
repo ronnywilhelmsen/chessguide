@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Base application theme for the Activity window only.
+      The actual UI styling is provided by ChessGuideTheme (Material 3, Compose)
+      in :core:designsystem. A framework parent is used to avoid extra
+      dependencies in this skeleton.
+    -->
+    <style name="Theme.ChessGuide" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
