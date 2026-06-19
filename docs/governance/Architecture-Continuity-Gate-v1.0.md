@@ -9,7 +9,7 @@
 | **Date** | 2026-06-17 |
 | **Scope** | Governance acceptance gate / architecture continuity rule |
 | **Applies to** | all future governance, review, HLD, LLD, UML, runtime, Buddy, federation, corpus, Creator, Android, Chrome, and continuity artifacts |
-| **Depends on** | ADR-001, ADR-002, ADR-003, ADR-004, ADR-005, ADR-006, ADR-007, ADR-008, CCCR v1.0, SCCR-001, SCC-HLD-001, CRR-001, CSV-001, MCRM-001, OTWP-001, LTCW-001, [FEDERATION.md](../FEDERATION.md) |
+| **Depends on** | ADR-001, ADR-002, ADR-003, ADR-004, ADR-005, ADR-006, ADR-007, ADR-008, ADR-E003, CCCR v1.0, SCCR-001, SCC-HLD-001, CRR-001, CSV-001, MCRM-001, OTWP-001, LTCW-001, [FEDERATION.md](../FEDERATION.md) |
 | **Supersedes** | — |
 | **Superseded by** | — |
 
@@ -95,6 +95,7 @@ Each artifact must cite the relevant ADRs and explain:
 | **ADR-006** | Buddy pedagogy boundary |
 | **ADR-007** | Stockfish / System Chess Competence boundary |
 | **ADR-008** | Corpus Reference Registry / source governance boundary |
+| **ADR-E003** | Universal Knowledge Framework — cross-surface observation/evidence/claim/knowledge boundary |
 
 ---
 
