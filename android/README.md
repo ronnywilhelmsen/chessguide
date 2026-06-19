@@ -94,10 +94,22 @@ home shell ("Camera Sandbox" button). It is a sandbox only:
 
 - Requests the `CAMERA` permission (with a denied state and a retry button).
 - Starts a CameraX **preview** and an **ImageAnalysis** pipeline.
+- Draws a **visual calibration overlay** on top of the preview: a board-area
+  rectangle, an 8x8 grid, corner markers, and a center crosshair. The overlay
+  is **visual calibration only — no board detection**.
+- Calibration UI with `NOT_STARTED / ALIGNING / LOCKED_PLACEHOLDER /
+  FAILED_PLACEHOLDER` states and Start / Reset / Lock (placeholder) controls.
+  These change local UI state only; they run no CV and no geometry solve.
 - The analyzer (`SandboxImageAnalyzer`) emits ONLY safe `FrameMetadata`: frame
   number, width, height, rotation degrees, timestamp, and analyzer status.
+- **Frame-metadata diagnostics**: an always-visible on-preview readout plus a
+  metadata panel, with an honest analyzer state (permission denied / waiting
+  for frames / active / unavailable).
 - It closes every frame immediately — **no image is captured or persisted**.
 - It states on screen: *"Camera sandbox only — no CV, no engine, no advice."*
+
+> A physical device or emulator with a camera is required to visually test the
+> preview, overlay, and live frame-metadata updates.
 
 There is **no** computer vision: no board/piece/clock/player/move detection,
 no OCR, no OpenCV/ML Kit/MediaPipe/TensorFlow/LiteRT/YOLO, no engine, no

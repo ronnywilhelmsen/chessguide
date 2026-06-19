@@ -9,10 +9,14 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,7 +28,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -33,14 +39,15 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import java.util.concurrent.Executors
 
 /**
- * Camera Sandbox screen — CameraX preview + ImageAnalysis sandbox.
+ * Camera Sandbox screen — CameraX preview + visual board-overlay calibration +
+ * safe ImageAnalysis frame-metadata diagnostics.
  *
- * SCOPE: camera sandbox only. It starts a CameraX preview and an ImageAnalysis
- * pipeline whose analyzer emits ONLY safe [FrameMetadata]. There is no computer
- * vision, no board/piece/clock/player/move detection, no OCR, no OpenCV/ML
- * Kit/MediaPipe/TensorFlow/LiteRT/YOLO, no engine, no TSS/CCT, no Buddy, no
- * LARIS, no Creator/payload runtime, no federation export, no image capture or
- * persistence, and no network/API calls.
+ * SCOPE: camera sandbox only. The overlay is purely VISUAL calibration; it
+ * performs NO board/piece/clock/player/move detection, NO OCR, NO OpenCV/ML
+ * Kit/MediaPipe/TensorFlow/LiteRT/YOLO, NO engine, NO TSS/CCT, NO Buddy, NO
+ * LARIS, NO Creator/payload runtime, NO federation export, NO image capture or
+ * persistence, and NO network/API calls. The analyzer emits only safe
+ * [FrameMetadata].
  */
 @Composable
 fun CameraSandboxScreen(
@@ -62,6 +69,7 @@ fun CameraSandboxScreen(
     }
     var lastFrame by remember { mutableStateOf<FrameMetadata?>(null) }
     var cameraError by remember { mutableStateOf<String?>(null) }
+    var calibration by remember { mutableStateOf(CalibrationUiState()) }
 
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission(),
@@ -75,6 +83,13 @@ fun CameraSandboxScreen(
         }
     }
 
+    val diagnostic = when {
+        permission == CameraPermissionState.DENIED -> AnalyzerDiagnostic.PERMISSION_DENIED
+        cameraError != null -> AnalyzerDiagnostic.UNAVAILABLE
+        lastFrame == null -> AnalyzerDiagnostic.WAITING_FOR_FRAMES
+        else -> AnalyzerDiagnostic.ACTIVE
+    }
+
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -84,13 +99,6 @@ fun CameraSandboxScreen(
             text = "Camera sandbox only — no CV, no engine, no advice.",
             style = MaterialTheme.typography.bodyMedium,
         )
-        Text(
-            text = "This only proves the camera and ImageAnalysis are wired up. " +
-                "It reads frame size/rotation metadata, never image content. No " +
-                "board, piece, clock, player, or move detection. No capture, no " +
-                "storage, no network.",
-            style = MaterialTheme.typography.bodySmall,
-        )
 
         when (permission) {
             CameraPermissionState.GRANTED -> {
@@ -98,15 +106,41 @@ fun CameraSandboxScreen(
                 if (error != null) {
                     CameraErrorContent(message = error)
                 } else {
-                    CameraPreview(
-                        onFrame = { lastFrame = it },
-                        onError = { cameraError = it },
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(3f / 4f),
-                    )
+                    ) {
+                        CameraPreview(
+                            onFrame = { lastFrame = it },
+                            onError = { cameraError = it },
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                        // Transparent visual calibration overlay on top of the preview.
+                        BoardOverlay(
+                            calibrationState = calibration.state,
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                        // Always-visible compact readout so frame updates are
+                        // obvious even when the metadata panel is scrolled off.
+                        FrameReadout(
+                            frame = lastFrame,
+                            diagnostic = diagnostic,
+                            modifier = Modifier
+                                .align(Alignment.TopStart)
+                                .padding(8.dp),
+                        )
+                    }
                 }
-                FrameMetadataContent(frame = lastFrame)
+
+                CalibrationControls(
+                    calibration = calibration,
+                    onStart = { calibration = calibration.start() },
+                    onReset = { calibration = calibration.reset() },
+                    onLock = { calibration = calibration.lock() },
+                )
+
+                FrameMetadataPanel(frame = lastFrame, diagnostic = diagnostic)
             }
 
             CameraPermissionState.DENIED -> PermissionDeniedContent(
@@ -123,6 +157,27 @@ fun CameraSandboxScreen(
             Text("Back")
         }
     }
+}
+
+@Composable
+private fun FrameReadout(
+    frame: FrameMetadata?,
+    diagnostic: AnalyzerDiagnostic,
+    modifier: Modifier = Modifier,
+) {
+    val text = if (frame == null) {
+        "Frame: — • $diagnostic"
+    } else {
+        "Frame #${frame.frameNumber} • ${frame.width}x${frame.height} • ${frame.rotationDegrees}°"
+    }
+    Text(
+        text = text,
+        color = Color.White,
+        style = MaterialTheme.typography.labelMedium,
+        modifier = modifier
+            .background(Color(0xCC000000))
+            .padding(horizontal = 8.dp, vertical = 4.dp),
+    )
 }
 
 @Composable
@@ -178,30 +233,12 @@ private fun CameraPreview(
 }
 
 @Composable
-private fun FrameMetadataContent(frame: FrameMetadata?) {
-    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(text = "Frame metadata (safe only)", style = MaterialTheme.typography.titleMedium)
-        if (frame == null) {
-            Text(
-                text = "Waiting for first frame…",
-                style = MaterialTheme.typography.bodySmall,
-            )
-        } else {
-            Text("Frame #: ${frame.frameNumber}", style = MaterialTheme.typography.bodySmall)
-            Text("Size: ${frame.width} x ${frame.height}", style = MaterialTheme.typography.bodySmall)
-            Text("Rotation: ${frame.rotationDegrees}°", style = MaterialTheme.typography.bodySmall)
-            Text("Timestamp (ms): ${frame.timestampMs}", style = MaterialTheme.typography.bodySmall)
-            Text("Analyzer status: ${frame.status}", style = MaterialTheme.typography.bodySmall)
-        }
-    }
-}
-
-@Composable
 private fun PermissionDeniedContent(onRetry: () -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
             text = "Camera permission denied. The sandbox needs the camera only to " +
-                "show a preview and frame metadata. Nothing is captured or stored.",
+                "show a preview, a visual calibration overlay, and frame metadata. " +
+                "Nothing is captured or stored.",
             style = MaterialTheme.typography.bodyMedium,
         )
         Button(onClick = onRetry) {
