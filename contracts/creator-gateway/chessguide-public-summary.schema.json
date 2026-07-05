@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ronnywilhelmsen/chessguide/contracts/creator-gateway/chessguide-public-summary.schema.json",
+  "title": "ChessGuide Creator Gateway Public Summary v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "summary_version",
+    "domain_id",
+    "producer",
+    "source_repo_url",
+    "source_of_truth_owner",
+    "summary_kind",
+    "classification",
+    "public_projection_allowed",
+    "source_memory_imported",
+    "real_source_data_included",
+    "sensitive_data_included",
+    "secret_exposure_allowed",
+    "write_capability",
+    "runtime_calls_allowed",
+    "mcp_runtime_dependency",
+    "chrome_extension_runtime_dependency",
+    "excluded_resources",
+    "safe_summary",
+    "validation_command",
+    "recommended_next_step"
+  ],
+  "properties": {
+    "summary_version": { "const": "v1" },
+    "domain_id": { "const": "chessguide" },
+    "producer": { "const": "ChessGuide" },
+    "source_repo_url": { "const": "https://github.com/ronnywilhelmsen/chessguide" },
+    "source_of_truth_owner": { "const": "ChessGuide repository" },
+    "summary_kind": { "const": "domain_owned_public_summary" },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["public", "private", "sensitive", "secret", "synthetic", "redacted"],
+      "properties": {
+        "public": { "const": true },
+        "private": { "const": false },
+        "sensitive": { "const": false },
+        "secret": { "const": false },
+        "synthetic": { "const": false },
+        "redacted": { "const": true }
+      }
+    },
+    "public_projection_allowed": { "const": true },
+    "source_memory_imported": { "const": false },
+    "real_source_data_included": { "const": false },
+    "sensitive_data_included": { "const": false },
+    "secret_exposure_allowed": { "const": false },
+    "write_capability": { "const": "none" },
+    "runtime_calls_allowed": { "const": false },
+    "mcp_runtime_dependency": { "const": false },
+    "chrome_extension_runtime_dependency": { "const": false },
+    "excluded_resources": {
+      "type": "array",
+      "items": { "type": "string" },
+      "contains": { "const": "private student data" }
+    },
+    "safe_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_identity",
+        "public_learning_surface",
+        "contract_status",
+        "validation_command",
+        "recommended_next_step"
+      ],
+      "properties": {
+        "project_identity": { "const": "ChessBuddy / ChessGuide" },
+        "public_learning_surface": { "type": "string", "minLength": 1 },
+        "contract_status": { "const": "domain_public_summary_contract_published" },
+        "validation_command": { "const": "python scripts/creator_gateway_chessguide_public_summary.py" },
+        "recommended_next_step": { "type": "string", "minLength": 1 }
+      }
+    },
+    "validation_command": { "const": "python scripts/creator_gateway_chessguide_public_summary.py" },
+    "recommended_next_step": { "type": "string", "minLength": 1 }
+  }
+}

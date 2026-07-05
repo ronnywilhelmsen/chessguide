@@ -1,0 +1,45 @@
+{
+  "summary_version": "v1",
+  "domain_id": "chessguide",
+  "producer": "ChessGuide",
+  "source_repo_url": "https://github.com/ronnywilhelmsen/chessguide",
+  "source_of_truth_owner": "ChessGuide repository",
+  "summary_kind": "domain_owned_public_summary",
+  "classification": {
+    "public": true,
+    "private": false,
+    "sensitive": false,
+    "secret": false,
+    "synthetic": false,
+    "redacted": true
+  },
+  "public_projection_allowed": true,
+  "source_memory_imported": false,
+  "real_source_data_included": false,
+  "sensitive_data_included": false,
+  "secret_exposure_allowed": false,
+  "write_capability": "none",
+  "runtime_calls_allowed": false,
+  "mcp_runtime_dependency": false,
+  "chrome_extension_runtime_dependency": false,
+  "excluded_resources": [
+    "private student data",
+    "private user data",
+    "learning session source data",
+    "secrets",
+    "runtime DBs",
+    "browser captures",
+    "write tools",
+    "MCP runtime dependency",
+    "Chrome Extension runtime dependency"
+  ],
+  "safe_summary": {
+    "project_identity": "ChessBuddy / ChessGuide",
+    "public_learning_surface": "Public ChessGuide learning surface is recognized as a future Creator Gateway candidate.",
+    "contract_status": "domain_public_summary_contract_published",
+    "validation_command": "python scripts/creator_gateway_chessguide_public_summary.py",
+    "recommended_next_step": "Creator may validate this public summary artifact; do not introduce runtime integration or learning-session source-data access."
+  },
+  "validation_command": "python scripts/creator_gateway_chessguide_public_summary.py",
+  "recommended_next_step": "Creator may validate this public summary artifact; do not introduce runtime integration or learning-session source-data access."
+}
