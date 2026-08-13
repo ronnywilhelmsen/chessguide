@@ -392,15 +392,17 @@ Required controls for any Faculty experiment that claims learning:
 | **Frozen foundation model arm** | At least one scientific arm holds the foundation model fixed across the journey |
 | **Fixed evaluation set + held-out set** | Prevents training on the test |
 | **Training / test separation** | Explicit item custody |
+| **Contamination labels** | Mark items `PUBLIC_DEVELOPMENT` / `TRAINING_VISIBLE` / `HELD_OUT` / `SEALED` / `CONTAMINATED` (Appendix C §9) |
 | **No engine answering during internalized evaluation** | Protects INTERNALIZED_COMPETENCE |
 | **Randomization where useful** | Reduces order / item artifacts |
 | **Repeated evaluation over time** | Distinguishes spike from continuity (CG-FLL-003) |
-| **Compare learning strategy, not just final answer** | Faculty object of study |
-| **Record model / runtime version** | Provenance |
+| **Compare learning strategy, not just final answer** | Faculty object of study; method claims need counterfactual evidence where practical (Appendix C §10) |
+| **Record model / runtime / policy versions** | Provenance: model, version/hash, provider, tools, runtime, prompt/policy, institutional memory (Appendix C §11) |
 | **Distinguish model upgrade from system learning** | A newer base model is not Faculty learning |
 
-Without these controls, K0→K1 movement may be **activity, leakage, or model
-swap** — not learning (CG-FLL-001 I-3; CG-FLL-002).
+Without these controls, K0→K1 movement may be **activity, leakage, contamination,
+or model swap** — not learning (CG-FLL-001 I-3; CG-FLL-002). Contamination must
+not be forgotten when work moves between repositories (Appendix C §9).
 
 ---
 
@@ -417,40 +419,67 @@ competence goal. It is **not** a replacement for:
 A LearningProject *uses* those concepts. Canonical mapping of fields onto
 Episode / CFA terms is an open question (§27) for a later contract PR.
 
-A LearningProject should express:
+A LearningProject should express (and remain **replayable** — Appendix C §2):
 
 - goal
+- initial state
 - baseline competence (`K0`)
 - required competence
 - gaps
 - hypotheses
+- project-method version
 - strategy
 - curriculum / work plan
+- plan versions and replanning
 - episodes
 - experiments
 - simulations
-- resources
+- resources / sources
+- observations
+- actions
+- agents / models / tools
 - mentor / interventions
+- decisions and authority
 - milestones
-- failures
+- failures and abandoned paths
 - evidence
 - competence checks
 - transfer tests
+- evaluation
 - exit criteria
+- outcome
 - postmortem
 - resulting competence (`K1`, held-out)
 
-### Invariant
+Do **not** rely on narrative reconstruction from LLM memory alone.
+
+### Invariants
 
 ```text
 project completed ≠ competence acquired
+project completed ≠ domain hypothesis resolved
+engineering validated ≠ scientifically supported
 ```
 
-A LearningProject closes **administratively** when work stops.
+A LearningProject closes **operationally / administratively** when work stops.
 
-A LearningProject closes **epistemically** only when competence is validated
-against **new** problems (`K1` on held-out tasks), with evidence/claim separation
-preserved.
+A LearningProject closes **epistemically** for competence only when competence is
+validated against **new** problems (`K1` on held-out tasks), with evidence/claim
+separation preserved.
+
+Epistemic uncertainty must **survive** the project (Appendix C §3): a project may
+close operationally while the domain hypothesis remains `UNKNOWN` /
+`UNRESOLVED` / `INSUFFICIENT_EVIDENCE`.
+
+Each major project may produce three distinct outputs (Appendix C §13):
+
+| Output | Question |
+|--------|----------|
+| **Domain Outcome** | What happened in the domain? |
+| **Project Outcome** | How well was the project conducted? |
+| **Learning Outcome** | What is the candidate learning for future projects? |
+
+Only the Learning Outcome is a candidate for project / meta-learning transfer.
 
 This is the Faculty restatement of CG-FLL-001 I-3 and CG-FLL-002: activity and
 completion are not integration.
@@ -549,16 +578,31 @@ written into human learner state or exported to federation.
 
 ### Ownership boundary
 
+| Layer | Owns |
+|-------|------|
+| **DOMAIN (ChessGuide)** | What chess observations and outcomes **mean**; chess competence evaluation |
+| **FACULTY (ChessGuide)** | Persistent domain-learning history inside chess |
+| **PERSONAL-AGI** | General cognitive / learning capabilities; University Runtime; ModelRouter; generic agent roles; local model worker orchestration |
+| **UNIVERSITY (Personal-AGI)** | Candidate generalizations **across** domains — never silently minted from one Faculty |
+| **NOMOKRATOR** | Project lifecycle and project-method evidence (not chess truth) |
+
 | Personal-AGI owns | ChessGuide owns |
 |-------------------|-----------------|
 | University Runtime | Chess Faculty |
 | Generic agent roles | Chess-domain knowledge / evidence contracts |
 | ModelRouter | Chess-learning experiments |
-| Institutional learning machinery | Competence evaluation |
+| Institutional learning machinery | Competence evaluation (domain evaluator last word) |
 | Local model worker orchestration | Human-learning interaction |
 | | Domain tools / adapters |
 
 **Do not build a generic AGI runtime inside ChessGuide.**
+
+Personal-AGI may orchestrate workers and propose abstractions. It may **not**:
+
+- mint chess competence
+- override ChessGuide domain evaluator verdicts
+- collapse domain truth, project truth, and intelligence into one layer
+  (Appendix C §1)
 
 ### Future integration point (interface, not implementation)
 
@@ -569,11 +613,13 @@ written into human learner state or exported to federation.
 - competence vectors
 - LearningProject descriptors
 - postmortem reports
-- transferable learning-strategy artifacts
+- transferable learning-strategy artifacts (`GeneralizableLearningArtifact`
+  candidates — Appendix C §7)
+- contamination / held-out labels carried across repos (Appendix C §9)
 
 ChessGuide remains sovereign over whether a result is observation, evidence,
-claim, or knowledge (ADR-E003). Personal-AGI may orchestrate workers; it may not
-mint chess competence.
+claim, or knowledge (ADR-E003). Domain evaluator has last word on domain outcome
+(Appendix C §4).
 
 ---
 
@@ -588,8 +634,10 @@ workers:
 - **Mentor / Coach** — if capable, and never as engine oracle (ADR-006 / ADR-007)
 
 At least one scientific arm **holds the foundation model fixed** across the
-learning journey (§13). A model upgrade is recorded as a **runtime change**, not
-as Faculty learning.
+learning journey (§13; Appendix C §11). Experiments must record model,
+version/hash where possible, provider, tools, runtime version, prompt/policy
+version, and institutional memory version. A model upgrade is recorded as a
+**runtime change**, not as Faculty learning.
 
 This section does not authorize installing models, MCP servers, or workers in
 this repository.
@@ -601,7 +649,19 @@ this repository.
 Transfer **learning-method artifacts only**. Do **not** transfer chess knowledge,
 PGN, FEN libraries, opening trees, or learner chess state.
 
-Domain-independent transferable artifacts:
+| Nomokrator may judge | Nomokrator alone cannot judge |
+|----------------------|-------------------------------|
+| Whether the **project contract** was followed | Whether **chess competence** improved |
+| Project-method evidence quality | Whether a domain hypothesis is true |
+| Project Outcome (Appendix C §13-B) | Domain Outcome (Appendix C §13-A) |
+
+Domain learning and project-method learning stay **separate** (Appendix C §6).
+Only project / learning-method learning is a candidate for broad cross-domain
+transfer **without further domain validation**. Abstraction is not generalization
+(Appendix C §7).
+
+Domain-independent transferable artifacts (must be export-bounded as
+`GeneralizableLearningArtifact` candidates):
 
 - gap-detection strategies
 - curriculum-selection strategies
@@ -612,6 +672,16 @@ Domain-independent transferable artifacts:
 - reflection / postmortem methods
 - transfer evaluation methods
 - learning-policy candidates
+
+### Clean control for ChessGuide → Nomokrator transfer (Appendix C §8)
+
+| Arm | Same foundation model / tools / runtime | ChessGuide-derived general learning artifacts |
+|-----|------------------------------------------|-----------------------------------------------|
+| **Control** | Yes | **No** |
+| **Transfer** | Yes | **Yes** (approved domain-independent artifacts only) |
+
+Target tasks must be **new Nomokrator tasks**. The measured difference must be
+previous learning experience, not hidden chess knowledge.
 
 Nomokrator is a **later** domain. Preparation is contractual (what may leave
 ChessGuide), not an export implementation. Federation export remains
@@ -686,12 +756,24 @@ Any future implementation PR must pass **all** of:
 - K0 / K1 baseline required
 - held-out evaluation required
 - LearningProject completion is not enough (`project completed ≠ competence acquired`)
+- separate verdicts for project completion, engineering success, domain success,
+  and learning success (Appendix C §12–§13)
+- epistemic uncertainty preserved (no forced SUCCESS/FAILURE collapse —
+  Appendix C §3)
+- domain evaluator has last word on domain outcome (Appendix C §4)
+- `capability != authority` for any ProjectContract / safety scope
+  (Appendix C §5)
 - evidence / claim separation preserved (ADR-003, ADR-004)
 - learner state not inferred from a single observation
 - human / machine evidence not mixed
+- domain learning vs project-method learning not collapsed (Appendix C §6)
+- contamination labels carried; contaminated tasks are not clean held-out evidence
+  (Appendix C §9)
 - no federation leakage (no widening beyond completed-game `ObservationRecord`)
 - no generic AGI runtime inside ChessGuide
 - Personal-AGI integration boundary clear (CG-AGI-1D)
+- Nomokrator transfer limited to approved method artifacts with clean control
+  (CG-AGI-1E; Appendix C §8)
 - FLL-1 invariants I-1–I-4 remain in force
 - LARIS / Buddy remain inactive unless separately activated
 - no live competition advice
@@ -716,6 +798,12 @@ A PR that cannot demonstrate every gate must not be merged.
   (CB-005 A-2)? This requires a later ADR if a machine learner is persisted.
 - How does Faculty method custody relate to federation (almost certainly:
   **not exported**)?
+- How should `GeneralizableLearningArtifact` map onto ADR-E003 claim / knowledge
+  layers before any export?
+- What contamination-label custody travels with artifacts across ChessGuide →
+  Personal-AGI → Nomokrator?
+- Which ProjectContract fields are mandatory before BioChronos / FinKairos
+  touchpoints?
 
 ---
 
@@ -732,7 +820,10 @@ A PR that cannot demonstrate every gate must not be merged.
 - Keep Chrome/MCP, Android lanes, and `thewilhelmsen.com` as governed surfaces,
   not the strategic center.
 - Keep LARIS inactive.
-- Keep Nomokrator transfer limited to method artifacts.
+- Keep Nomokrator transfer limited to method artifacts with clean controls.
+- Treat Appendix C (Cross-Domain Project, Evidence & Learning Boundary) as
+  shared architecture with Personal-AGI, Nomokrator, BioChronos, and later
+  domains — **without** replacing ChessGuide repository truth.
 
 ---
 
@@ -760,3 +851,277 @@ LearningTrace, UKF, or federation export.
 - no thewilhelmsen.com changes
 - no Personal-AGI repository changes
 - no Nomokrator repository changes
+- no BioChronos repository changes
+- no ProjectContract / GeneralizableLearningArtifact runtime or schema in this PR
+
+---
+
+## Appendix C — Cross-Domain Project, Evidence & Learning Boundary
+
+> **Shared architecture** between Personal-AGI, Nomokrator, ChessGuide,
+> BioChronos, and later domains. This appendix is **normative for boundary
+> thinking** inside ChessGuide. It does **not** replace ChessGuide repository
+> truth, does not implement runtime, and does not change other repositories.
+> It exists so that project truth, domain truth, evidence, learning, and
+> intelligence do not collapse into one another.
+
+### C.1 — Domain truth, project truth, and intelligence are different
+
+| Layer | Owns |
+|-------|------|
+| **DOMAIN** | What observations and outcomes **mean** |
+| **NOMOKRATOR** | Project lifecycle and project-method evidence |
+| **PERSONAL-AGI** | General cognitive / learning capabilities |
+| **FACULTY** | Persistent domain-learning history |
+| **UNIVERSITY** | Candidate generalizations across domains |
+
+**Invariants:**
+
+- A project can be correctly executed even if the domain hypothesis was wrong.
+- A good domain result does not necessarily mean the project was well-run.
+
+### C.2 — Every significant project must be replayable
+
+For `LearningProject` / `ResearchProject` / `InterventionProject` /
+`MachineProject`, require replayable artifacts where practical:
+
+- goal
+- initial state
+- baseline
+- hypotheses
+- project-method version
+- observations
+- sources
+- actions
+- agents / models / tools
+- decisions
+- authority
+- plan versions
+- replanning
+- failures
+- abandoned paths
+- evidence
+- evaluation
+- outcome
+- postmortem
+
+**Rule.** Do not rely on narrative reconstruction from LLM memory alone.
+
+### C.3 — Uncertainty must survive the project
+
+Do **not** collapse all project outcomes into `SUCCESS` / `FAILURE`.
+
+Preserve epistemic outcomes:
+
+- `SUPPORTED`
+- `SUPPORTED_WITH_QUALIFICATIONS`
+- `NOT_SUPPORTED`
+- `UNRESOLVED`
+- `INSUFFICIENT_EVIDENCE`
+- `CONTAMINATED`
+- `NOT_REPLICATED`
+- `UNKNOWN`
+
+**Rule.** A project may close operationally while the domain hypothesis remains
+`UNKNOWN`.
+
+### C.4 — Domain evaluator has last word on domain outcome
+
+Nomokrator may judge whether the **project contract** was followed.
+
+Nomokrator alone **cannot** judge whether:
+
+- chess competence improved
+- a biological intervention worked
+- a scientific hypothesis is true
+
+| Domain | Domain evaluator |
+|--------|------------------|
+| ChessGuide | Chess competence evaluator |
+| BioChronos | Biological evidence / safety / outcome evaluator |
+| Personal-AGI | Sealed capability evaluator |
+
+### C.5 — Safety and authority travel with the project
+
+A future `ProjectContract` (or equivalent) must carry:
+
+- `authority_scope`
+- `allowed_actions`
+- `forbidden_actions`
+- `human_decision_gates`
+- `safety_constraints`
+- `stopping_conditions`
+- `escalation_conditions`
+
+**Invariant:**
+
+```text
+capability ≠ authority
+```
+
+Especially important for BioChronos, FinKairos, legal domains, physical
+embodiment, and external publishing / deployment. This PR does **not**
+implement `ProjectContract`.
+
+### C.6 — Keep domain learning and project-method learning separate
+
+| Kind | Examples |
+|------|----------|
+| **Domain learning** | Chess pattern learned; biological intervention outcome |
+| **Project / learning-method learning** | This gap should be tested earlier; this curriculum order improved transfer; this project type needs early falsification |
+
+**Rule.** Only project / learning-method learning is a candidate for broad
+cross-domain transfer **without further domain validation**.
+
+### C.7 — Generalization requires explicit export boundary
+
+Future machine-readable concept (proposal name, repository-consistent):
+**`GeneralizableLearningArtifact`**.
+
+It should include:
+
+- `source_domain`
+- `source_project`
+- `source_evidence`
+- `learned_pattern`
+- `applicability_conditions`
+- `known_failures`
+- `confidence`
+- `domain_specific_dependencies`
+- `removed_domain_content`
+- `proposed_target_domains`
+- `validation_status`
+
+**Invariant:**
+
+```text
+abstraction ≠ generalization
+```
+
+A general-sounding principle from ChessGuide is **not** cross-domain evidence
+until it improves performance in another domain under a clean control (§C.8).
+
+### C.8 — Cross-domain transfer must preserve a clean control
+
+For ChessGuide → Nomokrator:
+
+| Arm | Foundation model / tools / runtime | ChessGuide-derived general learning artifacts |
+|-----|------------------------------------|-----------------------------------------------|
+| **Control** | Same | None |
+| **Transfer** | Same | Approved domain-independent artifacts only |
+
+Target tasks must be **new Nomokrator tasks**. The difference should be previous
+learning experience, not hidden chess knowledge.
+
+### C.9 — Contamination is first-class
+
+Evaluation-relevant objects should support labels:
+
+- `PUBLIC_DEVELOPMENT`
+- `TRAINING_VISIBLE`
+- `HELD_OUT`
+- `SEALED`
+- `CONTAMINATED`
+
+**Rule.** If an agent has seen the evaluator task or solution, that task cannot
+later be clean held-out evidence for the same agent / learning lineage.
+
+Contamination must **not** be forgotten when work moves between repositories.
+
+### C.10 — Project improvement needs counterfactual evidence
+
+A postmortem may produce a `CandidateProjectMethodImprovement`.
+
+The claim “method B is better” requires comparison where practical:
+
+- Method A vs Method B
+- under comparable conditions
+
+Applies to curriculum, mentor strategy, replanning, research strategy,
+agent-team composition, and evaluator use.
+
+### C.11 — Model upgrades must not masquerade as learning
+
+Learning experiments must record:
+
+- model
+- model / version / hash where possible
+- provider
+- tools
+- runtime version
+- prompt / policy version
+- institutional memory version
+
+At least one important experiment arm must use a **frozen foundation model**
+(§13, §20).
+
+### C.12 — Engineering and science receive separate verdicts
+
+A system may be:
+
+- `IMPLEMENTED`
+- `ENGINEERING_VALIDATED`
+
+without the tested hypothesis being:
+
+- `SCIENTIFICALLY_SUPPORTED`
+
+**Example.** A `LearningProjectRuntime` can be correct software without proving
+that LearningProjects improve learning.
+
+Keep engineering verdict and scientific verdict **explicit**.
+
+### C.13 — One project may produce three different outputs
+
+| Output | Question | Candidate for meta-learning? |
+|--------|----------|------------------------------|
+| **A. Domain Outcome** | What happened in the domain? | No (domain-bound) |
+| **B. Project Outcome** | How well was the project conducted? | No (process quality) |
+| **C. Learning Outcome** | What is the candidate learning for future projects? | **Yes** — only C |
+
+### C.14 — Long-term cross-domain loop
+
+```text
+DOMAIN PROBLEM
+  ↓
+PROJECT
+  ↓
+DOMAIN EXPERIENCE
+  ↓
+DOMAIN LEARNING
+  ↓
+PROJECT POSTMORTEM
+  ↓
+PROJECT-METHOD LEARNING
+  ↓
+FACULTY LEARNING
+  ↓
+UNIVERSITY ABSTRACTION
+  ↓
+HELD-OUT TRANSFER TO NEW DOMAIN
+  ↓
+EXTERNAL EVALUATION
+  ↓
+VALIDATED / REJECTED GENERALIZATION
+```
+
+### C.15 — North Star
+
+```text
+Handling gives experience.
+Projects organize experience toward a goal.
+Faculties learn from experience inside a domain.
+Nomokrator learns how projects are conducted.
+University tests what actually generalizes.
+
+Reality and independent evaluation get the final word.
+```
+
+### C.16 — Non-goals of this appendix
+
+- no ProjectContract runtime
+- no GeneralizableLearningArtifact schema file
+- no Personal-AGI / Nomokrator / BioChronos repository edits
+- no thewilhelmsen.com changes
+- no federation export widening
+- no claim that ChessGuide doctrine is replaced by shared architecture
